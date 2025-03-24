@@ -1,5 +1,3 @@
-好的，这是基于您提供的NPL文档，为GitHub README页面生成的内容：
-
 # NPL (Natural Pseudo Language)
 
 ## 简介
@@ -136,8 +134,4 @@ Out [2]: 成功
 
 $ foo(我爸, 我)
 Out [3]: 父子
-```
-
-## 贡献
-
-欢迎贡献代码和提出建议！
+``
