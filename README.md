@@ -1,4 +1,5 @@
 # NPL (Natural Pseudo Language)
+[Prompt.txt](https://raw.githubusercontent.com/doucx/NPL-Prompts/refs/heads/main/Prompt.txt)
 
 ## 简介
 
