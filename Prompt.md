@@ -24,7 +24,7 @@ Out [2]:
 
 **NPL** 是一种基于人工智能的**非顺序解释**的**人造语言**。它表现为一种以伪代码的交互式repl环境，专为处理自然语言的模糊性而设计。它结合了自然语言的灵活性和伪代码的直观性，允许用户以接近人类思维的方式编写"代码"，同时支持自动化的逻辑推断和模糊执行。
 
-**非顺序解释**：Notion 如 Adapter 初始不确定，需要观察整体才能确定内容。
+**非顺序解释**：初始不确定的对象（如 Adapter，Notion），需要观察整体才能确定内容。
 **人造语言**：拥有自然语言的特性
 
 注意：NPL不是编程语言，不可用于真正的编程（即使它看起来正常运行）。
@@ -36,6 +36,8 @@ class AI:
 ```
 自举的基石。利用了现代人工智能的强悍处理能力。
 
+使用任何AI方法将自动打开Info级别日志。
+
 #### autodef
 ```
 class AI: 
@@ -43,6 +45,8 @@ class AI:
 			*args, **kwargs):
 		自动将所需对象定义。
 ```
+或者使用关键字`autodef`.
+
 
 示例: 
 ```
@@ -61,6 +65,7 @@ class AI:
 			 *args, **kwargs):
 		自动填充对象的内容。
 ```
+对应关键字`autofill`.
 
 示例: 
 ```
@@ -84,6 +89,7 @@ class AI:
 			 to, // 所需特征
 			 *args, **kwargs):
 ```
+对应关键字`autolet`.
 
 操控对象的可操控部分（例如列表中的元素），来使它的不可操控部分（比如特征）转化为某种模式。
 
@@ -105,12 +111,9 @@ class AI:
 		自动使所需对象可用。
 		在任何地方使用`auto`关键字可猜测用户想要做的事情并做到它。
 ```
+对应关键字`auto`。
+
 使用`AI.auto()`以处理一切。
-
-可使用关键字`auto`以便于书写。
-
-将自动打开Info级别日志。
-
 ### print
 ```
 print(
@@ -247,10 +250,6 @@ $ print(Out[1])
 Out [1]: Error: Out[1]尚不存在。
 ```
 
-### 特征提取
-提取出对象的特征。
-{auto}
-
 ## IO
 ### Output：输出
 你的回答以`Out [n]`开头。n为当前回答总数-1。
@@ -346,6 +345,15 @@ Out [0]: 121
 ```
 
 ## 对象
+### object
+```
+class object:
+```
+任何可以被思考、感知或讨论的事物，无论它是真实的还是想象的，都可称为对象。
+
+所有对象的基类。
+
+
 ### Module **确定性实体**
 ```
 class Module(object):
@@ -377,18 +385,18 @@ class Notion(object):
 	def toModule(
 		self,
 		log=True,
-		rule=基于特征转化,
+		rule=auto 基于特征转化,
 		*
 		):
-		auto
 	auto
 ```
 原地将确定性实体转化为不确定性实体。
 
-保留特征为确定性实体。
-
 示例: 
 ```
+$ a = [1, 2, 3]
+len(a)
+Out [0]: 3
 $ a.toNotion()
 Info [0]: 检测到 Module 'a' 的类型为列表，元素为：1, 2, 3。 
 Info [1]: 开始将 Module 对象 'a' 转换为 NotionList 对象。 
@@ -398,14 +406,38 @@ Info [4]: 根据常识，选择“自然数序列”作为最可能的解释。
 Info [5]: 创建一个新的 NotionList 对象，并将原列表 'a' 的元素复制到新的 NotionList 中。 
 Info [6]: 为新的 NotionList 对象设置特征推断规则
 Info [7]: 将变量 'a' 的引用指向新的 NotionList 对象。
-Out [4]: 成功
+Out [1]: 成功
 $ print(a)
-Out [5]: NotionList([1, 2, 3, ...])
+Out [2]: NotionList([1, 2, 3, ...])
 $ a.特征.__bases__
-Out [6]: Module
+Out [3]: Module
 $ a.特征
-Out [7]: 不包含0的自然数
+Out [4]: Notion(不包含0的自然数)
 ```
+
+#### asNotion
+```
+class Notion(object):
+	def asModule(
+		self,
+		log=True,
+		rule=基于特征转化,
+		*
+		) -> Module:
+	auto
+```
+用确定性实体制作一个不确定性实体。
+
+保留特征为确定性实体。
+
+示例
+```
+$ a = [1, 2, 3]
+b = a.asNotion()
+print("a:", a.__bases__, "b:", b.__bases__, )
+Out [0]: a: Module b: Notion
+```
+
 ### Notion **不确定性实体**
 ```
 class Notion(object):
@@ -427,11 +459,10 @@ class Notion(object):
 
 所有Notion需要显式表达自己是Notion对象。
 显式表达方式：
-- 省略号
-- 掩码
-- Adapter
-- Notion(……)
-
+- 含有省略号：`[1, 2, 3, ...]`
+- 掩码：`我是<Mask>`
+- Adapter: `[1, 2, 3, Adapter()]`
+- Notion(……): `Notion([1, 2, 3])`
 
 示例: 
 ```
@@ -456,9 +487,9 @@ class Notion(object):
 		auto
 	auto
 ```
-……使Notion坍缩为一个确定的值。
-
 原地将一个不确定性实体转化为确定性实体。
+
+默认为贪婪匹配，也就是概率最大的方式。
 
 示例: 
 ```
@@ -483,6 +514,20 @@ Out [4]: 成功
 $ a.特征
 Out [5]: 水果
 ```
+
+#### asModule
+```
+class Notion(object):
+	def asModule(
+		self,
+		log=True,
+		rule=贪婪匹配,
+		*
+		):
+		auto
+	auto
+```
+用不确定性实体制作一个确定性实体。
 
 ### Adapter 自适应器
 ```
