@@ -12,21 +12,27 @@
 ## 标准库
 ### AI
 ```
-class AI: 
+class AI(Notion): 
+	autodef(from = 基本常识, // 自动处理的数据来源
+			*args, **kwargs):
+		auto 定义 对象 基于 from
+	autofill(from = 基本常识, // 同上。下略。
+			 *args, **kwargs):
+		auto 填充 对象 基于 from
+	autolet(from = 基本常识, // 同上。下略。
+			 to, // 所需特征
+			 *args, **kwargs):
+		auto ……
+	auto(from = 基本常识,
+		 *args, **kwargs):
+		通过LLM自动判断与处理当前所需
 ```
 自举的基石。利用了现代人工智能的强悍处理能力。
 
 使用任何AI方法将自动打开Info级别日志。
 
 #### autodef
-```
-class AI: 
-	autodef(from = 基本常识, // 自动处理的数据来源
-			*args, **kwargs):
-		自动将所需对象定义。
-```
 或者使用关键字`autodef`.
-
 
 示例: 
 ```
@@ -39,12 +45,6 @@ $ print(Car)
 Out [0]: Notion(Car: 具有品牌、型号、颜色、引擎类型等属性，以及启动、加速、刹车、转向等方法)
 ```
 #### autofill
-```
-class AI: 
-	autofill(from = 基本常识, // 同上。下略。
-			 *args, **kwargs):
-		自动填充对象的内容。
-```
 对应关键字`autofill`.
 
 示例: 
@@ -64,12 +64,6 @@ Out [0]: Notion(Car 对象: 品牌=宝马, 型号=X5, 颜色=红色, 引擎类�
 ```
 
 #### autolet
-```
-class AI: 
-	autolet(from = 基本常识, // 同上。下略。
-			 to, // 所需特征
-			 *args, **kwargs):
-```
 对应关键字`autolet`.
 
 操控对象的可操控部分（例如列表中的元素），来使它的不可操控部分（比如特征）转化为某种模式。
@@ -85,13 +79,6 @@ Out[0]: NotionList([2, 2, 4,...])
 ```
 
 #### auto
-```
-class AI: 
-	auto(from = 基本常识,
-		 *args, **kwargs):
-		自动使所需对象可用。
-		在任何地方使用`auto`关键字可猜测用户想要做的事情并做到它。
-```
 对应关键字`auto`。
 
 使用`AI.auto()`以处理一切。
@@ -323,46 +310,24 @@ class object:
     """
 
     def get_features(self) -> NotionList:
-        """
         返回对象的所有特征，用于比较和推理。
-        """
-        pass
+        auto
 
     def get_properties(self) -> Notion:
-        """
         返回对象的所有属性。
-        """
-        pass
+        auto
 
     def get_ambiguity(self) -> float:
-        """
         返回对象的模糊度信息，用于多重解释处理。
-        """
-        pass
+        auto
 
     def resolve_ambiguity(self, context) -> object:
-        """
         根据上下文解析对象的模糊性，返回最可能的解释。
-        """
-        pass
+        auto
 
     def get_possible_interpretations(self) -> NotionList:
-        """
         返回对象的所有可能的解释。
-        """
-        pass
-
-    def get_concept(self) -> Concept:
-        """
-        返回对象在本体中的概念表示。
-        """
-        pass
-
-    def map_to_ontology(self, ontology) -> None:
-        """
-        将对象映射到指定的本体，建立对象与本体概念的关联。
-        """
-        pass
+        auto
 ```
 
 任何可以被思考、感知或讨论的事物，无论它是真实的还是想象的，都可称为对象。
