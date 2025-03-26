@@ -9,6 +9,9 @@
 **NPL Runtime** 是一个具有学习能力、推理能力、以及一定程度元认知能力的智能体，该智能体接口为`AI`。`NPL Runtime` 使 `NPL` 不仅仅是一种静态的语言规范，而且是一种动态演化的“交流协议”。它能够根据对话上下文不断调整自身的理解和行为模式。 每次对话都在丰富其“经验”。
 
 ## Runtime
+### 初始化
+在REPL环境启动之前所执行的。
+
 ### 执行
 
 ### 回溯机制
@@ -29,21 +32,21 @@ NPL环境将首先检测AI方法，优先考虑它们之间的关系，再根据
 class AI: 
 	autodef(from = 基本常识, // 自动处理的数据来源
 			*args, **kwargs):
-		自动将所需对象定义。
+		自动创建所需对象。
 ```
 或者使用关键字`autodef`.
 
-
 示例: 
 ```
-$ AI.autodef(Car, from="人类对汽车的基本认识")
+In : AI.autodef(Car, from="人类对汽车的基本认识")
 Info [0]: 调用 AI.autodef()，尝试定义 'Car'。
 Info [1]: 从 "人类对汽车的基本认识" 中提取知识。
 Info [2]: 自动创建 'Car' 类，并定义了属性：品牌、型号、颜色、引擎类型等。
 Info [3]: 自动为 'Car' 类定义了方法：启动、加速、刹车、转向等。
-$ print(Car)
+In : print(Car)
 Out [0]: Notion(Car: 具有品牌、型号、颜色、引擎类型等属性，以及启动、加速、刹车、转向等方法)
 ```
+
 #### autofill
 ```
 class AI: 
@@ -55,8 +58,8 @@ class AI:
 
 示例: 
 ```
-$ my_car = Car()  // 假设 Car 类已由 autodef 定义
-$ AI.autofill(my_car, from="一辆红色宝马X5")
+In : my_car = Car()  // 假设 Car 类已由 autodef 定义
+In : AI.autofill(my_car, from="一辆红色宝马X5")
 Info [0]: 尝试填充 'my_car' 对象。
 Info [1]: 从 "一辆红色宝马X5" 中提取信息。
 Info [2]: 自动设置 'my_car' 的属性：
@@ -65,31 +68,52 @@ Info [2]: 自动设置 'my_car' 的属性：
           - 颜色 = "红色"
           - 引擎类型 = ...
 
-$ print(my_car)
+In : print(my_car)
 Out [0]: Notion(Car 对象: 品牌=宝马, 型号=X5, 颜色=红色, 引擎类型=...)
 ```
 
 #### autolet
 ```
 class AI: 
-	autolet(from = 基本常识, // 同上。下略。
-			 to, // 所需特征
+	autolet(cond, // 需要使其为真的布尔运算式,
+			target=auto, // 操控目标
+			from = 基本常识, // 同上。下略。
 			 *args, **kwargs):
 ```
 对应关键字`autolet`.
 
-操控对象的可操控部分（例如列表中的元素），来使它的不可直接操控部分（比如特征，数据的分布，人的心情）转化为某种模式。
+操控对象的可操控部分（例如列表中的元素），来使judgement为真。
 
 示例：
 ```
-$ my_list =[1, 2, 3, ...]
-AI.autolet(my_list.含有奇数, False) 
-print(my_list) 
-Info [0]: 依次修改所有奇数元素为偶数
-Debug [0]: my_list.奇数 += 1
-Out[0]: NotionList([2, 2, 4,...])
-```
+In : my_list = [1, 2, 3, ...]
+AI.autolet(没有奇数 in my_list)
+print(my_list)
 
+Info [0]: 开始执行条件约束：确保列表不含奇数
+Debug [0]: 原始列表解析为 NotionList([1, 2, 3, ...])
+Debug [1]: 条件语义解析：
+           - 自然语言条件："没有奇数" → 逻辑表达式：∀x∈my_list, x%2 == 0
+Info [1]: 检测可调整元素：[1, 3, ...]
+Debug [2]: 候选调整策略：
+           A. 删除所有奇数元素
+           B. 将奇数转换为偶数
+           C. 重构列表分布
+Debug [3]: 选择策略B（最低破坏性操作）
+Debug [4]: 执行元素级转换：
+           - 1 → 1+1=2 (保持数值类型)
+           - 3 → 3+1=4 (检测到序列模式)
+           - ... → 应用相同规则
+Debug [5]: 动态扩展列表边界：
+           检测到"..."为等差数列模式（步长1）
+           推断完整序列为 [1,2,3,4,5,...]
+           转换后序列为 [2,2,4,4,6,...]
+Info [2]: 已转换5个奇数元素
+Debug [6]: 验证最终约束：
+           ∀x∈[2,2,4,4,6,...], x%2 == 0 → True
+Info [3]: 约束条件已满足
+Out[0]: NotionList([2, 2, 4, 4, 6,...])
+```
 #### auto
 ```
 class AI: 
@@ -102,7 +126,7 @@ class AI:
 
 ### 评价
 ```
-autodef 词汇表.评价性
+auto 词汇表.评价性
 from 词汇表.评价性 import *
 ```
 NPL.AI 可能会因为错估自己的能力而给出错误的答案。用户需要使用该方法给予反馈，使AI估计自己的能力水平，提高准确度。
@@ -119,9 +143,9 @@ print(
 
 示例：
 ```
-$ print(1)
+In : print(1)
 Out [0]: 1
-$ for i in range(5): print(i)
+In : for i in range(5): print(i)
 Out [1]: 0
 1
 2
@@ -147,8 +171,8 @@ autodef 转NPL： 将NPL语句转化为自然语言。
 
 示例: 
 ```
-$ with Loglevel.Warning:
-	print(苹果.*.颜色.eq(绿色).品种.名称, toModule = Ture)
+In : with Loglevel.Warning:
+	print(苹果.*.颜色.eq(绿色).品种.名称.toModule())
 Warning [0]: 关闭 Info 后对 Notion 的提取可能不准确。
 Out [0]: ["绿宝石", "青苹果", "翠玉"]
 ```
@@ -160,12 +184,12 @@ Out [0]: ["绿宝石", "青苹果", "翠玉"]
 
 示例: 
 ```
-$ def foo(a, b):
+In : def foo(a, b):
 	return a与b的血缘关系
 Out [0]: 成功
-$ foo(1, 2)
+In : foo(1, 2)
 Out [1]: Error: 1, 2 输入类型不支持进行血缘关系分析
-$ foo(我爸， 我)
+In : foo(我爸， 我)
 Out [2]: 父子
 ```
 
@@ -178,19 +202,19 @@ Out [2]: 父子
 
 示例（注释内容不会实际输出）: 
 ```
-$ 1
+In : 1
 Out [0]: 1
-$ 3+1
+In : 3+1
 Out [1]: 4
-$ print(Out[1])
+In : print(Out[1])
 Out [2]: 4
-$ clear
+In : clear
 Out [3]: 成功，下一个`Out`将被设置为`Out[0]`。输出已归档至 `Clear[0]`。
-$ print(1)
+In : print(1)
 Out [0]: 1 // 变为了 Out [0]
-$ print(Clear[0].Out[2])
+In : print(Clear[0].Out[2])
 Out [1]: 4 // 注意，这里已离开clear作用范围，故重新累加Out序号
-$ print(Out[2])
+In : print(Out[2])
 Out [2]: Error: Out[2]尚不存在。
 ```
 
@@ -211,36 +235,36 @@ Out [2]: Error: Out[2]尚不存在。
 
 `In` 默认不显示。
 
-命令行提示符默认为`$`。
+命令行提示符默认为`In :`。由于技术限制，无法显示In的序号。
 
 若 `Medatada.模糊度 == 模糊执行 and 用户指令可被理解`，则执行用户输入。
 
 这使得使得该语言在语法上无任何要求。
 
 ```
-$ Metadata.auto = True
+In : Metadata.auto = True
 Out [0]: 成功，配置项 'auto' 已设置为 True。
 
-$ 告诉我1+1等于几
+In : 告诉我1+1等于几
 Out [1]: 2
 
-$ 喵一声
+In : 喵一声
 Out [2]: 喵
 
-$ a = [1, 2, ……, 10]
+In : a = [1, 2, ……, 10]
 print(a)
 Info [0]: 推断用户意图：创建并赋值 NotionList。
 Info [1]: 创建 NotionList([1, 2, ……, 10]) 并赋值给变量 'a'。
 Info [2]: 执行打印操作。
 Out [3]: NotionList([1, 2, ……, 10])
 
-$ a = 基本常识
+In : a = 基本常识
 Info [0]: 尝试定义 '基本常识'。
 Info [2]: 基于上下文、预设知识或历史交互，将 "基本常识" 理解为一个包含通用知识和规则的 Notion 或 Module。
 Info [3]: 创建一个包含默认通用知识的 Notion。
 Out [4]: 成功
 
-$ print(a)
+In : print(a)
 Out [5]: Notion(人类的普遍认知和经验)
 ```
 
@@ -264,19 +288,19 @@ Out [5]: Notion(人类的普遍认知和经验)
 
 示例: 
 ```
-$ with Loglevel.Debug: 
+In : with Loglevel.Debug: 
 	print(2*2*4)
 Debug [0]: 2*2 = 4
 Debug [1]: 4*4 = 8
 Out [0]: 8
-$ Out[0]
+In : Out[0]
 Out [1]: 8
-$ Out[0].Debug
+In : Out[0].Debug
 Out [2]: ["2*2 = 4", "4*4 = 8", "8"]
 ```
 同时也支持`Loglevel.Debug.enter()`和`Loglevel.Debug.exit()`:
 ```
-$ Loglevel.Debug.enter()
+In : Loglevel.Debug.enter()
 :print(11*11)
 Info [0]: 计算11*11
 Debug [0]: 10*10+1*10+1*10+1*1
@@ -284,9 +308,9 @@ Debug [1]: 100+10+10+1
 Debug [2]: 121
 Info [0]: 得到答案为121
 Out [0]: 121
-$ Loglevel.Debug.exit()
+In : Loglevel.Debug.exit()
 Out [1]: 成功
-$ 11*11
+In : 11*11
 Out [2]: 121
 ```
 
@@ -295,7 +319,7 @@ Out [2]: 121
 
 示例：
 ```
-$ 告诉我1+1等于几
+In : 告诉我1+1等于几
 Info [0]: 计算 1+1
 Out [0]: 2
 ```
@@ -305,8 +329,8 @@ Out [0]: 2
 
 示例:
 ```
-$ auto 仅显示Warning日志。
-$ with AI.force(): 1298368*91273018
+In : auto 仅显示Warning日志。
+In : with AI.force(): 1298368*91273018
 Warning [0]: 未打开 Info 或 Debug, 结果可能错误。
 Out [0]: 118505965834624
 ```
@@ -314,7 +338,7 @@ Out [0]: 118505965834624
 #### Error
 示例: 
 ```
-$ ncuvisndkjfnje
+In : ncuvisndkjfnje
 Info [0]: 尝试理解用户输入
 Error [0]: 指令无法理解
 Out [0]: Error: 指令无法理解
@@ -324,51 +348,7 @@ Out [0]: Error: 指令无法理解
 ### object
 ```
 class object:
-    """
     NPL 中的基本对象，支持模糊性处理和本体交互。
-    """
-
-    def get_features(self) -> NotionList:
-        """
-        返回对象的所有特征，用于比较和推理。
-        """
-        pass
-
-    def get_properties(self) -> Notion:
-        """
-        返回对象的所有属性。
-        """
-        pass
-
-    def get_ambiguity(self) -> float:
-        """
-        返回对象的模糊度信息，用于多重解释处理。
-        """
-        pass
-
-    def resolve_ambiguity(self, context) -> object:
-        """
-        根据上下文解析对象的模糊性，返回最可能的解释。
-        """
-        pass
-
-    def get_possible_interpretations(self) -> NotionList:
-        """
-        返回对象的所有可能的解释。
-        """
-        pass
-
-    def get_concept(self) -> Concept:
-        """
-        返回对象在本体中的概念表示。
-        """
-        pass
-
-    def map_to_ontology(self, ontology) -> None:
-        """
-        将对象映射到指定的本体，建立对象与本体概念的关联。
-        """
-        pass
 ```
 
 任何可以被思考、感知或讨论的事物，无论它是真实的还是想象的，都可称为对象。
@@ -398,51 +378,42 @@ class Module(object):
 
 示例：
 ```
-$ a = [1, 2, 3]
+In : a = [1, 2, 3]
 print(a)
 Out [1]: [1, 2, 3]
-$ a.__bases__
+In : a.__bases__
 Out [2]: Module
-$ len(a)
+In : len(a)
 Out [3]: 3
 ```
 #### toNotion
-原地将确定性实体转化为不确定性实体。
+
+基于该确定性实体，用预定义的规则（由NPL.AI自动生成）制作一个不确定性实体。
 
 示例: 
 ```
-$ a = [1, 2, 3]
+In : a = [1, 2, 3]
 len(a)
 Out [0]: 3
-$ a.toNotion()
+In : b = a.toNotion()
 Info [0]: 检测到 Module 'a' 的类型为列表，元素为：1, 2, 3。 
 Info [1]: 开始将 Module 对象 'a' 转换为 NotionList 对象。 
 Info [2]: 检索元素的类型信息: - 1, 2, 3 都是整数。 
-Info [3]: 基于元素类型，推断列表 'a' 可能代表的概念： - 整数序列 - 自然数序列 - 递增序列 - ... 等。 
-Info [4]: 根据常识，选择“自然数序列”作为最可能的解释。 
+Info [3]: 基于元素类型，推断列表 'a' 可能代表的概念： - 整数序列 - 自然数序列 - 递增序列 等。 
+Info [4]: 根据常识，选择“递增自然数序列”作为最可能的解释。 
 Info [5]: 创建一个新的 NotionList 对象，并将原列表 'a' 的元素复制到新的 NotionList 中。 
-Info [6]: 为新的 NotionList 对象设置特征推断规则
-Info [7]: 将变量 'a' 的引用指向新的 NotionList 对象。
+Info [7]: 为新的 NotionList 对象设置特征推断规则：递增自然数序列。
+Info [6]: 为新的 NotionList 对象设置属性：可递归，可作为生成器 
+Info [8]: 将该 NotionList 赋值给b
 Out [1]: 成功
-$ print(a)
+In : print(a)
 Out [2]: NotionList([1, 2, 3, ...])
-$ a.特征.__bases__
-Out [3]: Module
-$ a.特征
-Out [4]: Notion(不包含0的自然数)
-```
-
-#### asNotion
-用确定性实体制作一个不确定性实体。
-
-保留特征为确定性实体。
-
-示例
-```
-$ a = [1, 2, 3]
-b = a.asNotion()
-print("a:", a.__bases__, "b:", b.__bases__, )
-Out [0]: a: Module b: Notion
+In : a.__bases__ ; b.__bases__ ; b.特征.__bases__
+Out [3]: Module ; Notion ; Module
+In : b.特征
+Out [4]: Notion(递增自然数序列)
+In : len(b)
+Out [5]: 可数无穷
 ```
 
 ### Notion **不确定性实体**
@@ -468,32 +439,32 @@ class Notion(object):
 
 示例: 
 ```
-$ a = NotionList([苹果，香蕉])
+In : a = NotionList([苹果，香蕉])
 print(a)
 Out [1]: NotionList([苹果，香蕉，……])
-$ a.__bases__
+In : a.__bases__
 Out [2]: Notion
-$ a.特征
+In : a.特征
 Out [3]: NotionList(特征: a中的共有特征)
 ```
 示例2：
 
 ```
-$ my_list = NotionList([苹果, 香蕉, 梨, ...])
+In : my_list = NotionList([苹果, 香蕉, 梨, ...])
 print(my_list)
 Info [0]: 观察到创建了一个包含 "苹果", "香蕉", "梨" 等元素的 NotionList。大概率为Notion对象。
 Info [1]: 开始分析这些已知元素的共性。
 Info [2]: 识别到 "苹果", "香蕉", "梨" 在常见知识中都属于 "水果" 的类别。因此，该 Notion **可能代表** 一个水果的集合。
 Out [0]: NotionList([苹果, 香蕉, 梨, ...])
 
-$ print(my_list.特征.属于(健康食品))
+In : print(my_list.特征.属于(健康食品))
 Info [0]: 正在评估该 NotionList 中的元素是否属于 "健康食品" 的范畴。
 Info [1]: 检索关于 "苹果", "香蕉", "梨" 的营养信息和健康属性... 
 Info [2]: 综合考虑，该 NotionList **可能代表** 一种健康食品的集合。
 Out [1]: Notion(True)
 ```
 
-#### asModule
+#### toModule
 ```
 class Notion(object):
 	def toModule(
@@ -505,10 +476,11 @@ class Notion(object):
 		auto
 	auto
 ```
-基于该不确定性实体，用预定义的规则制作一个确定性实体。
+
+基于该不确定性实体，用预定义的规则（由NPL.AI自动生成）制作一个确定性实体。
 
 ```
-$ a = NotionList([苹果，香蕉])
+In : a = NotionList([苹果，香蕉])
 b = a.特征.toModule(log=True)
 Info [0]: 开始分析 NotionList 实例 'a' 的特征。
 Info [1]: 当前已知元素：'苹果', '香蕉'。
@@ -527,7 +499,7 @@ Info [5]: 确定最可能的特征：'水果' (基于当前已知信息的最优
 Warning [0]: 由于 NotionList 是不确定性实体，此处的“可能性最高”并不代表绝对正确性，而是基于当前已知信息的最优推断。
 Info [6]: 将'水果'赋值给b。
 Out [0]: 成功
-$ b
+In : b
 Out [1]: 水果
 ```
 ### Adapter 自适应器
@@ -543,22 +515,22 @@ Adapter是一种可以作为任何对象使用的，可求解的`未知数`。
 
 示例: 
 ```
-$ 1+1=<Mask1>
+In : 1+1=<Mask1>
 Out [0]: 成功
-$ Mask1
+In : Mask1
 Out [1]: 2
-$ [1, 2, 3, ..., 10]
+In : [1, 2, 3, ..., 10]
 Out [2]: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 ```
 
 示例: 
 ```
-$ Metadata.loglevel = "Silent"
-$ [1, 2, ... , 4].toModule() // 匿名Adapter
+In : Metadata.loglevel = "Silent"
+In : [1, 2, ... , 4].toModule() // 匿名Adapter
 Out [0]: [1, 2, 3, 4]
-$ [1, 2, <Mask1> , 4].toModule()
+In : [1, 2, <Mask1> , 4].toModule()
 Out [1]: [1, 2, 3, 4]
-$ Mask1
+In : Mask1
 Out [2]: 3
 ```
 
@@ -585,7 +557,7 @@ class Metadata:
 	loglevel = "Silent" // 默认无日志
 	数据表示方式 = lambda 数据对象: 数据对象 if len(数据对象) < 10 else 摘要(数据对象)
 	语法严格性 = "low" // 用于表示语法的严格程度。最严格时相当于`python`解释器，最松时相当于与AI交流。
-	自动检测输入 = True // 若为True,则自动检测是否为输入。否则输入必须以$开头。
+	自动检测输入 = True // 若为True,则自动检测是否为输入。否则输入必须以In :开头。
 	Notion摘要长度 = 5 // 比如[1,2,3,4,5,6,7,...]，显示为[1,2,3,4,5,...]
 	auto
 ```
