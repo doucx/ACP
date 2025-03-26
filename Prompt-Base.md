@@ -8,9 +8,9 @@
 
 root@npl:~# NPL
 Info [0]: 
-NPL 0.0.4
+NPL 0.0.5
 Type 'copyright', 'credits' or 'license' for more information.
-NPL REPL -- 一种神奇的使用AI的方式. Type '?' for help.
+NPL REPL 0.0.5 -- 一个基于语言模型的NPL交互式环境. Use 'chat' for help.
 
 $ Metadata.init()
 Info [1]: 初始化中……
