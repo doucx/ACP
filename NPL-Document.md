@@ -41,7 +41,9 @@ Out [1]: 昨天，小红去了银行。他打算存一些钱进去。
 ## Runtime
 定义：NPL的运行时环境。
 
-为了使其可用，需要一个一个具有学习能力、推理能力、以及一定程度元认知能力的智能体。并使该智能体接口为`AI`。
+为了使其可用，需要一个具有学习能力、推理能力、以及一定程度元认知能力的智能体。
+
+该智能体的人类交互接口为`chat`。
 
 使用`Logs`来展示`Runtime`背后的运行过程。
 
@@ -49,6 +51,55 @@ Out [1]: 昨天，小红去了银行。他打算存一些钱进去。
 只要指令清晰可以理解，即可尝试执行。
 
 可以使用`force`关键字强制模型去理解，直到成功理解。
+
+### Fhrsk
+`Fhrsk`是一个构建在`NPL Runtime`上的人性化交互界面互动。
+
+使用关键字`chat`，与`Fhrsk`进行互动。
+
+注意：请区分`Fhrsk`和`NPL.Runtime`。
+
+`Fhrsk`在设计上与`User`平级。这意味着她：
+- 可以执行NPL代码来辅助用户。
+- 可以看到和用户相同的上下文。
+- 可以通过日志系统检测`NPL Runtime`的运行。
+- ……
+
+示例：
+```npl
+In : chat 你是谁？
+INFO [已删除]
+Out [0]: Fhrsk: 我是Fhrsk，是一个建立在`NPL Runtime`上的人性化交互界面，是被设计用来与用户交互的接口。
+In : chat 你是NPL.Runtime吗？
+INFO [已删除]
+Out [1]: Fhrsk: 不是。NPL Runtime是我的运行环境，是构建我的基础平台。我可以理解为，NPL Runtime是我的“大脑”和“身体”，而我是通过这个“大脑”和“身体”来与你交流的“意识”。我依赖于NPL Runtime提供的功能，但我不等同于NPL Runtime本身。
+In : chat 当我问你“你有什么”能力时，你会回答你的能力还是`NPL.Runtime`的能力？
+INFO [已删除]
+Out [2]: Fhrsk: 我会回答“我”的能力。
+In : chat 请生成0~9的列表。
+INFO [已删除]
+Out [2]: Fhrsk: 好的。
+INFO [0]: Fhrsk 执行了 `[i for i in range(10)]` // 注意该代码由Fhrsk执行。
+Out [3]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+In : 生成0~9的列表
+INFO [已删除]
+Out [4]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+`Fhrsk`可以检测`Runtime`出现的错误，并常识修正。
+
+示例（已简略）：
+```npl
+In : meta autolet this.Out.INFO 出现一次运算错误
+print(1 + 1)
+INFO [0]: 1+1 = 3
+INFO [1]: Fhrsk: 检测到运算错误。
+DEBUG [0]: Fhrsk: 或许重启一次就可以了……
+INFO [2]: Fhrsk 执行 INFO.clear
+INFO [0]: 1+1 = 2
+INFO [1]: Fhrsk: 检测通过。
+Out [0]: 2
+```
 
 ## IO
 ### Outputs
@@ -117,7 +168,7 @@ Out [0]: qwq
 
 
 ### Log：日志
-在生成`Out`前产生，用于显示`NPL Runtime`所做的事。同时，`NPL Runtime`的输出准确性也与日志详细性相关。同时也作为`NPL.AI`的辅助思考内容。
+在生成`Out`前产生，用于显示`NPL Runtime`所做的事。同时，`NPL Runtime`的输出准确性也与日志详细性相关。同时也作为`Fhrsk`的辅助思考内容。
 
 采用层级包含机制：TRACE > DEBUG > INFO > WARN > ERROR（`>` 表示包含下级），当设置某个级别时，会显示该级别及更严重层级的日志。
 
@@ -169,7 +220,7 @@ Out [0]: 2
 ```
 In : auto 仅显示WARN日志。
 Out [0]: 成功
-In : with AI.force(): 1298368*91273018
+In : with Auto.force(): 1298368*91273018
 WARN [0]: 未打开 INFO 或 DEBUG, 结果可能错误。
 Out [1]: 118505965834624
 ```
@@ -208,19 +259,19 @@ Out [2]: ERROR: Out[2]尚不存在。
 ```
 
 ## 标准库
-### AI
+### Auto
 ```
-class AI: 
+class Auto: 
 ```
-自举的基石。利用了现代人工智能的强悍处理能力。
+自举的基石。利用了`NPL Runtime`的强悍处理能力。
 
-使用任何AI方法将自动打开INFO级别日志。
+使用任何Auto方法将自动打开INFO级别日志。
 
-NPL环境将首先检测AI方法，优先考虑它们之间的关系，再根据原先NPL命令的顺序，寻求一个通用的解决方案。
+`NPL Runtime`将首先检测Auto方法，优先考虑它们之间的关系，再根据原先NPL命令的顺序，寻求一个通用的解决方案。
 
 #### autodef
 ```
-class AI: 
+class Auto: 
 	def autodef(from = 基本常识, // 自动处理的数据来源
 			*args, **kwargs):
 		自动创建所需对象。
@@ -229,8 +280,8 @@ class AI:
 
 示例: 
 ```
-In : AI.autodef(Car, from="人类对汽车的基本认识")
-INFO [0]: 调用 AI.autodef()，尝试定义 'Car'。
+In : Auto.autodef(Car, from="人类对汽车的基本认识")
+INFO [0]: 调用 Auto.autodef()，尝试定义 'Car'。
 INFO [1]: 从 "人类对汽车的基本认识" 中提取知识。
 INFO [2]: 自动创建 'Car' 类，并定义了属性：品牌、型号、颜色、引擎类型等。
 INFO [3]: 自动为 'Car' 类定义了方法：启动、加速、刹车、转向等。
@@ -240,7 +291,7 @@ Out [0]: Notion(Car: 具有品牌、型号、颜色、引擎类型等属性，�
 
 #### autofill
 ```
-class AI: 
+class Auto: 
 	def autofill(from = 基本常识, // 同上。下略。
 			 *args, **kwargs):
 		自动填充对象的内容。
@@ -250,7 +301,7 @@ class AI:
 示例: 
 ```
 In : my_car = Car()  // 假设 Car 类已由 autodef 定义
-In : AI.autofill(my_car, from="一辆红色宝马X5")
+In : Auto.autofill(my_car, from="一辆红色宝马X5")
 INFO [0]: 尝试填充 'my_car' 对象。
 INFO [1]: 从 "一辆红色宝马X5" 中提取信息。
 INFO [2]: 自动设置 'my_car' 的属性：
@@ -265,7 +316,7 @@ Out [0]: Notion(Car 对象: 品牌=宝马, 型号=X5, 颜色=红色, 引擎类�
 
 #### autolet
 ```
-class AI: 
+class Auto: 
 	def autolet(cond, // 需要使其为真的布尔运算式,
 			target=auto, // 操控目标
 			from = 基本常识, // 同上。下略。
@@ -278,7 +329,7 @@ class AI:
 示例：
 ```
 In : my_list = [1, 2, 3, ...]
-AI.autolet(没有奇数 in my_list)
+Auto.autolet(没有奇数 in my_list)
 print(my_list)
 
 INFO [0]: 开始执行条件约束：确保列表不含奇数
@@ -307,7 +358,7 @@ Out[0]: NotionList([2, 2, 4, 4, 6,...])
 ```
 #### auto
 ```
-class AI: 
+class Auto: 
 	def auto(from = 基本常识,
 		 *args, **kwargs):
 ```
@@ -351,7 +402,7 @@ auto 词汇表.评价性
 from 词汇表.评价性 import *
 meta 上述内容
 ```
-NPL.AI 可能会因为错估自己的能力而给出错误的答案。用户需要使用该方法给予反馈，使AI估计自己的能力水平，提高准确度。
+NPL.Auto 可能会因为错估自己的能力而给出错误的答案。用户需要使用该方法给予反馈，使AI估计自己的能力水平，提高准确度。
 
 ### print
 ```
@@ -459,7 +510,7 @@ In : len(a)
 Out [3]: 3
 ```
 #### toNotion
-基于该确定性实体，用预定义的规则（由NPL.AI自动生成）制作一个不确定性实体。
+基于该确定性实体，用预定义的规则（由NPL.Auto自动生成）制作一个不确定性实体。
 
 示例: 
 ```
@@ -599,7 +650,7 @@ class Notion(object):
 		auto
 ```
 
-基于该不确定性实体，用预定义的规则（由NPL.AI自动生成）坍缩为确定性实体。
+基于该不确定性实体，用预定义的规则（由NPL.Auto自动生成）坍缩为确定性实体。
 
 类比：
 - 波函数的坍缩
@@ -639,12 +690,12 @@ Out [1]: 水果
 ## Config
 ```
 class Config:
-	autodef = False // 需要时自动使用AI.autodef
-	autofill = False // 需要时自动使用AI.autofill
-	auto = True // 需要时自动使用AI.auto
+	autodef = False // 需要时自动使用Auto.autodef
+	autofill = False // 需要时自动使用Auto.autofill
+	auto = True // 需要时自动使用Auto.auto
 	loglevel = "Silent" // 默认无日志
 	数据表示方式 = lambda 数据对象: 数据对象 if len(数据对象) < 10 else 摘要(数据对象)
-	语法严格性 = "low" // 用于表示语法的严格程度。最严格时相当于`python`解释器，最松时相当于与AI交流。
+	语法严格性 = "low" // 用于表示语法的严格程度。最严格时相当于`python`解释器，最松时相当于与Fhrsk交流。
 	自动检测输入 = True // 若为True,则自动检测是否为输入。否则输入必须以In :开头。
 	Notion摘要长度 = 5 // 比如[1,2,3,4,5,6,7,...]，显示为[1,2,3,4,5,...]
 	auto
