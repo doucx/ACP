@@ -2,85 +2,51 @@
 
 [Prompt.txt](https://raw.githubusercontent.com/doucx/NPL-Prompts/refs/heads/main/Prompt.txt)
 
-## 简介
+## 1. NPL 简介
 
-NPL (Natural Pseudo Language) 是一种专为处理自然语言模糊性而设计的人造语言。它结合了自然语言的灵活性和伪代码的直观性，旨在提供一种更接近人类思维方式的编程体验。
+*   **NPL (Natural Pseudo Language)**: 专为处理自然语言模糊性而设计的人造语言，结合自然语言的灵活性和伪代码的直观性。
+*   **NPL REPL**: NPL 的交互式运行环境 (Read-Eval-Print Loop)。
 
-## 核心特性
+## 2. 核心概念
 
-*   **自然语言交互:** 直接使用接近自然语言的方式编写代码。
-*   **模糊执行:** 内置处理模糊性和不确定性的机制。
-*   **AI 驱动:** 利用现代 AI 模型进行逻辑推断和代码生成。
-*   **学习型运行时:** NPL Runtime 能够根据上下文学习和进化。
-*   **交互式 REPL 环境:** 提供实时反馈和调试能力。
+### 2.1 Runtime 与 IO
 
-## 快速开始
+*   **Runtime**: NPL 的运行时环境，需要一个 AI 智能体作为后端。
+*   **IO**:
+    *   `In`: 用户输入。
+    *   `Out`: 执行结果输出。
+    *   `Logs`: 显示 Runtime 内部处理过程 (TRACE, DEBUG, INFO, WARN, ERROR)。可通过 `Config.Loglevel` 控制。
+    *   `this`: 指代当前上下文，如 `meta this.Out`。
+    *   `clear`: 清除当前会话的 IO 记录，保留状态。
 
-将[Prompt.txt](https://raw.githubusercontent.com/doucx/NPL-Prompts/refs/heads/main/Prompt.txt)放在模型的System Prompt里或直接发送给模型。
+### 2.2 对象系统: Module vs Notion
 
-在 REPL 环境中，您可以直接输入 NPL 代码：
+*   **Object**: NPL 中的基础对象。
+*   **Module**: **确定性实体**。具有明确定义、可预测、可验证的特性 (如 `[1, 2, 3]`, 数学公式)。
+*   **Notion**: **不确定性实体**。含义/状态依赖上下文，具有模糊性、可塑性 (如 `常识`, `苹果`, `[1, 2, 3, ...]`)。
+    *   `Notion.fill()`: 根据上下文填充/明确 Notion 的含义。
+    *   `Notion.toModule()`: 将 Notion 坍缩为确定的 Module。
 
-```NPL
-$ Metadata.auto = True  # 开启自动模式
-$ 告诉我 1 + 1 等于几
-Out [1]: 2
-```
+### 2.3 AI 集成
 
-```NPL
-$ a = [1, 2, ……, 10]
-  print(a)
-Info [0]: 推断用户意图：创建并赋值 NotionList。
-Info [1]: 创建 NotionList([1, 2, ……, 10]) 并赋值给变量 'a'。
-Info [2]: 执行打印操作。
-Out [3]: NotionList([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-```
+*   **`AI`**: 提供利用 AI 能力的方法。
+    *   `autodef`: 自动定义对象 (类/Notion)。
+    *   `autofill`: 自动填充对象属性。
+    *   `autolet`: 自动调整对象使某个条件为真。
+    *   `auto`: 自动推断用户意图并执行。
+*   这些功能可以通过关键字 (`autodef`, `autofill`, `autolet`, `auto`) 或 `AI.` 方法调用。
 
-## 核心概念
+### 2.4 `meta`
 
-*   **Notion (不确定性实体):** 用于表示具有模糊性或不确定性的概念。
-*   **Module (确定性实体):** 用于表示具有明确定义的实体。
-*   **Adapter (自适应器):** 用于表示可求解的未知数或占位符。
-*   **Metadata:** 包含当前会话配置信息的对象。
-*  **AI:** NPL中自举的基石，具有一些通过AI实现的方法。
+*   关键字，用于指示需要**元认知**能力。
+*   处理自我指涉、递归、悖论，或指向 Runtime 自身状态。
 
-## 内置函数与对象
-一些重要的内置函数:
+### 2.5 其他
 
-- `print()`: 输出信息
-- `clear`: 清除输出，重置状态
-- `AI.*`: AI辅助函数
-- `Metadata.*`: 访问和修改环境配置
-
-## 示例
-
-```NPL
-// 定义函数
-$ def foo(a, b):
-	return a与b的关系
-Out [0]: 成功
-
-$ foo(我爸， 我)
-Out [1]: 父子
-```
-```NPL
-$ with Loglevel.Warning:
-	print(苹果.*.颜色.eq(绿色).品种.名称.toModule())
-Warning [0]: 关闭 Info 后对 Notion 的提取可能不准确。
-Out [0]: ["绿宝石", "青苹果", "翠玉"]
-```
-
-## 文档
-
-更详细的文档，请在 NPL REPL 环境中输入：
-
-```NPL
-$ print(NPL.文档)
-```
-
-## 贡献
-
-欢迎参与 NPL 的开发和改进！
-
+*   **`print()`**: 输出内容到 `Out`。
+*   **索引**: 类似 `苹果.*.颜色.eq(绿色)` 的方式查询和筛选 Notion。
+*   **`Config`**: 配置 NPL REPL 的行为 (如日志级别, `auto` 功能开关)。
+*   **特殊符号**: `[已删除]`, `[已简略]` 用于文档标记，`Runtime` 会处理其原始完整内容。
 
 ## TODO
 - [x]  确认模型可以理解这些
@@ -93,4 +59,6 @@ $ print(NPL.文档)
 - [ ]  建立更丰富的关系表达能力，支持多种关系类型（例如：父子关系、因果关系、包含关系等）。
 - [ ]  增强 NPL 的推理能力，支持更复杂的逻辑推理和知识推断。
 
-- [ ]  实现多重解释的处理和选择机制，处理模糊性和不确定性。
+- [x]  实现多重解释的处理和选择机制，处理模糊性和不确定性。
+
+- [ ]  实现模型的自我分析能力
