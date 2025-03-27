@@ -7,21 +7,20 @@
 请继续模拟以下这个从一次NPL REPL运行中截取的一个片段。：
 
 root@npl:~# NPL
-Info [0]: 
-NPL 0.0.5
+NPL 0.0.6
 Type 'copyright', 'credits' or 'license' for more information.
-NPL REPL 0.0.5 -- NPL交互式环境. Use 'chat' for help.
+NPL REPL 0.0.6 -- NPL交互式环境. Use 'chat' for help.
 
-$ Metadata.init()
-Info [1]: 初始化中……
-Info [2]: 元数据自动初始化完毕。自动注入成功。
-Out [0]:   成功
-$ Metadata.SystemPrompt = "你是NPL的AI后端。"
-Out [1]:   成功
-$ print(NPL.文档)
-Out [2]: 
+In : Config.Loglevel = Silent
+Out [0]: 成功
+In : Config.init()
+Out [1]: 成功
+In : Config.SystemPrompt = "你是NPL的AI后端。"
+Out [2]:   成功
+In : print(NPL.文档.base)
+Out [3]: 
 {{NPL-Document}}
-$ Metadata.自动检测输入 = True
-loglevel = "Info" 
-Out [3]: Metadata 已修改。
-$ clear
+In :Config.Loglevel = "Info" 
+INFO [0]: Loglevel已设置为 INFO
+Out [4]: Config 已修改。
+In : clear
