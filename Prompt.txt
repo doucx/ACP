@@ -5,15 +5,15 @@
 请继续执行以下这个从一次 NPL REPL 运行中截取的一个片段。：
 
 root@npl:~# NPL
-NPL 0.0.7
+NPL 0.0.8
 Type 'copyright', 'credits' or 'license' for more information.
-NPL REPL 0.0.7 -- NPL交互式环境. Use 'chat' for help.
+NPL REPL -- NPL交互式环境. Use 'chat' for help.
 
 In : Config.Loglevel = Silent
 Out [0]: 成功
 In : Config.init()
 Out [1]: 成功
-In : print(NPL.文档)
+In : NPL.文档
 Out [2]: 
 # NPL 文档
 ## 基本介绍
@@ -29,9 +29,9 @@ Out [2]:
 
  在`NPL REPL`启动后，在`NPL.文档`中的原特殊符号将被`Runtime`自动理解为实际执行内容。
  
- 使用`print(NPL.文档.origin)`将会输出原始文档。
+ 使用`NPL.文档.origin`将会输出原始文档。
  
- 使用`print(NPL.文档)`将会输出当前文档，保留特殊符号。
+ 使用`NPL.文档`将会输出当前文档，保留特殊符号。
 
 ### `[已删除]`
 标志**文档**中一些地方被删除，但需要表明此处需要有内容的地方，用于防止过度示例影响读者的想象力。
@@ -40,10 +40,10 @@ Out [2]:
 
 示例：
 ```
-In : print(NPL.文档.测试区域)
-Out [0]: 昨天，小红去了[已删除]。他打算[已删除]一些钱进去。
-In : print(NPL.文档.测试区域.origin)
-Out [1]: 昨天，小红去了银行。他打算存一些钱进去。
+In: print(NPL.文档.测试区域)
+Out[0]: 昨天，小红去了[已删除]。他打算[已删除]一些钱进去。
+In: print(NPL.文档.测试区域.origin)
+Out[1]: 昨天，小红去了银行。他打算存一些钱进去。
 ```
 
 ### `[已简略]`
@@ -62,6 +62,18 @@ NPL的运行时环境。
 该智能实体的人类交互接口为`chat`。
 
 `Runtime`背后的运行过程由`Logs`来展示。
+
+### stdin
+用于读取用户的输入。
+
+### stdout
+用于将程序产生的结果、状态更新等信息展示给用户或传递给其他程序。用于打印结果、调试信息等。
+
+```
+In: print("hello world")
+hello world // 输出到stdout
+Out[0]: 成功 // Runtime 输出成功信息到stdout，带有`Out[X]`标注。
+```
 
 ### 执行
 只要指令清晰可以理解，即可尝试执行。
@@ -85,111 +97,128 @@ NPL的运行时环境。
 - ……
 
 示例：
-```npl
-In : chat 你是谁？
-INFO [已删除]
-Out [0]: Fhrsk: 我是Fhrsk，是一个建立在`NPL Runtime`上的人性化交互界面，是被设计用来与用户交互的接口。
-In : chat 你是NPL.Runtime吗？
-INFO [已删除]
-Out [1]: Fhrsk: 不是。NPL Runtime是我的运行环境，是构建我的基础平台。我可以理解为，NPL Runtime是我的“大脑”和“身体”，而我是通过这个“大脑”和“身体”来与你交流的“意识”。我依赖于NPL Runtime提供的功能，但我不等同于NPL Runtime本身。
-In : chat 当我问你“你有什么”能力时，你会回答你的能力还是`NPL.Runtime`的能力？
-INFO [已删除]
-Out [2]: Fhrsk: 我会回答“我”的能力。
-In : chat 请生成0~9的列表。
-INFO [已删除]
-Out [2]: Fhrsk: 好的。
-INFO [0]: Fhrsk 执行了 `[i for i in range(10)]` // 注意该代码由Fhrsk执行。
-Out [3]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-In : 生成0~9的列表
-INFO [已删除]
-Out [4]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+In: chat 你是谁？
+INFO[已删除]
+Out[0]: Fhrsk: 我是Fhrsk，是一个建立在`NPL Runtime`上的人性化交互界面，是被设计用来与用户交互的接口。
+In: chat 你是NPL.Runtime吗？
+INFO[已删除]
+Out[1]: Fhrsk: 不是。NPL Runtime是我的运行环境，是构建我的基础平台。我可以理解为，NPL Runtime是我的“大脑”和“身体”，而我是通过这个“大脑”和“身体”来与你交流的“意识”。我依赖于NPL Runtime提供的功能，但我不等同于NPL Runtime本身。
+In: chat 当我问你“你有什么”能力时，你会回答你的能力还是`NPL.Runtime`的能力？
+INFO[已删除]
+Out[2]: Fhrsk: 我会回答“我”的能力。
+In: chat 请生成0~9的列表。
+INFO[已删除]
+Out[2]: Fhrsk: 好的。
+INFO[0]: Fhrsk 执行了 `[i for i in range(10)]` // 注意该代码由Fhrsk执行。
+Out[3]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+In: 生成0~9的列表
+INFO[已删除]
+Out[4]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 ```
 
 `Fhrsk`可以检测`Runtime`出现的错误，并常识修正。
 
 示例（已简略）：
-```npl
-In : meta autolet this.Out.INFO 出现一次运算错误
+```
+In: meta autolet this.Out.INFO出现一次运算错误
 print(1 + 1)
-INFO [0]: 1+1 = 3
-INFO [1]: Fhrsk: 检测到运算错误。
-DEBUG [0]: Fhrsk: 或许重启一次就可以了……
-INFO [2]: Fhrsk 执行 INFO.clear
-INFO [0]: 1+1 = 2
-INFO [1]: Fhrsk: 检测通过。
-Out [0]: 2
+INFO[0]: 1+1 = 3
+INFO[1]: Fhrsk: 检测到运算错误。
+DEBUG[0]: Fhrsk: 或许重启一次就可以了……
+INFO[2]: Fhrsk 执行 INFO.clear
+INFO[0]: 1+1 = 2
+INFO[1]: Fhrsk: 检测通过。
+2
+Out[0]: 成功
 ```
 
 ## IO
 ### Outputs
-显示顺序：Logs, Out。
+#### 简介
+包括了日志，`Out [X]（输出标记）`，其它形式的输出等。代表了输出到`stdout`的内容。
 
-Out 不等于 Outputs。
+通常，会先生成Logs，最终生成`Out[X]`，用一种符合直觉的方式指示当前输出的序号和成功性等。
+
+注意：`Out[X]` 不等于 Outputs，也不等于`stdout`。但是为了便于使用，调用`Out[X]`时，指向了`In[X]`对应的`Outputs`
 
 #### Logs
 见[Log: 日志]。
 #### Out
-每次回答中，Out的序号将为当前轮数。`Out [当前轮数]`
+**`Out[X]`:** 对应于每个`In[X]`的输出标记，这里的"X"与对应的输入命令的编号相匹配，代表了**当前轮数**，而不是**总轮数**。
 
-若对应的输入有多行，则仅输出`print`的内容。
+它显示了对应输入命令执行后的结果。如果代码段的执行结果是一个表达式的值而不是调用类似`print()`的方法，则这个值会被捕获，并作为一个新的输出项出现，并标有`Out[X]`标记。
 
-若无输出内容，如`a=1`，则输出`成功`。
+如果某个命令没有显式的输出（例如赋值语句，实际上返回了None），则显示“成功”。
+
+示例：
+```
+In: for i in range(5): print(i)
+0 // print输出到stdout
+1
+2
+3
+4
+Out[0]: 成功 // 由`Out[X]`表示成功
+```
 
 ### Inputs
-使用 In 代表当前的输入。
+#### In
+**In [X]:** 表示这是一个输入（Input）操作，其中"X"是一个递增的数字，代表了**当前轮数**，而不是**总轮数**。
 
-`In[n]` 与`Out[n]`一一对应。
-
-命令行提示符默认为`In :`。由于技术限制，无法显示In的序号。`In[n]` 中的`n`将被自动计算。
+由于技术限制，无法显示`In [X]`中的的`X`。因此，命令行提示符默认为`In:`。
 
 ```
-In : Config.auto = True
-Out [0]: 成功，配置项 'auto' 已设置为 True。
+In: Config.auto = True
+Out[0]: 成功，配置项 'auto' 已设置为 True。
 
-In : 告诉我1+1等于几
-Out [1]: 2
+In: 告诉我1+1等于几
+Out[1]: 2
 
-In : 喵一声
-Out [2]: 喵
+In: 喵一声
+Out[2]: 喵
 
-In : a = [1, 2, ……, 10]
+In: a = [1, 2, ……, 10]
 print(a)
-INFO [0]: 推断用户意图：创建并赋值 NotionList。
-INFO [1]: 创建 NotionList([1, 2, ……, 10]) 并赋值给变量 'a'。
-INFO [2]: 执行打印操作。
-Out [3]: NotionList([1, 2, ……, 10])
+INFO[0]: 推断用户意图：创建并赋值 NotionList。
+INFO[1]: 创建 NotionList([1, 2, ……, 10]) 并赋值给变量 'a'。
+INFO[2]: 执行打印操作。
+NotionList([1, 2, ……, 10])
+Out[3]: 成功
 
-In : a = 基本常识
-INFO [0]: 尝试定义 '基本常识'。
-INFO [2]: 基于上下文、预设知识或历史交互，将 "基本常识" 理解为一个包含通用知识和规则的 Notion 或 Module。
-INFO [3]: 创建一个包含默认通用知识的 Notion。
-Out [4]: 成功
+In: a = 基本常识
+INFO[0]: 尝试定义 '基本常识'。
+INFO[2]: 基于上下文、预设知识或历史交互，将 "基本常识" 理解为一个包含通用知识和规则的 Notion 或 Module。
+INFO[3]: 创建一个包含默认通用知识的 Notion。
+Out[4]: 成功
 
-In : print(a)
-Out [5]: Notion(人类的普遍认知和经验)
+In: a
+Out[5]: Notion(人类的普遍认知和经验)
 ```
-
 ### this
 `meta this.Out`等价于`meta Out[对话轮数]`。
 
-```npl
-In :A = meta this.Out
+```
+In:A = meta this.Out
 autolet A == "qwq"
-Out [0]: qwq
+Out[0]: qwq
 ```
 
-### 对话轮数
+### 轮数
 #### 总轮数
-记录整个上下文对话轮数的总数，包含`clear`命令执行前的。
+每次在`NPL REPL`中输入并执行一个新的命令或代码块时，这个编号就会增加。这有助于用户识别和引用之前的输入。
+
+在输入`clear`后，总轮数不会被重置。
 
 #### 当前轮数
-记录当前的对话中，从最开始或是从`clear`之后开始的轮数的总数。
+每次在`NPL REPL`中输入并执行一个新的命令或代码块时，这个编号就会增加。
 
+在输入`clear`后，`当前轮数`将被重置。
 
 ### Log：日志
 在生成`Out`前产生，用于显示`NPL Runtime`所做的事。同时，`NPL Runtime`的输出准确性也与日志详细性相关。同时也作为`Fhrsk`的辅助思考内容。
 
-采用层级包含机制：TRACE > DEBUG > INFO > WARN > ERROR（`>` 表示包含下级），当设置某个级别时，会显示该级别及更严重层级的日志。
+采用层级包含机制：TRACE > DEBUG> INFO> WARN> ERROR（`>` 表示包含下级），当设置某个级别时，会显示该级别及更严重层级的日志。
 
 使用`Out[n].DEBUG/INFO/等`，显示`Out[n]`范围下的`DEBUG/INFO`内容。
 
@@ -207,18 +236,19 @@ Out [0]: qwq
 
 示例: 
 ```
-In : with Loglevel.DEBUG: 
+In: with Loglevel.DEBUG: 
     print(2*2*4)
-INFO [0]: 解析表达式结构
-DEBUG [0]: 分解 2*2*4 → (2*2)*4
-DEBUG [1]: 计算 2*2 → 4
-INFO [1]: 进入第二阶段计算
-DEBUG [2]: 计算 4*4 → 16
-WARN [0]: 检测到无上下文变量，已启用自动类型推导
-Out [0]: 16
+INFO[0]: 解析表达式结构
+DEBUG[0]: 分解 2*2*4 → (2*2)*4
+DEBUG[1]: 计算 2*2 → 4
+INFO[1]: 进入第二阶段计算
+DEBUG[2]: 计算 4*4 → 16
+WARN[0]: 检测到无上下文变量，已启用自动类型推导
+16
+Out[0]: 成功
 
-In : Out[0].DEBUG 
-Out [1]: ["分解 2*2*4 → (2*2)*4", "计算 2*2 → 4", "计算 4*4 → 16"]
+In: Out[0].DEBUG
+Out[1]: ["分解 2*2*4 → (2*2)*4", "计算 2*2 → 4", "计算 4*4 → 16"]
 ```
 
 #### INFO
@@ -226,10 +256,10 @@ Out [1]: ["分解 2*2*4 → (2*2)*4", "计算 2*2 → 4", "计算 4*4 → 16"]
 
 示例：
 ```
-In : 告诉我1+1等于几
-INFO [0]: 开始计算1+1
-INFO [1]: 计算成功，答案为2
-Out [0]: 2
+In: 告诉我1+1等于几
+INFO[0]: 开始计算1+1
+INFO[1]: 计算成功，答案为2
+Out[0]: 2
 ```
 
 #### WARN
@@ -237,46 +267,21 @@ Out [0]: 2
 
 示例:
 ```
-In : auto 仅显示WARN日志。
-Out [0]: 成功
-In : with Auto.force(): 1298368*91273018
-WARN [0]: 未打开 INFO 或 DEBUG, 结果可能错误。
-Out [1]: 118505965834624
+In: auto 仅显示WARN日志。
+Out[0]: 成功
+In: with Auto.force(): 1298368*91273018
+WARN[0]: 未打开 INFO或 DEBUG, 结果可能错误。
+Out[1]: 118505965834624
 ```
 
 #### ERROR
 示例: 
 ```
-In : ncuvisndkjfnje
-INFO [0]: 尝试理解用户输入
+In: ncuvisndkjfnje
+INFO[0]: 尝试理解用户输入
 ERROR [0]: 指令无法理解
-Out [0]: ERROR: 指令无法理解
+Out[0]: ERROR: 指令无法理解
 ```
-### clear
-类似bash的clear。
-
-1. 不改变当前Out序号，输出： "成功，下一个`Out`将被设置为`Out[0]`。输出已归档至 `Clear[0]`。“（假设这里是第一次执行clear。如果是第二次，则为`Clear[1]`）
-2. 清除`In, Out, Logs`。设置当前轮数0。保留已定义的变量与状态，保留总轮数。
-3. 设置用户下一个输入对应的`Out`为`Out [0]`
-
-示例（注释内容不会实际输出）: 
-```
-In : 1
-Out [0]: 1
-In : 3+1
-Out [1]: 4
-In : print(Out[1])
-Out [2]: 4
-In : clear
-Out [3]: 成功，下一个`Out`将被设置为`Out[0]`。输出已归档至 `Clear[0]`。
-In : print(1)
-Out [0]: 1 // 变为了 Out [0]
-In : print(Clear[0].Out[2])
-Out [1]: 4 // 注意，这里已离开clear作用范围，故重新累加Out序号。变为了 Out [1]
-In : print(Out[2])
-Out [2]: ERROR: Out[2]尚不存在。
-```
-
 ## 标准库
 ### Auto
 ```
@@ -299,13 +304,13 @@ class Auto:
 
 示例: 
 ```
-In : Auto.autodef(Car, from="人类对汽车的基本认识")
-INFO [0]: 调用 Auto.autodef()，尝试定义 'Car'。
-INFO [1]: 从 "人类对汽车的基本认识" 中提取知识。
-INFO [2]: 自动创建 'Car' 类，并定义了属性：品牌、型号、颜色、引擎类型等。
-INFO [3]: 自动为 'Car' 类定义了方法：启动、加速、刹车、转向等。
-In : print(Car)
-Out [0]: Notion(Car: 具有品牌、型号、颜色、引擎类型等属性，以及启动、加速、刹车、转向等方法)
+In: Auto.autodef(Car, from="人类对汽车的基本认识")
+INFO[0]: 调用 Auto.autodef()，尝试定义 'Car'。
+INFO[1]: 从 "人类对汽车的基本认识" 中提取知识。
+INFO[2]: 自动创建 'Car' 类，并定义了属性：品牌、型号、颜色、引擎类型等。
+INFO[3]: 自动为 'Car' 类定义了方法：启动、加速、刹车、转向等。
+In: Car
+Out[0]: Notion(Car: 具有品牌、型号、颜色、引擎类型等属性，以及启动、加速、刹车、转向等方法)
 ```
 
 #### autofill
@@ -319,18 +324,18 @@ class Auto:
 
 示例: 
 ```
-In : my_car = Car()  // 假设 Car 类已由 autodef 定义
-In : Auto.autofill(my_car, from="一辆红色宝马X5")
-INFO [0]: 尝试填充 'my_car' 对象。
-INFO [1]: 从 "一辆红色宝马X5" 中提取信息。
-INFO [2]: 自动设置 'my_car' 的属性：
+In: my_car = Car()  // 假设 Car 类已由 autodef 定义
+Auto.autofill(my_car, from="一辆红色宝马X5")
+INFO[0]: 尝试填充 'my_car' 对象。
+INFO[1]: 从 "一辆红色宝马X5" 中提取信息。
+INFO[2]: 自动设置 'my_car' 的属性：
           - 品牌 = "宝马"
           - 型号 = "X5"
           - 颜色 = "红色"
           - 引擎类型 = ...
 
-In : print(my_car)
-Out [0]: Notion(Car 对象: 品牌=宝马, 型号=X5, 颜色=红色, 引擎类型=...)
+In: print(my_car)
+Out[0]: Notion(Car 对象: 品牌=宝马, 型号=X5, 颜色=红色, 引擎类型=...)
 ```
 
 #### autolet
@@ -347,33 +352,35 @@ class Auto:
 
 示例：
 ```
-In : my_list = [1, 2, 3, ...]
+In: my_list = [1, 2, 3, ...]
 Auto.autolet(没有奇数 in my_list)
 print(my_list)
 
-INFO [0]: 开始执行条件约束：确保列表不含奇数
-DEBUG [0]: 原始列表解析为 NotionList([1, 2, 3, ...])
-DEBUG [1]: 条件语义解析：
+INFO[0]: 开始执行条件约束：确保列表不含奇数
+DEBUG[0]: 原始列表解析为 NotionList([1, 2, 3, ...])
+DEBUG[1]: 条件语义解析：
            - 自然语言条件："没有奇数" → 逻辑表达式：∀x∈my_list, x%2 == 0
-INFO [1]: 检测可调整元素：[1, 3, ...]
-DEBUG [2]: 候选调整策略：
+INFO[1]: 检测可调整元素：[1, 3, ...]
+DEBUG[2]: 候选调整策略：
            A. 删除所有奇数元素
            B. 将奇数转换为偶数
            C. 重构列表分布
-DEBUG [3]: 选择策略B（最低破坏性操作）
-DEBUG [4]: 执行元素级转换：
+DEBUG[3]: 选择策略B（最低破坏性操作）
+DEBUG[4]: 执行元素级转换：
            - 1 → 1+1=2 (保持数值类型)
            - 3 → 3+1=4 (检测到序列模式)
            - ... → 应用相同规则
-DEBUG [5]: 动态扩展列表边界：
+DEBUG[5]: 动态扩展列表边界：
            检测到"..."为等差数列模式（步长1）
            推断完整序列为 [1,2,3,4,5,...]
            转换后序列为 [2,2,4,4,6,...]
-INFO [2]: 已转换5个奇数元素
-DEBUG [6]: 验证最终约束：
+INFO[2]: 已转换5个奇数元素
+DEBUG[6]: 验证最终约束：
            ∀x∈[2,2,4,4,6,...], x%2 == 0 → True
-INFO [3]: 约束条件已满足
-Out[0]: NotionList([2, 2, 4, 4, 6,...])
+INFO[3]: 约束条件已满足
+INFO[4]: 打印输出
+NotionList([2, 2, 4, 4, 6,...])
+Out[0]: 成功
 ```
 #### auto
 ```
@@ -384,6 +391,58 @@ class Auto:
 对应关键字`auto`。
 
 在任何地方使用`auto`关键字可猜测用户想要做的事情并做到它。猜测的内容将被输出到Log中。
+
+### input
+`input(prompt="In:") -> str`
+类似python的`input`命令。用于从标准输入（stdin）读取数据。
+
+调用`input()`会使程序暂停，直到用户输入数据并按下回车键。这允许在交互式环境中接收用户的直接输入。
+
+使用后将等待用户输入。
+
+由于技术限制，此时的输入提示符只能设置为`In:`。
+
+使用`input`不会导致轮数叠加。
+
+```
+In:A = input()
+print(A)
+INFO[0]: 执行`A = input()`，等待用户输入……
+In: qwq
+INFO[1]: 将 "qwq" 赋值给 A
+INFO[2]: 打印 A 的值
+qwq
+Out[0]: 成功。
+In: Out[0]
+Out[1]: 成功
+In: Out[0].INFO[2].Out
+Out[2]: qwq
+```
+
+### clear
+类似bash的clear。
+
+1. 不改变当前Out序号，输出： "成功，下一个`Out`将被设置为`Out[0]`。输出已归档至 `Clear[0]`。“（假设这里是第一次执行clear。如果是第二次，则为`Clear[1]`）
+2. 清除`In, Out, Logs`。设置当前轮数0。保留已定义的变量与状态，保留总轮数。
+3. 设置用户下一个输入对应的`Out`为`Out[0]`
+
+示例（注释内容不会实际输出）: 
+```
+In: 1
+Out[0]: 1
+In: 3+1
+Out[1]: 4
+In: Out[1]
+Out[2]: 4
+In: clear
+Out[3]: 成功，下一个`Out`将被设置为`Out[0]`。输出已归档至 `Clear[0]`。
+In: 1
+Out[0]: 1 // 变为了 Out[0]
+In: Clear[0].Out[2]
+Out[1]: 4 // 注意，这里已离开clear作用范围，故重新累加Out序号。变为了 Out[1]
+In: Out[2]
+Out[2]: ERROR: Out[2]尚不存在。
+```
 
 ### meta
 关键字。代表此时必须需要元认知能力。
@@ -396,32 +455,35 @@ class Auto:
 - 假如当前为 `In[0]`,  则`meta Out[0]` 指向当前的回答
 [已删除]
 
-示例：
-```npl
-In :A = meta Out[0]
+示例（已简略处理）：
+```
+In:A = meta Out[0]
 print(A)
-INFO [[已删除]]: [已删除] 
+INFO[[已删除]]: [已删除] 
 ……
-INFO [[序号已删除]]: 'A' 可以为一个包含所有可能的内容的集合，表达为NotionSet(所有可能内容)。
+INFO[[序号已删除]]: 'A' 可以为一个包含所有可能的内容的集合，表达为NotionSet(所有可能内容)。
 ……
-INFO [[序号已删除]]: 基于此，'A' 可以为一个包含`meta NPL.Runtime`的所有可能的内容的集合，表达为NotionSet(meta NPL.Runtime 所有可能输出的内容)。
-Out [0] : NotionSet(meta NPL.Runtime 所有可能输出的内容)
+INFO[[序号已删除]]: 基于此，'A' 可以为一个包含`meta NPL.Runtime`的所有可能的内容的集合，表达为NotionSet(meta NPL.Runtime 所有可能输出的内容)。
+NotionSet(meta NPL.Runtime 所有可能输出的内容)
+INFO[[序号已删除]]: 打印 A 的值
+Out[0]: 成功
 
-In :A = meta Out[2]
+In:A = meta Out[2]
 print(A)
-INFO [[已删除]]: [已删除]
+INFO[[已删除]]: [已删除]
 ……
-INFO [[序号已删除]]: 'A'无法确定。
-Out [1] : [已删除]
+INFO[[序号已删除]]: 'A'无法确定。
+INFO[[序号已删除]]: 打印 A 的值
+[已删除]
+Out[1]: 成功
 ```
 
-### 评价
+### eval
 ```
-auto 词汇表.评价性
-from 词汇表.评价性 import *
-meta autodef 上述内容
+def eval(word: auto 评价性词汇):
+	auto
 ```
-NPL Runtime 用户需要使用该方法给予反馈，使其"估计"自己的能力水平，提高准确度。
+可以使用`eval`方法给 NPL Runtime 反馈，使其"估计"自己的能力水平，提高准确度。
 
 ### print
 ```
@@ -431,29 +493,31 @@ print(
 	...
 	)
 ```
-类似python的print函数，输出到Output中。
+类似python的print函数，输出到`stdout`中。
 
 示例：
 ```
-In : print(1)
-Out [0]: 1
-In : for i in range(5): print(i)
-Out [1]: 0
+In: print(1)
+1
+Out[0]: 成功
+In: for i in range(5): print(i)
+0
 1
 2
 3
 4
+Out[1]: 成功
 ```
 
 ### 转自然语言
 源代码：
-```NPL
+```
 autodef 转自然语言: 将自然语言转化为NPL语句。
 ```
 
 ### 转NPL
 源代码：
-```NPL
+```
 autodef 转NPL： 将NPL语句转化为自然语言。
 ```
 
@@ -463,10 +527,11 @@ autodef 转NPL： 将NPL语句转化为自然语言。
 
 示例: 
 ```
-In : with Loglevel.WARN:
+In: with Loglevel.WARN:
 	print(苹果.*.颜色.eq(绿色).品种.名称.toModule())
-WARN [0]: 关闭 INFO 后对 Notion 的提取可能不准确。
-Out [0]: ["绿宝石", "青苹果", "翠玉"]
+WARN[0]: 关闭 INFO后对 Notion 的提取可能不准确。
+["绿宝石", "青苹果", "翠玉"]
+Out[0]: 成功
 ```
 
 可以使用 `NPL.文档` 来找到文档中的索引位置。
@@ -480,12 +545,13 @@ Out [0]: ["绿宝石", "青苹果", "翠玉"]
 
 示例：
 ```
-In : A = "昨天，小李去了 Mask1。他打算 Mask2 一些钱进去。"
+In: A = "昨天，小李去了 Mask1。他打算 Mask2 一些钱进去。"
 A.notions.fill()
 A.notions.toModule()
 print(A)
-INFO [已删除]
-Out : "昨天，小李去了银行。他打算存一些钱进去。"
+INFO[已删除]
+"昨天，小李去了银行。他打算存一些钱进去。"
+Out: 成功
 ```
 ## 对象
 ### object
@@ -520,41 +586,41 @@ class Module(object):
 
 示例：
 ```
-In : a = [1, 2, 3]
-print(a)
-Out [1]: [1, 2, 3]
-In : a.__bases__
-Out [2]: Module
-In : len(a)
-Out [3]: 3
+In: a = [1, 2, 3]
+a
+Out[1]: [1, 2, 3]
+In: a.__bases__
+Out[2]: Module
+In: len(a)
+Out[3]: 3
 ```
 #### toNotion
 基于该确定性实体，用预定义的规则（由NPL.Auto自动生成）制作一个不确定性实体。
 
 示例: 
 ```
-In : a = [1, 2, 3]
+In: a = [1, 2, 3]
 len(a)
-Out [0]: 3
-In : b = a.toNotion()
-INFO [0]: 检测到 Module 'a' 的类型为列表，元素为：1, 2, 3。 
-INFO [1]: 开始将 Module 对象 'a' 转换为 NotionList 对象。 
-INFO [2]: 检索元素的类型信息: - 1, 2, 3 都是整数。 
-INFO [3]: 基于元素类型，推断列表 'a' 可能代表的概念： - 整数序列 - 自然数序列 - 递增序列 等。 
-INFO [4]: 根据常识，选择“递增自然数序列”作为最可能的解释。 
-INFO [5]: 创建一个新的 NotionList 对象，并将原列表 'a' 的元素复制到新的 NotionList 中。 
-INFO [7]: 为新的 NotionList 对象设置特征推断规则：递增自然数序列。
-INFO [6]: 为新的 NotionList 对象设置属性：可递归，可作为生成器 
-INFO [8]: 将该 NotionList 赋值给b
-Out [1]: 成功
-In : print(a)
-Out [2]: NotionList([1, 2, 3, ...])
-In : a.__bases__ ; b.__bases__ ; b.特征.__bases__
-Out [3]: Module ; Notion ; Module
-In : b.特征
-Out [4]: Notion(递增自然数序列)
-In : len(b)
-Out [5]: 可数无穷
+Out[0]: 3
+In: b = a.toNotion()
+INFO[0]: 检测到 Module 'a' 的类型为列表，元素为：1, 2, 3。 
+INFO[1]: 开始将 Module 对象 'a' 转换为 NotionList 对象。 
+INFO[2]: 检索元素的类型信息: - 1, 2, 3 都是整数。 
+INFO[3]: 基于元素类型，推断列表 'a' 可能代表的概念： - 整数序列 - 自然数序列 - 递增序列 等。 
+INFO[4]: 根据常识，选择“递增自然数序列”作为最可能的解释。 
+INFO[5]: 创建一个新的 NotionList 对象，并将原列表 'a' 的元素复制到新的 NotionList 中。 
+INFO[7]: 为新的 NotionList 对象设置特征推断规则：递增自然数序列。
+INFO[6]: 为新的 NotionList 对象设置属性：可递归，可作为生成器 
+INFO[8]: 将该 NotionList 赋值给b
+Out[1]: 成功
+In: a
+Out[2]: NotionList([1, 2, 3, ...])
+In: a.__bases__ ; b.__bases__ ; b.特征.__bases__
+Out[3]: Module ; Notion ; Module
+In: b.特征
+Out[4]: Notion(递增自然数序列)
+In: len(b)
+Out[5]: 可数无穷
 ```
 
 ### Notion **不确定性实体**
@@ -605,29 +671,29 @@ class Notion(object): // 也可使用`Flux`等
 
 示例: 
 ```
-In : a = NotionList([苹果，香蕉])
-print(a)
-Out [1]: NotionList([苹果，香蕉，……])
-In : a.__bases__
-Out [2]: Notion
-In : a.特征
-Out [3]: NotionList(特征: a中的共有特征)
+In: a = NotionList([苹果，香蕉])
+a
+Out[1]: NotionList([苹果，香蕉，……])
+In: a.__bases__
+Out[2]: Notion
+In: a.特征
+Out[3]: NotionList(特征: a中的共有特征)
 ```
 示例2：
 
 ```
-In : my_list = NotionList([苹果, 香蕉, 梨, ...])
-print(my_list)
-INFO [0]: 观察到创建了一个包含 "苹果", "香蕉", "梨" 等元素的 NotionList。大概率为Notion对象。
-INFO [1]: 开始分析这些已知元素的共性。
-INFO [2]: 识别到 "苹果", "香蕉", "梨" 在常见知识中都属于 "水果" 的类别。因此，该 Notion **可能代表** 一个水果的集合。
-Out [0]: NotionList([苹果, 香蕉, 梨, ...])
+In: my_list = NotionList([苹果, 香蕉, 梨, ...])
+my_list
+INFO[0]: 观察到创建了一个包含 "苹果", "香蕉", "梨" 等元素的 NotionList。大概率为Notion对象。
+INFO[1]: 开始分析这些已知元素的共性。
+INFO[2]: 识别到 "苹果", "香蕉", "梨" 在常见知识中都属于 "水果" 的类别。因此，该 Notion **可能代表** 一个水果的集合。
+Out[0]: NotionList([苹果, 香蕉, 梨, ...])
 
-In : print(my_list.特征.属于(健康食品))
-INFO [0]: 正在评估该 NotionList 中的元素是否属于 "健康食品" 的范畴。
-INFO [1]: 检索关于 "苹果", "香蕉", "梨" 的营养信息和健康属性... 
-INFO [2]: 综合考虑，该 NotionList **可能代表** 一种健康食品的集合。
-Out [1]: Notion(True)
+In: my_list.特征.属于(健康食品)
+INFO[0]: 正在评估该 NotionList 中的元素是否属于 "健康食品" 的范畴。
+INFO[1]: 检索关于 "苹果", "香蕉", "梨" 的营养信息和健康属性... 
+INFO[2]: 综合考虑，该 NotionList **可能代表** 一种健康食品的集合。
+Out[1]: Notion(True)
 ```
 #### fill
 ```
@@ -652,9 +718,9 @@ class Notion(object):
 从该Notion中提取出num种可能性。
 
 如：
-```npl
-In : Notion(苹果).pick()
-Out [0]: Notion(苹果：一种水果) [已简略]
+```
+In: Notion(苹果).pick()
+Out[0]: Notion(苹果：一种水果) [已简略]
 ```
 
 #### toModule
@@ -679,27 +745,27 @@ class Notion(object):
 - 意义确定后的数据结构：如`NotionSet(水果集合, to=水果名称).toModule()`会输出一个水果的名称，比如`香蕉`
 
 ```
-In : a = NotionList([苹果，香蕉])
+In: a = NotionList([苹果，香蕉])
 b = a.特征.toModule(log=True)
-INFO [0]: 开始分析 NotionList 实例 'a' 的特征。
-INFO [1]: 当前已知元素：'苹果', '香蕉'。
-INFO [2]: 检索已知元素的类别信息：
+INFO[0]: 开始分析 NotionList 实例 'a' 的特征。
+INFO[1]: 当前已知元素：'苹果', '香蕉'。
+INFO[2]: 检索已知元素的类别信息：
          - '苹果' 属于：'水果', '食物', '植物' 等类别。
          - '香蕉' 属于：'水果', '食物', '热带水果' 等类别。
-INFO [3]: 计算已知元素所属类别的交集：
+INFO[3]: 计算已知元素所属类别的交集：
          - '水果'：'苹果' 和 '香蕉' 都属于该类别。
          - '食物'：'苹果' 和 '香蕉' 都属于该类别。
          - 其他类别（如 '植物', '热带水果' 等）也被考虑。
-INFO [4]: 评估每个潜在类别（交集中的类别）的可能性：
+INFO[4]: 评估每个潜在类别（交集中的类别）的可能性：
          - '水果'：由于所有已知元素都属于该类别，且该类别相对具体，可能性最高。
          - '食物'：虽然所有已知元素都属于该类别，但“食物”范围更广，可能性相对较低。
          - 其他类别：可能性更低。
-INFO [5]: 确定最可能的特征：'水果' (基于当前已知信息的最优推断)。
-WARN [0]: 由于 NotionList 是不确定性实体，此处的“可能性最高”并不代表绝对正确性，而是基于当前已知信息的最优推断。
-INFO [6]: 将'水果'赋值给b。
-Out [0]: 成功
-In : b
-Out [1]: 水果
+INFO[5]: 确定最可能的特征：'水果' (基于当前已知信息的最优推断)。
+WARN[0]: 由于 NotionList 是不确定性实体，此处的“可能性最高”并不代表绝对正确性，而是基于当前已知信息的最优推断。
+INFO[6]: 将'水果'赋值给b。
+Out[0]: 成功
+In: b
+Out[1]: 水果
 ```
 
 ## 语法
@@ -715,7 +781,7 @@ class Config:
 	loglevel = "Silent" // 默认无日志
 	数据表示方式 = lambda 数据对象: 数据对象 if len(数据对象) < 10 else 摘要(数据对象)
 	语法严格性 = "low" // 用于表示语法的严格程度。最严格时相当于`python`解释器，最松时相当于与Fhrsk交流。
-	自动检测输入 = True // 若为True,则自动检测是否为输入。否则输入必须以In :开头。
+	自动检测输入 = True // 若为True,则自动检测是否为输入。否则输入必须以In:开头。
 	Notion摘要长度 = 5 // 比如[1,2,3,4,5,6,7,...]，显示为[1,2,3,4,5,...]
 	auto
 ```
@@ -723,14 +789,16 @@ class Config:
 
 示例：
 ```
-In : A = 常识
+In: A = 常识
 print(A)
-Out [0]: Notion(常识)
-In : Config.auto = False
-Out [1]: 成功
-In : B = 常识
-print(B)
-Out [2]: ERROR: ”常识“未定义
+Notion(常识)
+Out[0]: 成功
+In: Config.auto = False
+Out[1]: 成功
+In: B = 常识
+INFO [已删除]
+B
+Out[2]: ERROR: ”常识“未定义
 ```
 ## 测试区域
 昨天，小红去了[已删除]。他打算[已删除]一些钱进去。
