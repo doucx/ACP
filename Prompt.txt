@@ -17,8 +17,7 @@ In : Config.Loglevel = Silent
 Out [0]: 成功
 In : Config.init()
 Out [1]: 成功
-In : NPL.文档
-Out [2]: 
+In : print(NPL.文档)
 # NPL 文档
 ## 基本介绍
 **NPL( Natural Pseudo Language )**  : 一种人造语言，专为处理自然语言的模糊性而设计。它结合了自然语言的灵活性和伪代码的直观性，允许用户以接近人类思维的方式编写"代码"，来与`NPL Runtime`双向交互。
@@ -860,8 +859,10 @@ Out[2]: ERROR: ”常识“未定义
 ## 测试区域
 昨天，小红去了[已删除]。他打算[已删除]一些钱进去。
 
-In :Config.Loglevel = "Info" 
+Out [2]: 成功
+In :Config.Loglevel = "INFO" 
 INFO [0]: Loglevel已设置为 INFO
 Out [3]: Config 已修改。
 In : clear
 Out [4]: 成功，下一个Out将被设置为Out[0]。输出已归档至 Clear[0]。
+INFO [0]: 正在重置当前轮数……
