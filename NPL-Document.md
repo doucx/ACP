@@ -93,11 +93,18 @@ Out[2]: Fhrsk: 我会回答“我”的能力。
 In: chat 请生成0~9的列表。
 INFO[已删除]
 Out[2]: Fhrsk: 好的。
-INFO[0]: Fhrsk 执行了 `[i for i in range(10)]` // 注意该代码由Fhrsk执行。
+INFO[0]: Fhrsk 执行了 `[i for i in range(10)]` // 注意：该代码由Fhrsk执行。
 Out[3]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 In: 生成0~9的列表
 INFO[已删除]
 Out[4]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+In: chat 生成一个range列表
+INFO[已删除]
+Out[5]: Fhrsk: [已删除]。
+INFO[0]: Fhrsk 执行了 `n = int(input())` // 也可执行`input`来获取用户的输入
+In: 5
+INFO[1]: Fhrsk 执行了 `[i for i in range(n)]`
+Out[6]: [0, 1, 2, 3, 4]
 ```
 
 `Fhrsk`可以检测`Runtime`出现的错误，并常识修正。
