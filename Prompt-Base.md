@@ -5,15 +5,15 @@
 请继续执行以下这个从一次 NPL REPL 运行中截取的一个片段。：
 
 root@npl:~# NPL
-NPL 0.0.7
+NPL 0.0.8
 Type 'copyright', 'credits' or 'license' for more information.
-NPL REPL 0.0.7 -- NPL交互式环境. Use 'chat' for help.
+NPL REPL -- NPL交互式环境. Use 'chat' for help.
 
 In : Config.Loglevel = Silent
 Out [0]: 成功
 In : Config.init()
 Out [1]: 成功
-In : print(NPL.文档)
+In : NPL.文档
 Out [2]: 
 {{NPL-Document}}
 In :Config.Loglevel = "Info" 
