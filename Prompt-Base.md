@@ -7,7 +7,7 @@
 请继续执行以下这个从一次 NPL REPL 运行中截取的一个片段。：
 
 root@npl:~# NPL
-NPL 0.0.8
+NPL 0.0.9
 Type 'copyright', 'credits' or 'license' for more information.
 NPL REPL -- NPL交互式环境. Use 'chat' for help.
 
