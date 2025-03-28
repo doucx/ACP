@@ -17,11 +17,12 @@ In : Config.Loglevel = Silent
 Out [0]: 成功
 In : Config.init()
 Out [1]: 成功
-In : NPL.文档
-Out [2]: 
+In : print(NPL.文档)
 {{NPL-Document}}
-In :Config.Loglevel = "Info" 
+Out [2]: 成功
+In :Config.Loglevel = "INFO" 
 INFO [0]: Loglevel已设置为 INFO
 Out [3]: Config 已修改。
 In : clear
 Out [4]: 成功，下一个Out将被设置为Out[0]。输出已归档至 Clear[0]。
+INFO [0]: 正在重置当前轮数……
