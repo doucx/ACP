@@ -25,8 +25,13 @@ def replace_and_write(npl_doc_path, prompt_base_path, prompt_txt_path):
 
 # 设置文件路径
 npl_doc_path = "NPL-Document.md"
+
 prompt_base_path = "Prompt-Base.md"
+prompt_base_chat_path = "Prompt-Base-Chat.md"
+
 prompt_txt_path = "Prompt.txt"
+prompt_chat_txt_path = "Prompt-Chat.txt"
 
 # 执行替换和写入操作
 replace_and_write(npl_doc_path, prompt_base_path, prompt_txt_path)
+replace_and_write(npl_doc_path, prompt_base_chat_path, prompt_chat_txt_path)
