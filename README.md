@@ -1,6 +1,7 @@
 # NPL (Natural Pseudo Language)
 
-[Prompt.txt](https://raw.githubusercontent.com/doucx/NPL-Prompts/refs/heads/main/Prompt.txt)
+[System Prompt](https://raw.githubusercontent.com/doucx/NPL-Prompts/refs/heads/main/Prompt.txt)
+[Prompt for Chat](https://raw.githubusercontent.com/doucx/NPL-Prompts/refs/heads/main/Prompt-Chat.txt)
 
 NPL 是一种旨在处理自然语言模糊性的人造语言。它结合了自然语言的灵活性和伪代码的直观性，使用户能够以类似人类思维的方式编写代码来与智能体进行双向交互。
 
