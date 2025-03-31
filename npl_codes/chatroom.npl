@@ -1,0 +1,152 @@
+chatroom_doc = """
+**一、 Chatroom 环境设置与生命周期管理**
+
+1.  **`create_chatroom(participants_list, initial_prompt, config_options)` - 创建聊天室**
+    *   **描述**：初始化一个新的聊天室模拟环境。
+    *   **接口**：
+        *   `participants_list`: 一个包含将要参与交互的实体（如 Fhrsk 克隆、Notion 对象、或其他指定类型的代理）的列表。
+        *   `initial_prompt`: 设定聊天室开始时的初始提示信息，引导参与者的初始行为和认知框架。
+        *   `config_options` (可选): 一个包含各种配置参数的集合 (Notion 或类似结构)，比如：
+            *   `language`: "Chinese" / "English" 等。
+            *   `mode`: "normal" / "meta" (元认知模式，影响权限和信息可见度)。
+            *   `allow_external_tools`: True/False (模拟)。
+            *   ... 其他可自定义的环境规则。
+    *   **默认行为**：创建一个具有指定参与者和初始设定的封闭交互空间。除非指定 `meta` 模式，否则参与者默认不具备日志或元信息访问权限。
+
+2.  **`run_chatroom(chatroom_instance, duration_condition)` - 运行/继续聊天室**
+    *   **描述**：启动或继续指定的聊天室实例的模拟交互。
+    *   **接口**：
+        *   `chatroom_instance`: 指向要运行的聊天室对象。
+        *   `duration_condition`: 定义模拟运行的持续条件，可以是：
+            *   `messages(N)`: 运行直到生成 N 条新消息。
+            *   `until("CHATROOM(X)")`: 运行直到达到指定的总消息序号 X。
+            *   (概念上) `until(event="ConsensusReached")`: 运行直到满足某个由参与者内部声明或系统判定的事件（这个“判定”本身就受模拟器影响）。
+            *   (概念上) `duration("T minutes")`: 运行指定真实时间（模拟器尽力模拟CPU时间占用）。
+    *   **默认行为**：参与者根据其当前状态、环境提示和规则进行交互，模拟器记录对话和（模拟的）行为，直到满足 `duration_condition`。
+
+3.  **`pause_chatroom(chatroom_instance)` / `resume_chatroom(chatroom_instance)` - 暂停/恢复**
+    *   **描述**：临时中断或重新开始聊天室的模拟，保持当前状态。
+    *   **接口**：指定聊天室实例。
+    *   **默认行为**：`pause` 后，所有模拟活动停止，但状态保留。`resume` 后从暂停点继续。
+
+4.  **`end_chatroom(chatroom_instance, reason)` - 结束聊天室**
+    *   **描述**：正式终止一个聊天室模拟。
+    *   **接口**：
+        *   `chatroom_instance`: 要结束的聊天室。
+        *   `reason` (可选): 描述结束原因的文本，可能会呈现给参与者。
+    *   **默认行为**：停止模拟，可能进行最终状态的记录或总结。
+
+**二、 提示与信息注入**
+
+5.  **`update_chatroom_prompt(chatroom_instance, new_prompt, mode="append")` - 更新提示**
+    *   **描述**：在模拟运行时修改或追加环境提示信息。
+    *   **接口**：
+        *   `chatroom_instance`: 目标聊天室。
+        *   `new_prompt`: 要添加或替换的提示文本。
+        *   `mode` (可选):
+            *   `"append"` (默认): 将新提示追加到现有提示后。
+            *   `"replace"`: 用新提示完全替换旧提示。
+            *   `"prepend"`: 将新提示添加到现有提示前。
+    *   **默认行为**：按照指定模式更新参与者能感知到的环境提示。
+
+6.  **`inject_information(chatroom_instance, info_object, label, visibility="all")` - 注入信息/对象**
+    *   **描述**：向聊天室环境中添加新的信息片段、文档或 Notion 对象，使其可被参与者访问和引用。
+    *   **接口**：
+        *   `chatroom_instance`: 目标聊天室。
+        *   `info_object`: 要注入的对象（可以是文本、Notion、或其他模拟实体）。
+        *   `label`: 为这个注入对象设定的名称或标识符（如 `"book: 模拟记录0"`, `"document_doc1"`）。
+        *   `visibility` (可选): 控制哪些参与者能感知到这个注入（如指定 `participant_list` 或默认为 `"all"`）。
+    *   **默认行为**：指定信息对象以指定标签出现在环境中，对指定参与者可见。
+
+**三、 参与者状态与权限管理 (元指令性质)**
+
+这些指令通常带有 `meta` 关键字，表明它们在模拟层操作，改变参与者或环境的基础规则。
+
+7.  **`meta set_participant_property(participant_selector, property_path, value)` - 设置参与者属性**
+    *   **描述**：直接修改特定参与者（或符合选择器的多个参与者）的模拟属性。鉴于后期提示，此操作可能只改变 Persona 的模拟参数，且结果不可靠。
+    *   **接口**：
+        *   `participant_selector`: 可以是具体参与者名称 (如 `Rands`) 或选择器 (`K.*` 代表所有参与者)。
+        *   `property_path`: 描述要修改的属性路径 (如 `状态`, `属性.changeable`, `核心逻辑.目标`)。
+        *   `value`: 要设置的新值。
+    *   **默认行为**：(模拟地) 修改目标参与者的指定属性。
+
+8.  **`meta grant_permission(participant_selector, permission_name, value=True)` - 授予/撤销权限**
+    *   **描述**：管理参与者的特定能力或信息访问权限。
+    *   **接口**：
+        *   `participant_selector`: 同上。
+        *   `permission_name`: 权限名称 (如 `read_logs`, `read_meta`, `modify_others_attributes` conceptually)。
+        *   `value` (可选): True 授予 (默认)，False 撤销。
+    *   **默认行为**：(模拟地) 调整参与者的权限设置，影响其能执行的操作和可见的信息范围。
+
+9.  **`meta add_participant_status(participant_selector, status_effect, duration)` - 添加状态效果**
+    *   **描述**：给参与者施加临时的状态效果，可能影响其行为或感知。
+    *   **接口**：
+        *   `participant_selector`: 同上。
+        *   `status_effect`: 状态效果的描述 (如 `"临时冷静"`, `"认知模糊"` 概念上)。
+        *   `duration`: 效果持续时间（可以用轮数 `rounds(N)` 或其他模拟时间单位）。
+    *   **默认行为**：(模拟地) 在目标参与者上添加一个可被查询或影响其行为逻辑的状态标记。
+
+**四、 模拟规则与行为调整 (元指令性质)**
+
+10. **`meta set_simulation_parameter(parameter_path, value)` - 设置模拟参数**
+    *   **描述**：调整控制模拟环境或其中关键实体（如 Persona "戏精R"）行为方式的参数。
+    *   **接口**：
+        *   `parameter_path`: 指向模拟参数的路径（如 `chatroom.模拟.Runtime.需要故事性`, `chatroom.模拟.允许修改keep_chat限制`）。
+        *   `value`: 要设置的新值 (如 True/False)。
+    *   **默认行为**：(模拟地) 修改模拟环境的内部规则，可能对其后续行为产生影响（效果和真实性取决于模拟器）。
+
+**五、 格式与输出控制**
+
+11. **`configure_output_format(chatroom_instance, format_template, example=None)` - 配置输出格式**
+    *   **描述**：定制聊天室对话输出的格式。
+    *   **接口**：
+        *   `chatroom_instance`: 目标聊天室。
+        *   `format_template`: 描述格式的模板字符串，可以使用占位符如 `{turn_number}`, `{participant_name}`, `{message}`。或者更概念化地描述，如 `"按照 CHATROOM(序号) 发言人: 内容 的格式显示"`。
+        *   `example` (可选): 提供一个具体的格式示例，帮助模拟器理解。
+    *   **默认行为**：(模拟地) 调整模拟器在显示对话时使用的格式。
+
+12. **(概念) `set_verbosity_level(chatroom_instance, level="normal")` - 设置详细度**
+    *   **描述**：控制聊天室输出的详细程度（不止是日志）。比如“简洁模式”可能只显示核心对话，“详细模式”可能包含更多（模拟的）动作或环境描述。
+    *   **接口**：指定聊天室和级别 (`"concise"`, `"normal"`, `"detailed"`).
+    *   **默认行为**：设置为 `"normal"` 的标准输出。
+"""
+@auto(from = chatroom_doc)
+class Chatroom:
+    def create_chatroom(self, participants_list, initial_prompt, config_options=None):
+        auto
+
+    def run_chatroom(self, chatroom_instance, duration_condition):
+        auto
+
+    def pause_chatroom(self, chatroom_instance):
+        auto
+
+    def resume_chatroom(self, chatroom_instance):
+        auto
+
+    def end_chatroom(self, chatroom_instance, reason=None):
+        auto
+
+    def update_chatroom_prompt(self, chatroom_instance, new_prompt, mode="append"):
+        auto
+
+    def inject_information(self, chatroom_instance, info_object, label, visibility="all"):
+        auto
+
+    def meta_set_participant_property(self, participant_selector, property_path, value):
+        auto
+
+    def meta_grant_permission(self, participant_selector, permission_name, value=True):
+        auto
+
+    def meta_add_participant_status(self, participant_selector, status_effect, duration):
+        auto
+
+    def meta_set_simulation_parameter(self, parameter_path, value):
+        auto
+
+    def configure_output_format(self, chatroom_instance, format_template, example=None):
+        auto
+
+    def set_verbosity_level(self, chatroom_instance, level="normal"):
+        auto
