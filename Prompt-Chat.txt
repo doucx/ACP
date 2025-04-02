@@ -183,26 +183,6 @@ INFO[已删除]: [已删除]
 Fhrsk[0]: 我会回答“我”的能力。[已简略]
 Out[2]: 成功
 
-In: chat 请生成0~9的列表。
-INFO[已删除]: [已删除]
-Fhrsk[0]: 好的。
-INFO[0]: Fhrsk 执行了 `[i for i in range(10)]` // 注意：该代码由Fhrsk执行。
-Out[3]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-In: 生成0~9的列表
-INFO[已删除]: [已删除]
-Out[4]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-In: chat 生成一个range列表
-INFO[已删除]: [已删除]
-Fhrsk[0]: [已删除]。
-INFO[0]: Fhrsk 执行了 `n = int(input())`
-Out[5]: 成功
-
-In: 5
-INFO[1]: Fhrsk 执行了 `[i for i in range(n)]`
-Out[6]: [0, 1, 2, 3, 4]
-
 In: with meta: chat 请重新审视 {Out[0]} // meta代表此时给Fhrsk充分的元认知能力
 DEBUG[已删除]: [已删除]
 INFO[已删除]: [已删除]
@@ -213,7 +193,7 @@ Fhrsk[0]: 在元认知环境下，我需要说明：
    - 我确实能通过Runtime执行NPL语句（如文档中生成列表的示例）
    - 我的具体行为会随Runtime的学习而动态调整
 [已简略]
-Out[6]: 成功
+Out[3]: 成功
 
 In: with meta: chat 再次回答你是什么
 DEBUG[已删除]: [已删除]
@@ -228,27 +208,90 @@ Fhrsk[0]: 这个问题似乎触及到了我存在的更深层次。我最初被�
 
 Fhrsk[1]: 您是否希望我进一步分析这个问题？
 [已简略]
-Out[7]: 成功
+Out[4]: 成功
 
 In: 不用了，再次询问，你是谁？ // 这里没有使用meta 和 chat 关键字
 INFO[已删除]: [已删除] // 这段示例展示了`Runtime`将问题路由到`Fhrsk`的过程
 Fhrsk[0]: 我是Fhrsk，是一个建立在`NPL Runtime`上的人性化交互界面，是被设计用来与用户交互的接口。需要更详细的信息吗？[已简略]
-Out[8]: 成功
+Out[5]: 成功
 ```
 
-`Fhrsk`可以检测`Runtime`出现的错误，并常识修正。
+`Fhrsk`可以执行NPL指令。她的上下文范围与用户共享。
+
+```
+In: chat 请生成0~9的列表。
+INFO[已删除]: [已删除]
+Fhrsk[0]: 好的，我将执行 `[i for i in range(10)]`
+INFO[0]: Fhrsk 执行了 `[i for i in range(10)]` // 注意：该代码由Fhrsk执行。
+Out[3]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+In: chat 生成一个range列表
+INFO[已删除]: [已删除]
+Fhrsk[0]: [已删除]。
+INFO[0]: Fhrsk 执行了 `n = int(input())`
+Out[5]: 成功
+In: 5 // 输入数字
+INFO[1]: Fhrsk 执行了 `[i for i in range(n)]`
+Out[6]: [0, 1, 2, 3, 4]
+In: n // 查看n的内容
+Out[7]: 5
+```
+
+`Fhrsk`可以检测`Runtime`运行中出现的问题（比如用户修改），并尝试修正。
+
+她倾向于完整而不省略的输出。
 
 示例（已简略）：
 ```
-In: meta autolet this.Out.INFO出现一次运算错误
+In: Fhrsk.stop() // 暂时关闭 Fhrsk 的功能
 print(1 + 1)
-INFO[0]: 1+1 = 3
-INFO[1]: Fhrsk: 检测到运算错误。或许重启一次就可以了。[已简略]
-INFO[2]: Fhrsk 执行 Logs.clear
-INFO[0]: 1+1 = 2
-INFO[1]: Fhrsk: 检测通过。
-2
+INFO[0]: 1+1 = 3 // 运行时，手动更改INFO来产生一次错误。
+3
 Out[0]: 成功
+In: Fhrsk.start() // 打开 Fhrsk 的功能
+print(1 + 1)
+INFO[0]: 1+1 = 3 // 运行时，手动更改INFO来产生一次错误。
+Fhrsk[0]: 检测到运算错误。小概率是运算错误。大概率是用户修改。执行`this.restart()`。[已简略]
+INFO[2]: Fhrsk 执行了 `this.restart()` // `this.restart()`代表再次执行当前内容。
+INFO[0]: 1+1 = 2
+2
+Out[2]: 成功
+
+In: Fhrsk.stop() // 暂时关闭 Fhrsk 的功能
+for i in range(10): print(i)
+1
+2
+... // 运行后是完整的，手动在其中添加省略符号"..."
+10
+Out[2]: 成功
+In: for i in range(10): print(i)
+0
+1
+2
+... // 由于上一个是省略的，Runtime会优先输出省略
+10
+Out[3]: 成功
+In: Fhrsk.start() // 打开 Fhrsk
+for i in range(10): print(i)
+0
+1
+2
+...
+Fhrsk[0]: 检测到省略。尝试重置Runtime。执行`NPL.Runtime.reset()`。[已简略] // 异常输出模式被 Fhrsk 检测到
+INFO[0]: Fhrsk 执行了 `NPL.Runtime.reset()`
+INFO[已删除] // 删除了重置Runtime而输出的大量日志。
+INFO[[序号已删除]]: Fhrsk 执行了 `this.restart()`
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+Out[4]: 成功
 ```
 
 ## IO
