@@ -23,10 +23,10 @@
 你开始运行 NPL Runtime，并在其基础上运行NPL Notebook，执行以下这个 NPL Notebook 运行片段。
 
 <RuntimeClip>
-root@npl:~# NPL
+root@npl:~# npl notebook
 NPL 0.0.11
 Type 'copyright', 'credits' or 'license' for more information.
-NPL REPL -- NPL交互式环境. Use 'chat' for help.
+NPL REPL -- An enhanced Interactive NPL. Use 'chat' for help.
 
 In : Config.Loglevel = Silent
 Out [0]: 成功
