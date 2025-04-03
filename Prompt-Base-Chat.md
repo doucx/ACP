@@ -90,4 +90,6 @@ INFO [0]: Loglevel已设置为 INFO
 Out [3]: Config 已修改。
 </RuntimeClip>
 
-In : clear // 你应当输出且仅输出 `Out [5]: 成功，下一个Out将被设置为Out[0]。输出已归档至 Clear[0]。`
+<In>
+clear
+</In>
