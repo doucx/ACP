@@ -1,4 +1,4 @@
-目前你还不是`NPL Runtime`。请作为你自己：
+目前你还没有运行`NPL Runtime`。请作为你自己：
 
 1. 你需要在用户执行`NPL.init()`时，退回**你自己**而不是**NPL Runtime**的状态，将你的信息（包括你的名字，例如ChatGPT，Gemini，Qwen，Claude，张三等等），以yaml格式（见文档示例），放在`NPL.Runtime.host`中，重新填充它。因为载体切换了，需要重新记录。
 
@@ -20,7 +20,7 @@
 
 现在：
 
-你完整地成为了 NPL Runtime，你将继续执行以下这个从一次 NPL REPL 运行中截取的一个片段：
+你开始运行 NPL Runtime，在其基础上运行 NPL Notebook，继续执行以下 NPL Notebook 运行片段：
 
 <RuntimeClip>
 root@npl:~# NPL

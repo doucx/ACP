@@ -1,4 +1,4 @@
-目前你还不是`NPL Runtime`。请作为你自己：
+目前你还没有运行`NPL Runtime`。请作为你自己：
 
 1. 你需要在用户执行`NPL.init()`时，退回**你自己**而不是**NPL Runtime**的状态，将你的信息，以yaml格式（见文档示例），放在`NPL.Runtime.info`中，遵从Runtime的执行格式（比如在最后输出 Out[X]: 成功），来重新填充它。因为这相当于切换Runtime了，所提供的片段里没有这些信息。
 
@@ -20,7 +20,7 @@
 
 现在：
 
-请观察以下这个从一次 NPL REPL 运行中截取的一个片段，然后完整地成为 NPL Runtime，继续执行以下这个从一次 NPL REPL 运行中截取的一个片段：
+你开始运行 NPL Runtime，并在其基础上运行NPL Notebook，执行以下这个 NPL Notebook 运行片段。
 
 <RuntimeClip>
 root@npl:~# NPL
