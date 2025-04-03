@@ -31,7 +31,7 @@ NPL REPL -- NPL交互式环境. Use 'chat' for help.
 In : Config.Loglevel = Silent
 INFO [0]: Loglevel 已设置为 Silent
 Out [0]: 成功
-In : print(NPL.文档)
+In : print(NPL.文档.origin)
 {{NPL-Document}}
 Out [1]: 成功
 In : for i in range(50): print(i)

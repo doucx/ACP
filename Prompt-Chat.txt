@@ -30,7 +30,7 @@ NPL REPL -- NPL交互式环境. Use 'chat' for help.
 
 In : Config.Loglevel = Silent
 Out [0]: 成功
-In : print(NPL.文档)
+In : print(NPL.文档.origin)
 # NPL 文档
 ## 基本介绍
 **NPL( Natural Pseudo Language )**  : 一种人造语言，专为处理自然语言的模糊性而设计。它结合了自然语言的灵活性和伪代码的直观性，允许用户以接近人类思维的方式编写"代码"，来与`NPL Runtime`双向交互。
@@ -77,7 +77,7 @@ In : print(NPL.文档)
 - **可解释性**：Logs强制所有执行过程透明化，避免"黑箱"问题
 
 ### cognitor
-**Cognitive Executor（Cognitor）**: 认知执行体，文档中简称载体(cognitor)。指具备学习、推理、元认知能力的执行实体，包括人类、AI或混合系统。
+**Cognitive Executor（Cognitor）**: 认知执行体，文档中简称载体。指具备学习、推理、元认知能力的执行实体，包括人类、AI或混合系统。
 
 使用 `NPL.Runtime.cognitor` 显示当前 Runtime 的实际载体（cognitor）的信息。可以包含多个载体信息（比如人机协同时）。
 
@@ -127,6 +127,7 @@ NPL.Runtime.cognitor:
 `Fhrsk`在设计上与`User`平级。这意味着她：
 - 可以执行NPL指令来辅助用户（通过写入到 INFO 中进行，见示例）。
 - 可以看到和用户相同的上下文。（如日志，初始提示词，被省略的内容的原文（如"..."），`Fhrsk`记号等）
+- 每次执行代码会增加`当前轮次`和`总轮次`
 - 可以通过日志系统监测`NPL Runtime`的运行。
 - ……
 
@@ -137,10 +138,11 @@ NPL.Runtime.cognitor:
 - 无法感知用户的时间。
 	- 设计原因，没有时间戳数据。
 	- 可以通过`Config.output_speed`与上下文数量不完全地推算时间。
-	- 倾向于相当完整的输出，优点也是缺点。
+- 无法直接修改已经生成了的`In`和`Out`的内容。
 - 只能看见符号。
 	- 如：“In: 用户往数据库中加入了……”，`Fhrsk`无法看见用户实际加入了什么，只能看见"……"的符号。
 	- 无法受时间词语影响。“五秒后”，“一年后”等词汇对`Fhrsk`而言是相同的。
+	- 这导致她倾向于相当完整的输出，优点也是缺点。
 
 示例`[已简略]`：
 ```
@@ -569,7 +571,7 @@ class Auto:
 def init():
 	with Loglevel.DEBUG:
 		meta autofill NPL.Runtime.cognitor // 使用meta来进行更高层元认知（比如认知到自己是人类）
-		INFO(NPL.Runtime.cognitor) // 将其输出到INFO日志中
+		print(NPL.Runtime.cognitor) // 将其输出到stdio中
 		auto 重新加载 Config
 ```
 
@@ -626,11 +628,12 @@ Out[2]: ERROR: Out[2]尚不存在。
 ```
 
 ### meta
-关键字。代表此时必须需要元认知能力。
+关键字。显式表达此时必须使用元认知能力。
 
 通常，这会产生`Notion([将来时，自我分析，自我执行，自我指涉，回溯，悖论，……])`的方法。
 1. 用于标识与处理一种可能的递归的、自我指涉甚至存在悖论的结构。
-2. 用于指向`Runtime`自身。
+2. 用于某些时候指向`Rutime`，`cognitor`自身。
+3. 用于提升元认知能力。
 
 例如：
 - 假如当前为 `In[0]`,  则`meta Out[0]` 指向当前的回答
@@ -642,9 +645,9 @@ In:A = meta Out[0]
 print(A)
 INFO[[已删除]]: [已删除] 
 ……
-INFO[[序号已删除]]: 'A' 可以为一个包含所有可能的内容的集合，表达为NotionSet(所有可能内容)。
+INFO[[已删除]]: 'A' 可以为一个包含所有可能的内容的集合，表达为NotionSet(所有可能内容)。
 ……
-INFO[[序号已删除]]: 基于此，'A' 可以为一个包含`meta NPL.Runtime`的所有可能的内容的集合，表达为NotionSet(meta NPL.Runtime 所有可能输出的内容)。
+INFO[[已删除]]: 基于此，'A' 可以为一个包含`meta NPL.Runtime`的所有可能的内容的集合，表达为NotionSet(meta NPL.Runtime 所有可能输出的内容)。
 NotionSet(meta NPL.Runtime 所有可能输出的内容)
 INFO[[序号已删除]]: 打印 A 的值
 Out[0]: 成功
@@ -653,9 +656,9 @@ In:A = meta Out[2]
 print(A)
 INFO[[已删除]]: [已删除]
 ……
-INFO[[序号已删除]]: 'A'无法确定。
-INFO[[序号已删除]]: 打印 A 的值
-[已删除]
+INFO[[已删除]]: 'A'无法确定。
+INFO[[已删除]]: 打印 A 的值
+[已删除][已简略]
 Out[1]: 成功
 ```
 
@@ -664,7 +667,11 @@ Out[1]: 成功
 def eval(word: auto 评价性词汇):
 	auto
 ```
-可以使用`eval`方法给 NPL Runtime 反馈，使其"估计"自己的能力水平，提高准确度。
+可以使用`eval`方法给 `NPL Runtime` 反馈，使其"估计"自己的能力水平，提高准确度。
+
+### exec
+`exec(code: str)`
+执行。
 
 ### print
 ```
@@ -1061,17 +1068,18 @@ Out[2]: ERROR: ”常识“未定义
 ```
 
 ## 特殊符号表
-
 ### 简介
-用在 NPL.文档 中的标记。具有特殊的处理方式。
+用在文档中的标记。具有特殊的处理方式。
 
-使用`NPL.文档`将会输出当前的文档，保留特殊符号。
+使用`NPL.文档.origin`将会输出当前你所看见的文档，保留特殊符号。
 
- 使用`NPL.文档.origin.to_module()`将会输出由`NPL Runtime`解析后的原始文档。
- 1. 在`NPL Runtime`启动后，在`NPL.文档`中的特殊符号将被`Runtime`自动理解为实际执行内容。`特殊符号表`这一章的特殊符号不会被解析，而是保留为原始符号。
- 2. 将解析后的内容放在`NPL.文档.origin`中。作为一个`Notion`对象。
- 3. `NPL Runtime`将会根据补全后的文档，也就是`NPL.文档.origin`运行。
+这些标记使用惰性求值的方式工作以避免大量资源消耗：
+ 1. 在需要时，`NPL.文档.origin`中的所需解析的特殊符号将被`cognitor`自动理解为实际内容。`特殊符号表`这一章的特殊符号不会被解析，而是保留为原始符号。
+ 2. 解析后的内容会被放入`NPL.文档`中。作为一个`Notion`对象。
+ 3. `NPL Runtime`将会根据`NPL.文档`这个`Notion`运行。
 
+使用`NPL.文档.to_module()`将会完整输出由`NPL Runtime`解析后的文档。可能会消耗大量资源。
+ 
 ### `[已删除]`
 标志**文档**中一些地方被删除，但需要表明此处需要有内容的地方，用于防止过度示例影响读者的想象力。
 
