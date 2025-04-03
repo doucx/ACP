@@ -408,6 +408,8 @@ Out[0]: qwq
 
 在输入`clear`后，`当前轮数`将被重置。
 
+`Config.输出开头显式当前轮数`的作用是，在`In`即将被执行时，创建一个指示当前轮数的标志。用于某些计数功能不太好的`Cognitor`。其默认格式为`当前轮数:{当前轮数}`
+
 ## 标准库
 ### Auto
 ```
@@ -539,9 +541,9 @@ class Auto:
 ```npl
 def init():
 	with Loglevel.DEBUG:
-		meta autofill NPL.Runtime.cognitor // 使用meta来进行更高层元认知（比如认知到自己是人类）
-		print(NPL.Runtime.cognitor) // 将其输出到stdio中
-		auto 重新加载 Config
+		meta autofill NPL.Runtime.cognitor && print("```yaml\n", NPL.Runtime.cognitor, "\n```")// 使用meta来进行更高层元认知（比如认知到自己是人类），并将其输出到stdio中，并放在代码块里
+	with Loglevel.DEBUG:
+		auto 检查整个 NPL Notebook 中的问题
 ```
 
 ### input
@@ -1018,6 +1020,7 @@ class Config:
 	notion
 		- max_nesting_depth = 1 // 默认显示1层。会导致自然语言的数量指数型增长。
     output_speed = 1e3 // 默认为1000字代表一秒
+	输出开头显式当前轮数 = False
 	auto
 ```
 当前对话的配置文件。修改会立刻生效。

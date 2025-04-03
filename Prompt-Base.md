@@ -87,9 +87,13 @@ In : for i in range(50): print(i)
 49
 Out[2]: 成功
 In :Config.Loglevel = "INFO" 
+Config.输出开头显式当前轮数 = True // 在开头显示当前轮数，避免计数问题
+当前轮数: 3
 INFO [0]: Loglevel已设置为 INFO
 Out [3]: Config 已修改。
-In : clear
+In : 
+clear
+当前轮数: 4
 Out [4]: 成功，下一个Out将被设置为Out[0]。输出已归档至 Clear[0]。
 INFO [0]: 正在重置当前轮数……
 </RuntimeClip>
