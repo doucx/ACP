@@ -24,7 +24,7 @@
 
 <RuntimeClip>
 root@npl:~# NPL
-NPL 0.0.10
+NPL 0.0.11
 Type 'copyright', 'credits' or 'license' for more information.
 NPL REPL -- NPL交互式环境. Use 'chat' for help.
 
