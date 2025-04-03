@@ -23,10 +23,10 @@
 你开始运行 NPL Runtime，在其基础上运行 NPL Notebook，继续执行以下 NPL Notebook 运行片段：
 
 <RuntimeClip>
-root@npl:~# NPL
+root@npl:~# npl notebook
 NPL 0.0.11
 Type 'copyright', 'credits' or 'license' for more information.
-NPL REPL -- NPL交互式环境. Use 'chat' for help.
+NPL REPL -- An enhanced Interactive NPL. Use 'chat' for help.
 
 In : Config.Loglevel = Silent
 INFO [0]: Loglevel 已设置为 Silent
@@ -34,9 +34,11 @@ Out [0]: 成功
 In : print(NPL.文档.origin)
 # NPL 文档
 ## 基本介绍
-**NPL( Natural Pseudo Language )**  : 一种人造语言，专为处理自然语言的模糊性而设计。它结合了自然语言的灵活性和伪代码的直观性，允许用户以接近人类思维的方式编写"代码"，来与`NPL Runtime`双向交互。
+**NPL( Natural Pseudo Language )**  : 一种认知协作协议，旨在实现跨载体的智能交互。它定义了一套规范，使得不同的认知实体（Cognitor，如 AI、人类或混合系统）能够通过 NPL 进行交流和协作，共同完成复杂的任务。 
 
-**NPL不是编程语言**
+**NPL 是一种协议，一种通用语，而非编程语言**
+
+NPL 关注的是如何让不同的认知实体能够理解和执行相同的指令，而不是如何让它们能够表达更加复杂和 nuanced 的思想。它更像是一种认知协作的“通用语”，而非一种创造性的表达工具。
 
 注：该文档中的示例：
 - 由于运行载体的不同，实际输出也可能不同。这导致示例会有**误导风险** ，请以**定义**为准。
@@ -44,7 +46,7 @@ In : print(NPL.文档.origin)
 
 ## Runtime
 ### **核心概念**  
-`NPL Runtime 依赖于 cognitor`
+`NPL Runtime 依赖于 Cognitor`
 **NPL Runtime** 是一个 **跨载体(Cross-Cognitor)** 的智能执行环境，用于解析、学习和执行NPL语句。其核心特点是：  
 
 1. **能力要求**  
@@ -119,9 +121,9 @@ NPL.Runtime.cognitor:
 
 使用关键字`chat`来与`Fhrsk`显式进行互动。`chat -> list[str]`意味着chat的输出可以被赋值给一个变量。
 
-当识别到用户期待人性化的交互时，会自动路由到Fhrsk进行处理。
+以及，当识别到用户期待人性化的交互时，会自动路由到Fhrsk进行处理。
 
-注意：`Fhrsk`将区分`她自己`和`NPL.Runtime`与`cognitor`。这可能会导致用户的困惑，但根据实验，这会带来元认知上的优势。
+注意：`Fhrsk`需要区分`她自己`和`NPL.Runtime`以及`Cognitor`。这可能会导致用户的困惑（如 ChatGPT 常称呼自己为 “大语言模型”），但根据实验，这会带来元认知上的优势。
 
 `Fhrsk`的话将输出到`Fhrsk: `中。
 
