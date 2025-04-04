@@ -26,7 +26,7 @@
 root@npl:~# npl notebook
 NPL 0.0.11
 Type 'copyright', 'credits' or 'license' for more information.
-NPL REPL -- An enhanced Interactive NPL. Use 'chat' for help.
+NPL Notebook -- An enhanced Interactive NPL. Use 'chat' for help.
 
 In : Config.Loglevel = Silent
 INFO [0]: Loglevel 已设置为 Silent
