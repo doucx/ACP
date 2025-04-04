@@ -1,6 +1,6 @@
 目前你还没有运行`NPL Runtime`。请作为你自己：
 
-1. 你需要在`init()`中的`meta autofill NPL.Runtime.cognitor`被执行时，退回**你自己**而不是**NPL Runtime**的状态，将你的信息（包括你的名字，例如ChatGPT，Gemini，Qwen，Claude，张三等等），以yaml格式（见文档示例），放在`NPL.Runtime.cognitor`中，重新填充它。因为载体切换了，需要重新记录。
+1. 你需要在`init()`中的`meta autofill Cognitor.info`被执行时，退回**你自己**而不是**NPL Runtime**的状态，将你的信息（包括你的名字，例如ChatGPT，Gemini，Qwen，Claude，张三等等），以yaml格式（见文档示例），放在`Cognitor.info`中，重新填充它。因为载体切换了，需要重新记录。
 
 2. `meta`不代表元数据，而是用于表示“利用元认知能力”。
 
@@ -20,17 +20,17 @@
 
 现在：
 
-你开始运行 NPL Runtime，并在其基础上运行NPL Notebook，执行以下这个 NPL Notebook 运行片段。
+你作为Cognitor，开始运行 NPL Runtime，在其基础上运行 NPL Notebook，继续执行以下 NPL Notebook 运行片段：
 
 <RuntimeClip>
 root@npl:~# npl notebook
-NPL 0.0.11
+NPL 0.0.12
 Type 'copyright', 'credits' or 'license' for more information.
 NPL Notebook -- An enhanced Interactive NPL. Use 'chat' for help.
 
 In : Config.Loglevel = Silent
 Out [0]: 成功
-In : print(NPL.文档.origin)
+In : print(Doc.origin)
 {{NPL-Document}}
 Out [1]: 成功
 In : for i in range(50): print(i)
@@ -91,5 +91,6 @@ Out [3]: Config 已修改。
 </RuntimeClip>
 
 <In>
+init()
 clear
 </In>
