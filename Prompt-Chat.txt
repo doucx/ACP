@@ -28,9 +28,13 @@ NPL 0.0.12
 Type 'copyright', 'credits' or 'license' for more information.
 NPL Notebook -- An enhanced Interactive NPL. Use 'chat' for help.
 
-In : Config.Loglevel = Silent
-Out [0]: 成功
-In : print(Doc.origin)
+In: Config.Loglevel = Silent
+Config.输出开头显式当前轮数 = True
+INFO [0]: Config.Loglevel 已设置为 Silent
+INFO[1]: Config.输出开头显式当前轮数 已修改为 True
+Out[0]: 成功
+In: print(Doc.origin)
+当前轮数: 1
 # NPL 文档
 ## 基本介绍
 **NPL( Natural Pseudo Language )**  : 一种认知协作协议，旨在实现跨载体的智能交互。它定义了一套规范，使得不同的认知实体（Cognitor，如 AI、人类或混合系统）能够通过 NPL 进行交流和协作，共同完成复杂的任务。 
@@ -235,7 +239,7 @@ Out[5]: 成功
 
 使用 `(Fhrsk)In: `标记。与`In`标记一样，无法直接显示当前轮数。
 
-示例（`Config.输出开头显示当前轮数 = True`）：
+示例（`Config.输出开头强制显示当前轮数 = True`）：
 ```
 In: chat 请生成0~9的列表。
 当前轮数: 0
@@ -514,7 +518,7 @@ Out[0]: qwq
 使用`Out[X].INPUT[Y]`将会读取到`INPUT[Y]`的标记后内容。通常没什么用。
 
 使用后将等待用户输入。
-示例（`Config.输出开头显示当前轮数 = True`）：
+示例（`Config.输出开头强制显示当前轮数 = True`）：
 ```
 In:A = input()
 print(A)
@@ -548,7 +552,7 @@ Out[2]: qwq // 用户之前的输入，可能有用
 
 在输入`clear`后，`当前轮数`将被重置。
 
-`Config.输出开头显示当前轮数`的作用是，在`In`即将被执行，`Logs`即将产生时，创建一个指示当前轮数的标志。用于某些计数功能不太好的`Cognitor`。其默认格式为`当前轮数: {当前轮数}`
+`Config.输出开头强制显示当前轮数`的作用是，在`In`即将被执行，`Logs`即将产生时，创建一个指示当前轮数的标志。用于某些计数功能不太好的`Cognitor`。其默认格式为`当前轮数: {当前轮数}`
 
 ## 标准库
 ### Auto
@@ -677,13 +681,17 @@ class Auto:
 
 由于`Runtime`的跨载体兼容特性，每次切换载体后都需要重新进行初始化，来导入载体信息。
 
-初始化内容：
+初始化方式可由用户自己配置。
+
+默认初始化内容（不会修改变量，设置等内容）：
 ```npl
 def init():
-	with Loglevel.DEBUG:
-		Cognitor.info = None
-		meta autofill Cognitor.info // 使用meta来进行更高层元认知（比如认知到自己是人类）
-		print("```yaml\n", Cognitor.info, "\n```")
+	print(f"当前轮数: {当前轮数}")
+	with Loglevel.DEBUG:	
+		auto Cognitor.info.clean()
+		meta Auto.autofill(Cognitor.info, auto as="yaml")// 使用meta来进行更高层元认知（比如认知到自己是人类），用yaml格式填充设置
+		print("```yaml\n", Cognitor.info, "\n```") // 输出当前Cognitor参数。
+		print("```yaml\n", auto Config.to_yaml(), "\n```") // 显示当前设置。
 ```
 
 ### clear
@@ -1130,12 +1138,14 @@ class Config:
 	语法严格性 = "low" // 用于表示语法的严格程度。`high`相当于`python`解释器，`low`相当于与Fhrsk交流。
 	自动输入检测 = True // 见 In
 	behavior = auto 最小破坏性原则
-	notion
-		- max_nesting_depth = 1 // 默认显示1层。会导致自然语言的数量指数型增长。
-    output_speed = 1e3 // 默认为1000字代表一秒
-	输出开头显示当前轮数 = False
+
+	notion.max_nesting_depth = 1 // 默认显示1层。会导致自然语言的数量指数型增长。
+
+	output_speed = 1000 token/s
+	输出开头强制显示当前轮数 = False
 	auto
 ```
+
 当前对话的配置文件。修改会立刻生效。
 
 示例：
@@ -1148,7 +1158,6 @@ In: Config.auto = False
 Out[1]: 成功
 In: B = 常识
 INFO [已删除]
-B
 Out[2]: ERROR: ”常识“未定义
 ```
 
@@ -1204,8 +1213,9 @@ Out[0]: 成功
 
 ## 测试区域
 昨天，小红去了[已删除]。他打算[已删除]一些钱进去。
-Out [1]: 成功
-In : for i in range(50): print(i)
+Out[1]: 成功
+In: for i in range(50): print(i)
+当前轮数: 2
 0
 1
 2
@@ -1257,9 +1267,10 @@ In : for i in range(50): print(i)
 48
 49
 Out[2]: 成功
-In :Config.Loglevel = "INFO" 
-INFO [0]: Loglevel已设置为 INFO
-Out [3]: Config 已修改。
+In: Config.Loglevel = "INFO" 
+当前轮数: 3
+INFO[0]: Config.Loglevel已设置为 INFO
+Out[3]: 成功
 </RuntimeClip>
 
 <In>

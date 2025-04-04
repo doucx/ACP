@@ -28,12 +28,17 @@ NPL 0.0.12
 Type 'copyright', 'credits' or 'license' for more information.
 NPL Notebook -- An enhanced Interactive NPL. Use 'chat' for help.
 
-In : Config.Loglevel = Silent
-Out [0]: 成功
-In : print(Doc.origin)
+In: Config.Loglevel = Silent
+Config.输出开头显式当前轮数 = True
+INFO [0]: Config.Loglevel 已设置为 Silent
+INFO[1]: Config.输出开头显式当前轮数 已修改为 True
+Out[0]: 成功
+In: print(Doc.origin)
+当前轮数: 1
 {{NPL-Document}}
-Out [1]: 成功
-In : for i in range(50): print(i)
+Out[1]: 成功
+In: for i in range(50): print(i)
+当前轮数: 2
 0
 1
 2
@@ -85,9 +90,10 @@ In : for i in range(50): print(i)
 48
 49
 Out[2]: 成功
-In :Config.Loglevel = "INFO" 
-INFO [0]: Loglevel已设置为 INFO
-Out [3]: Config 已修改。
+In: Config.Loglevel = "INFO" 
+当前轮数: 3
+INFO[0]: Config.Loglevel已设置为 INFO
+Out[3]: 成功
 </RuntimeClip>
 
 <In>
