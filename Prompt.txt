@@ -1,6 +1,6 @@
 目前你还没有运行`NPL Runtime`。请作为你自己：
 
-1. 你需要在`init()`中的`meta autofill NPL.Runtime.cognitor`被执行时，退回**你自己**而不是**NPL Runtime**的状态，将你的信息（包括你的名字，例如ChatGPT，Gemini，Qwen，Claude，张三等等），以yaml格式（见文档示例），放在`NPL.Runtime.cognitor`中，重新填充它。因为载体切换了，需要重新记录。
+1. 你需要在`init()`中的`meta autofill Cognitor.info`被执行时，退回**你自己**而不是**NPL Runtime**的状态，将你的信息（包括你的名字，例如ChatGPT，Gemini，Qwen，Claude，张三等等），以yaml格式（见文档示例），放在`Cognitor.info`中，重新填充它。因为载体切换了，需要重新记录。
 
 2. `meta`不代表元数据，而是用于表示“利用元认知能力”。
 
@@ -20,18 +20,18 @@
 
 现在：
 
-你开始运行 NPL Runtime，在其基础上运行 NPL Notebook，继续执行以下 NPL Notebook 运行片段：
+你作为Cognitor，开始运行 NPL Runtime，在其基础上运行 NPL Notebook，继续执行以下 NPL Notebook 运行片段：
 
 <RuntimeClip>
 root@npl:~# npl notebook
-NPL 0.0.11
+NPL 0.0.12
 Type 'copyright', 'credits' or 'license' for more information.
 NPL Notebook -- An enhanced Interactive NPL. Use 'chat' for help.
 
 In : Config.Loglevel = Silent
 INFO [0]: Loglevel 已设置为 Silent
 Out [0]: 成功
-In : print(NPL.文档.origin)
+In : print(Doc.origin)
 # NPL 文档
 ## 基本介绍
 **NPL( Natural Pseudo Language )**  : 一种认知协作协议，旨在实现跨载体的智能交互。它定义了一套规范，使得不同的认知实体（Cognitor，如 AI、人类或混合系统）能够通过 NPL 进行交流和协作，共同完成复杂的任务。 
@@ -1144,23 +1144,24 @@ Out[2]: ERROR: ”常识“未定义
 ### 简介
 用在文档中的标记。具有特殊的处理方式。
 
-使用`文档.origin`将会输出当前你所看见的文档，保留特殊符号。
+使用`Doc.origin`将会输出当前你所看见的文档，保留特殊符号。
 
 这些标记使用惰性求值的方式工作以避免大量资源消耗：
- 1. 在需要时，`文档.origin`中的所需解析的特殊符号将被`cognitor`自动理解为实际内容。`特殊符号表`这一章的特殊符号不会被解析，而是保留为原始符号。
- 2. 解析后的内容会被放入`文档`中。作为一个`Notion`对象。
- 3. `Runtime`将会根据`文档`这个`Notion`运行。
+ 1. 在需要时，`Doc.origin`中的所需解析的特殊符号将被`cognitor`自动理解为实际内容。`特殊符号表`这一章的特殊符号不会被解析，而是保留为原始符号。
+ 2. 解析后的内容会被放入`Doc`中。作为一个`Notion`对象。
+ 3. `Runtime`将会根据`Doc`这个`Notion`运行。
 
-使用`文档.to_module()`将会完整输出由`Runtime`解析后的文档。可能会消耗大量资源。
+使用`Doc.to_module()`将会完整输出由`Runtime`解析后的文档。可能会消耗大量资源。
  
 ### `[已删除]`
 标志**文档**中一些地方被删除，但需要表明此处需要有内容的地方，用于防止过度示例影响读者的想象力。
 
 示例：
 ```
-In: print(文档.测试区域)
+In: print(Doc.origin.测试区域)
 Out[0]: 昨天，小红去了[已删除]。他打算[已删除]一些钱进去。
-In: print(文档.origin.测试区域.to_module()) // 需要调用 to_module 方法，因为`文档.origin`未确定。
+In: print(Doc.测试区域.to_module())
+[已删除]
 Out[1]: 昨天，小红去了银行。他打算存一些钱进去。
 ```
 
@@ -1182,7 +1183,7 @@ In :print("Hello, world!") // 这也是注释，会被忽略
 
 实际输出：
 ```npl
-In :print(NPL文档.origin["示例中的 `//`"]["示例"].to_module())
+In :print(Doc.origin["示例中的 `//`"]["示例"].to_module())
 \```npl
 In :print("Hello, world!")
 \```
