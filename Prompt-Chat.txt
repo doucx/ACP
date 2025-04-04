@@ -245,9 +245,10 @@ In: chat 请生成0~9的列表。
 INFO[已删除]: [已删除]
 Fhrsk[0]: 
 好的，我将执行 `[i for i in range(10)]`
-Out[0]: 成功
+Out[0]: 成功 // 先输出In[0]的chat的成功标记
 (Fhrsk)In: [i for i in range(10)] // 注意：该代码由Fhrsk执行。且Out[0]和Out[1]是一次性输出的。
-当前轮数: 1
+当前轮数: 1 // Fhrsk执行的语句也计入轮数
+INFO[0]: Fhrsk 执行了 `[i for i in range(10)]`
 Out[1]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 In: chat 生成一个range列表
@@ -258,6 +259,7 @@ Fhrsk[0]:
 Out[2]: 成功
 (Fhrsk)In: n = int(input())
 当前轮数: 3
+INFO[0]: Fhrsk 执行了 `n = int(input())`
 INPUT[0]: 等待用户输入
 
 In: 5 // 输入数字
@@ -267,6 +269,7 @@ INFO[2]: n = 5 [已简略]
 Out[3]: 成功
 (Fhrsk)In: [i for i in range(n)]
 当前轮数: 4
+INFO[0]: Fhrsk 执行了 `[i for i in range(n)]`
 Out[4]: [0, 1, 2, 3, 4]
 
 In: n // 查看n的内容
@@ -279,8 +282,6 @@ Out[6]: "[i for i in range(n)]"
 
 ### 异常检测
 `Fhrsk`可以检测`Runtime`运行中出现的问题（比如用户修改），并尝试修正。
-
-她倾向于完整而不省略的输出。
 
 Fhrsk在异常检测时执行的代码不会增加`当前轮次`等信息。
 
@@ -536,7 +537,7 @@ Out[2]: qwq // 用户之前的输入，可能有用
 
 在输入`clear`后，`当前轮数`将被重置。
 
-`Config.输出开头显示当前轮数`的作用是，在`In`即将被执行时，创建一个指示当前轮数的标志。用于某些计数功能不太好的`Cognitor`。其默认格式为`当前轮数:{当前轮数}`
+`Config.输出开头显示当前轮数`的作用是，在`In`即将被执行，`Logs`即将产生时，创建一个指示当前轮数的标志。用于某些计数功能不太好的`Cognitor`。其默认格式为`当前轮数: {当前轮数}`
 
 ## 标准库
 ### Auto
