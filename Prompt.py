@@ -1,37 +1,47 @@
-def replace_and_write(npl_doc_path, prompt_base_path, prompt_txt_path):
-    """
-    用 npl_doc_path 的内容替换 prompt_base_path 中 {{NPL-Document}}，
-    并将结果写入 prompt_txt_path。
-    """
-    try:
-        with open(npl_doc_path, 'r', encoding='utf-8') as npl_file:
-            npl_content = npl_file.read()
+from jinja2 import Environment, FileSystemLoader
+import yaml
+from pathlib import Path
 
-        with open(prompt_base_path, 'r', encoding='utf-8') as base_file:
-            base_content = base_file.read()
+# 加载配置
+with open('config.yaml') as f:
+    config = yaml.safe_load(f)
 
-        modified_content = npl_content.join(base_content.split("{{NPL-Document}}"))
-        # print(modified_content)
+config_snippets = {
+    'notebook_agent_name': config['notebook']['agent_name'],
+    'notebook_user_name': config['notebook']['user_name'],
+}
+# 读取所有Markdown片段
+doc_dir = Path('NPL-Documents')
+md_snippets = {
+    'introduction_and_core_protocol': (doc_dir / '01_introduction_and_core_protocol.md').read_text(encoding='utf-8'),
+    'interactive_environment': (doc_dir / '02_interactive_environment.md').read_text(encoding='utf-8'),
+    'reference_library': (doc_dir / '03_reference_library.md').read_text(encoding='utf-8'),
+    'advanced_concepts': (doc_dir / '04_advanced_concepts.md').read_text(encoding='utf-8'),
+    'log_system': (doc_dir / '05_log_system.md').read_text(encoding='utf-8'),
+    'notebook_example': (doc_dir / '07_notebook_tiny_example_0.0.x.md').read_text(encoding='utf-8'),
+    'appendix_symbols': (doc_dir / '08_appendix_symbols.md').read_text(encoding='utf-8'),
+}
 
-        with open(prompt_txt_path, 'w', encoding='utf-8') as output_file:
-            output_file.write(modified_content)
+cognitor_dir = Path("Cognitor-Data")
+yaml_snippets = {
+    'cognitor_info': (cognitor_dir / 'Cognitor.info.yaml').read_text(encoding='utf-8')
+}
 
-        print(f"成功将 {npl_doc_path} 的内容替换 {prompt_base_path} 中的 {{NPL-Document}} 并写入 {prompt_txt_path}。")
+# 设置Jinja2环境
+env = Environment(loader=FileSystemLoader('.'), trim_blocks=True)
+template = env.get_template('Prompts/Base/Prompt-Base.md')
 
-    except FileNotFoundError as e:
-        print(f"错误: 文件未找到 - {e}")
-    except Exception as e:
-        print(f"错误: 发生异常 - {e}")
+# 合并数据
+context = {
+    **config_snippets,
+    **md_snippets,  # 解包所有Markdown片段
+    **yaml_snippets
+}
 
-# 设置文件路径
-npl_doc_path = "NPL-Document.md"
+# 渲染结果
+output = template.render(context)
 
-prompt_base_path = "Prompt-Base.md"
-prompt_base_chat_path = "Prompt-Base-Chat.md"
-
-prompt_txt_path = "Prompt.txt"
-prompt_chat_txt_path = "Prompt-Chat.txt"
-
-# 执行替换和写入操作
-replace_and_write(npl_doc_path, prompt_base_path, prompt_txt_path)
-replace_and_write(npl_doc_path, prompt_base_chat_path, prompt_chat_txt_path)
+# 输出或保存结果
+# print(output)
+with open('Prompts/Prompt.txt', 'w', encoding='utf-8') as f:
+    f.write(output)
