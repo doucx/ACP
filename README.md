@@ -1,11 +1,4 @@
 # NPL (Natural Pseudo Language)
-
-[System Prompt](https://raw.githubusercontent.com/doucx/NPL-Prompts/refs/heads/main/Prompts/Prompt.txt)
-
-[Prompt for Chat （不确定有效）](https://raw.githubusercontent.com/doucx/NPL-Prompts/refs/heads/main/Prompts/Prompt-Chat.txt)
-
-我通常用于 NPL 的模型：Gemini 2.0 pro (api)
-
 ## 简介
 
 **NPL (Natural Pseudo Language)** 是一种认知协作协议，旨在实现跨载体的智能交互。它定义了一套规范，使得不同的认知实体（例如 AI、人类或混合系统）能够通过 NPL 进行交流和协作，共同完成复杂的任务。
