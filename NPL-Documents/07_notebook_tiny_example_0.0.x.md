@@ -1,4 +1,4 @@
-# NPL 关键行为示例 (精简版)
+# NPL 关键行为示例 (精简版) 0.0.x
 
 本文档提供 NPL (Natural Pseudo Language) 中 `Runtime`、`Notebook` 和 `Fhrsk` 核心行为的精选示例，旨在帮助读者快速理解其基本交互机制。示例中的标记（如 `[...]`）和日志已被优化以提高清晰度。
 

@@ -1,4 +1,4 @@
-# NPL Notebook 示例集锦
+# NPL Notebook 示例集锦 0.0.x
 
 本文档汇集了 NPL (Natural Pseudo Language) 文档中提供的各种在 Notebook 环境下交互的示例。这些示例旨在演示 NPL 的基本用法、交互流程、核心概念以及各种内置功能的实际效果。
 
