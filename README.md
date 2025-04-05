@@ -1,8 +1,8 @@
 # NPL (Natural Pseudo Language)
 
-[System Prompt](https://raw.githubusercontent.com/doucx/NPL-Prompts/refs/heads/main/Prompt.txt)
+[System Prompt](https://raw.githubusercontent.com/doucx/NPL-Prompts/refs/heads/main/Prompts/Prompt.txt)
 
-[Prompt for Chat （不确定有效）](https://raw.githubusercontent.com/doucx/NPL-Prompts/refs/heads/main/Prompt-Chat.txt)
+[Prompt for Chat （不确定有效）](https://raw.githubusercontent.com/doucx/NPL-Prompts/refs/heads/main/Prompts/Prompt-Chat.txt)
 
 我通常用于 NPL 的模型：Gemini 2.0 pro (api)
 
