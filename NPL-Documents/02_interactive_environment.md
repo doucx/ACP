@@ -30,8 +30,8 @@ NPL Notebook 提供了一个类似于 Jupyter Notebook 的交互式界面，是�
 	 ```xml
 	 <OutCell 
 		round="当前轮数" 
-		executor="this.Cognitor.name" 
-		originator="this.Cognitor.name">
+		executor="this.Cognitor.name, 通常为用户" 
+		originator="当前作为Runtime的实体">
            <!-- 其他类型的内容，如 Logs 等 -->
            <stdout num="序号" originator="当前作为Runtime的实体">
            标准输出内容
@@ -68,13 +68,13 @@ Out[0]: 3 # 指示输出单元格的结束
 **示例交互（类XML格式， Cognitor包含了`[用户, LLM(ChatGPT-0)`: **
 
 ```xml
-<InCell round="0" originator="User" type="EXEC">
+<InCell executor="User" round="0" type="EXEC">
 print("Hello from stdout!")
 a = 1 + 2
 print(a)
 a
 </InCell>
-<OutCell round="0" originator="User"> <!-- originator 表示是谁导致这个 OutCell 产生 -->
+<OutCell round="0" executor="User" originator="ChatGPT-0">
     <stdout num="0" originator="ChatGPT-0">Hello from stdout!</stdout> <!-- originator 表示此时是谁模拟 Runtime 创建了该条输出 -->
     <stdout num="1" originator="ChatGPT-0">3</stdout>
     <value originator="ChatGPT-0">3</value>
@@ -122,15 +122,15 @@ Fhrsk 是构建在 NPL `Runtime` 之上的一个特殊的`Cognitor`，类型为`
     ```
 
 	```xml
-    <InCell round="0" originator="User" type="EXEC">
+    <InCell executor="User" round="0" type="EXEC" originator="ChatGPT-0">
         chat 请帮我生成 0 到 4 的列表。
     </InCell>
-    <OutCell round="0" originator="User">
+    <OutCell round="0" executor="User" originator="ChatGPT-0">
     
 	    <Fhrsk number="0">
 	        好的，我将执行 `[i for i in range(5)]`
 	    </Fhrsk>
-        成功
+        <value originator="ChatGPT-0">成功</value>
     </OutCell>    
     <InCell round="1" originator="Fhrsk" type="EXEC">
         [i for i in range(5)]
