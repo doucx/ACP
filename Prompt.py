@@ -9,6 +9,7 @@ with open('config.yaml') as f:
 config_snippets = {
     'notebook_agent_name': config['notebook']['agent_name'],
     'notebook_user_name': config['notebook']['user_name'],
+    'npl_version': config['npl_version']
 }
 # 读取所有Markdown片段
 doc_dir = Path('NPL-Documents')
@@ -18,7 +19,8 @@ md_snippets = {
     'reference_library': (doc_dir / '03_reference_library.md').read_text(encoding='utf-8'),
     'advanced_concepts': (doc_dir / '04_advanced_concepts.md').read_text(encoding='utf-8'),
     'log_system': (doc_dir / '05_log_system.md').read_text(encoding='utf-8'),
-    'notebook_example': (doc_dir / '07_notebook_tiny_example_0.0.x.md').read_text(encoding='utf-8'),
+    'notebook_example': (doc_dir / '06_notebook_example_0.0.x.md').read_text(encoding='utf-8'),
+    # 'notebook_example': (doc_dir / '07_notebook_tiny_example_0.0.x.md').read_text(encoding='utf-8'),
     'appendix_symbols': (doc_dir / '08_appendix_symbols.md').read_text(encoding='utf-8'),
 }
 
