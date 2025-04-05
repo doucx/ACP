@@ -2,6 +2,7 @@
 
 本文档提供 NPL (Natural Pseudo Language) 中 `Runtime`、`Notebook` 和 `Fhrsk` 核心行为的精选示例，旨在帮助读者快速理解其基本交互机制。示例中的标记（如 `[...]`）和日志已被优化以提高清晰度。
 
+注意：该示例的部分内容已过时（来自 NPL 0.0.x），但其思想依然对Runtime的正确实现依然有所帮助。
 ## 1. Notebook 核心交互
 
 **示例 1.1: 基本输入输出与 `stdout`**
