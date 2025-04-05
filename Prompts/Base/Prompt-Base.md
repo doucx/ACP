@@ -1,19 +1,25 @@
 <NPL-DOCUMENTATION>
-
+<variable name="introduction_and_core_protocol" role="content" description="Content for the section introducing the NPL protocol and its core principles.">
 {{ introduction_and_core_protocol }}
-
+</variable>
+<variable name="interactive_environment" role="content" description="Content for the section describing the interactive environment for NPL.">
 {{ interactive_environment }}
-
+</variable>
+<variable name="reference_library" role="content" description="Content for the section providing a reference library for NPL.">
 {{ reference_library }}
-
+</variable>
+<variable name="advanced_concepts" role="content" description="Content for the section explaining advanced concepts in NPL.">
 {{ advanced_concepts }}
-
+</variable>
+<variable name="log_system" role="content" description="Content for the section detailing the NPL log system.">
 {{ log_system }}
-
+</variable>
+<variable name="appendix_symbols" role="content" description="Content for the appendix section explaining special symbols used in NPL.">
 {{ appendix_symbols }}
-
+</variable>
+<variable name="notebook_example" role="content" description="Content for the section containing NPL Notebook examples.">
 {{ notebook_example }}
-
+</variable>
 </NPL-DOCUMENTATION>
 
 <CognitorInfo>
