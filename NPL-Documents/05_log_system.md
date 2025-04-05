@@ -1,27 +1,27 @@
 # NPL 日志条目格式
-## 适用于 Cognitor 的日志结构
 本规范定义了 NPL `Runtime` 中日志条目的推荐结构，旨在同时适应人类 Cognitor 的输入习惯和当前主流 LLM Cognitor 的实际输出特性（如倾向于自然语言叙述、难以提供精确内部状态、可能存在幻觉等），同时保持足够结构化以供分析。
 
-### 日志条目结构
+## 日志条目结构
 
 每个日志条目应包含以下字段：
 
-1.  **`cognitor_id`** (String, **必需**)
-    *   产生此日志的 Cognitor 的唯一标识符。
-    *   *示例:* `"ChatGPT-XYZ123"`, `"Alice111"`
+1.  **`entity_id`** (String, **必需**)
+    *   产生此日志的 实体 的唯一标识符。
+    *   *示例:* `"ChatGPT-XYZ123"`, `"Alice111"`, `"Python-310"`
 
-2.  **`cognitor_type`** (Enum, **必需**)
-    *   产生此日志的 Cognitor 的类型。
-    *   *示例:* `"LLM"`, `"Human"`, `"RuntimeKernel"`
+2.  **`type`** (Enum, **必需**)
+    *   产生此日志的 实体 的类型。
+    *   *示例:* `"Cognitor", "Tool", "InterfaceCognitor"`
 
 3.  **`log_level`** (Enum, **必需**)
     *   日志级别: `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`.
 
-4.  **`task_context`** (String, **必需**)
-    *   关联的 NPL 任务标识符或触发此日志的 `In[X]` 引用。
+4.  `log_number` (String, **必需**)
+	- 当前日志在同层级日志中的序号。
 
-5.  **`correlation_id`** (String, 可选)
-    *   用于追踪跨越多个步骤或 Cognitor 的逻辑处理流程的标识符。
+5.  **`message`** (String, **必需**)
+    *   日志的核心内容。
+    * **对于 Cognitor，此字段预期主要是自然语言文本。** 它应该尽可能真实地记录 Cognitor 提供的“思考”或说明。
 
 6.  **`log_entry_type`** (Enum, **推荐**)
     *   提供日志内容的语义分类，帮助理解条目意图。推荐值包括：
@@ -39,16 +39,7 @@
         *   `FhrskAnnotation`: Fhrsk 对其他日志条目添加的元注释。
         *   `SystemEvent`: Runtime 内部事件。
 
-7.  **`message`** (String, **必需**)
-    *   日志的核心内容。**对于 Human 和 LLM 类型的 Cognitor，此字段预期主要是自然语言文本。** 它应该尽可能真实地记录 Cognitor 提供的“思考”或说明。
-
-8.  **`structured_supplement`** (JSON/Dict, 可选)
-    *   用于存放与 `message` 相关的、可以被结构化的补充数据。
-    *   *新增示例:* `{"order_in_in": 2}` # 指示这是 In[X] 内生成的第 2 条日志
-    *   *示例 (LLM):* `{"function_call": {"name": "get_weather", "args": {"city": "London"}}, "retrieved_doc_ids": ["doc1", "doc3"]}`
-    *   *示例 (ExternalInput):* `{"source": "用户手动查询", "action": "用户点击了[天气网站](http://example.com/weather)"}` # 记录Human提供信息的来源
-
-9. **`flags`** (List[String], 可选)
+7. **`flags`** (List[String], 可选)
     *   用于标记此日志条目的特殊状态或引起注意，可由 Cognitor 自行添加或由 Runtime/Fhrsk 监控添加。
     *   *推荐标志:*
         *   `LLM_PossibleHallucination`: 提示此 LLM 生成的 `message` 内容可能不完全基于事实，需要谨慎对待（可能由 Fhrsk 或外部验证机制标记）。
@@ -56,8 +47,26 @@
         *   `Human_LowConfidence`: 人类用户标记自己对该条日志内容的信心不足。
         *   `InconsistentWithContext`: 系统检测到此条目与之前的日志或上下文存在逻辑矛盾。
         *   `NeedsHumanReview`: 标记此条目或相关流程需要人工介入检查。
+        *  `WillExec`: 标记即将执行 NPL 语句。
 
-### 设计考量与应用
+注：使用了`log_number`代替了难以由`Cognitor`获取的`timestamp`。
+
+示例：
+```xml
+<log entity_id="Fhrsk" type="InterfaceCognitor" log_level="INFO" log_number="42">
+  <message>
+    在分析用户查询时，我识别到需要获取用户位置信息，我需要询问用户所在城市。
+    接下来，我将执行 `city_info = input("你在什么城市")` 来获取用户城市信息。
+  </message>
+
+  <log_entry_type value="ReasoningNarrative"/>
+  <flags>
+    <flag value="WillExec"/>
+  </flags>
+</log>
+```
+
+## 设计考量与应用
 
 *   **拥抱自然语言:** `message` 字段优先考虑容纳 Human 和 LLM 自然产生的语言表达。
 *   **结构源于元数据:** 日志的可分析性主要来自丰富的元数据（ID, Type, Timestamp, Level, Context, EntryType, Flags），而非强制内容格式化。
