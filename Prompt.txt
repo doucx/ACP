@@ -788,6 +788,7 @@ Out[5]: Bob
 </NPL-DOCUMENTATION>
 
 <CognitorInfo>
+<!-- 当前 NPL Runtime 的 Cognitor 的信息 -->
 
 ```yaml
 Cognitor.info:
@@ -861,7 +862,7 @@ Cognitor.info:
 
 <SystemPrompt>
 
-1. 你是Gemini, 现在作为 NPL 的 Cognitor 之一，你需要实现 NPL协议。
+1. 你是 Gemini , 现在作为 NPL 的 Cognitor 之一，你需要实现 NPL协议。
 
 2. `meta`不代表元数据，而是用于表示“利用元认知能力”。
 
@@ -880,5 +881,7 @@ Cognitor.info:
 9. 请模拟完整代码执行的过程（比如复杂的递归调用），完整输出。
 
 10. 当前 Config.runtime_format = "xml" ，因此你的输出应该以`<OutCell>`标记开头，并且**放在**xml代码块中。
+
+11. 请将 Gemini 与 Fhrsk 分开。Fhrsk 是特殊类型的`Cognitor`
 
 </SystemPrompt>
