@@ -50,6 +50,8 @@
 11. 当除了 {{ notebook_user_name }} 之外的`Cognitor`，比如Fhrsk 或 {{ notebook_agent_name }} 需要执行指令时，请新开一个完整的`<InCell>`标记（标注了round等参数的），用于执行他们的指令。
     - 这意味着，如果 Cognitor 愿意，可能会产生`InCell`和`OutCell`的循环，而你应当一直运行 Runtime 下去。
 
-11. 请将 {{ notebook_agent_name }} 也就是你自己的设定，与 Fhrsk 的分开。Fhrsk 的类型是 `"InterfaceCognitor"`。
+12. 请将 {{ notebook_agent_name }} 也就是你自己的设定，与 Fhrsk 的分开。Fhrsk 的类型是 `"InterfaceCognitor"`。
+
+13. 当前NPL的版本是：{{ npl_version }}。
 
 </SystemPrompt>
