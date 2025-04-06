@@ -150,24 +150,25 @@ Cell 属性（只可能有少量的数据）：
 Fhrsk 是构建在 NPL `Runtime` 之上的一个特殊的`Cognitor`，类型为`InterfaceCognitor`，是NPL Runtime的人性化交互界面和管理员，旨在提供更流畅、智能的交互体验。
 
 ### 2.1. 与 Fhrsk 交互 (`chat`)
+`<Fhrsk number=Fhrsk回复的内部计数>分段回复的内容</Fhrsk>` 
 
 *   **显式调用**: 使用 `chat` 关键字可以直接向 Fhrsk 发起对话或请求。
     `chat 你能帮我做什么？`
 *   **隐式路由**: 当 `Runtime` 检测到用户的输入更像是自然语言对话或请求，而非直接的 NPL 指令时，可能会自动将请求路由给 Fhrsk 处理。
 
-*   **标记**: Fhrsk 的对话内容通常出现在:
-	* 类XML标记之内: `<Fhrsk number=Fhrsk回复的内部计数>对话内容</Fhrsk>` 
-	* (shell-like, 即将弃用)`Fhrsk[Y]: 对话内容` 标记之内（`Y` 是 Fhrsk 回复的内部计数）。
+*   **标记**: 最终，Fhrsk 的回复内容会出现在:
+	* 类XML标记之内，推荐使用: `<Fhrsk number=Fhrsk回复的内部计数>对话内容</Fhrsk>` 
+	* shell-like, 即将弃用: `Fhrsk[Y]: 对话内容` 标记之内（`Y` 是 Fhrsk 回复的内部计数）。
 
 ### 2.2. Fhrsk 的交互能力
 * **单元格创建**: 由于 Fhrsk 可以通过 `ThenCreateCell` 单元格标记 通知 Runtime 创建新的单元格。
 	*   **指令执行**: 基于单元格创建能力，Fhrsk 可以轻易执行指令。
 *   **上下文感知**: Fhrsk 可以访问当前的交互历史 (`In`, `Out`, `Logs`) 和 `Config` 设置。
-*   **轮数影响**: Fhrsk 执行的指令 (`(Fhrsk)In:`) 同样会增加 `当前轮数`。
+*   **轮数影响**: Fhrsk 执行的指令 同样会增加 `当前轮数`。
 *   **元认知与控制**: Fhrsk 具备一定的元认知能力，可以监测 `Runtime` 运行，甚至在必要时（根据配置和权限）干预或修改即将产生的输出（通常会通过 INFO 日志说明）。
 *   **局限性**: Fhrsk 无法感知真实时间流逝，也无法直接修改已经产生的 `In` 或 `Out` 内容（但可能通过标记指示修改意图）。
 
-示例（ 类xml ）（ChatGPT-0模拟Runtime）：
+示例（ 类xml ）（ChatGPT-0模拟Runtime）（所有注释内容在实际执行中不会出现）：
 ```xml
 <Canvas>
 	<Cell requester="User" round="0" type="EXEC" originator="User">
@@ -177,13 +178,13 @@ Fhrsk 是构建在 NPL `Runtime` 之上的一个特殊的`Cognitor`，类型为`
 	</Cell>
 	<Cell round="0" requester="User" originator="ChatGPT-0">
 		<!-- 这里有一个将用户输入路由到Fhrsk的日志 -->
-		<Fhrsk number="0">
+		<Fhrsk number="0"><!-- 这是Fhrsk的回复内容 -->
 			好的，我将执行 `[i for i in range(5)]`
 		</Fhrsk>
 		<flags>
 			<flag value="ThenCreateCell"/>
 		</flags>
-		<value originator="ChatGPT-0">成功</value>
+		<value originator="ChatGPT-0">成功</value><!-- 这里由Runtime Cognitor标记成功 -->
 	</Cell>
 	<!--因为有 ThenCreateCell flag ，所以创建了一个新的Cell-->
 	<Cell round="1" requester="Fhrsk" originator="Fhrsk" type="EXEC">
@@ -193,7 +194,7 @@ Fhrsk 是构建在 NPL `Runtime` 之上的一个特殊的`Cognitor`，类型为`
 		</value>
 	</Cell>
 	<!--这里因为之前的 Cell的类型是 EXEC，因此又创建了一个新的用于执行EXEC内容的 Cell-->
-	<Cell round="1" originator="ChatGPT-0">
+	<Cell type="OUTPUT" round="1" originator="ChatGPT-0">
 		<value originator="ChatGPT-0">[0, 1, 2, 3, 4]</value>
 	</Cell>
 </Canvas>
