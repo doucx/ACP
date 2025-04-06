@@ -1,7 +1,7 @@
-# NPL (Natural Pseudo Language)
+# NPL (Notional Protocol Language)
 ## 简介
 
-**NPL (Natural Pseudo Language)** 是一种认知协作协议，旨在实现跨载体的智能交互。它定义了一套规范，使得不同的认知实体（例如 AI、人类或混合系统）能够通过 NPL 进行交流和协作，共同完成复杂的任务。
+**NPL (Notional Protocol Language)** 是一种认知协作协议，旨在实现跨载体的智能交互。它定义了一套规范，使得不同的认知实体（例如 AI、人类或混合系统）能够通过 NPL 进行交流和协作，共同完成复杂的任务。
 
 **NPL 是一种协议，一种通用语，而非编程语言**
 

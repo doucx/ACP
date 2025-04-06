@@ -1,6 +1,6 @@
 # NPL 关键行为示例 (精简版) 0.0.x（即将废弃）
 
-本文档提供 NPL (Natural Pseudo Language) 中 `Runtime`、`Canvas` 和 `Fhrsk` 核心行为的精选示例，旨在帮助读者快速理解其基本交互机制。示例中的标记（如 `[...]`）和日志已被优化以提高清晰度。
+本文档提供 NPL (Notional Protocol Language) 中 `Runtime`、`Canvas` 和 `Fhrsk` 核心行为的精选示例，旨在帮助读者快速理解其基本交互机制。示例中的标记（如 `[...]`）和日志已被优化以提高清晰度。
 
 **注意:** 
 2. 该示例已过时（全部为`shell-like`风格，且来自 NPL 0.0.x），但其思想对Runtime的正确实现依然有所帮助。
