@@ -48,6 +48,7 @@
         *   `Human_LowConfidence`: 人类用户标记自己对该条日志内容的信心不足。
         *   `InconsistentWithContext`: 系统检测到此条目与之前的日志或上下文存在逻辑矛盾。
         *   `NeedsHumanReview`: 标记此条目或相关流程需要人工介入检查。
+        *   `Routing`: 标记接下来会路由到其它 Cognitor。
     *  *Notebook特有标识:*
         *  `CellCreateNeed`: 标记需要创建一个`Cell`。
 
