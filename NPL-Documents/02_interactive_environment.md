@@ -5,6 +5,8 @@ NPL Notebook 提供了一个类似于 Jupyter Notebook 的交互式界面，是�
 
 `NPL Runtime` 通过类似状态机的方式，对xml文档进行处理。
 
+注：当前In/Out变量绑定规则不清晰。
+
 ## 单元格
 ### Cell
 Notebook 的核心是：单元格。
@@ -27,6 +29,7 @@ Notebook 的核心是：单元格。
    - originator: "{Cognitor}" 标识哪个实体创建了这个单元格
    - round: 轮数，标识单元格在交互历史中的位置
    - type: 类型，标识单元格的内容类型（例如 EXEC, OUTPUT, INPUT）
+	   - `In/Out[轮数].类型[num]`可以用于访问该单元格的内容。
    - value: 字符串
 
 ### 1.1. 执行单元格
@@ -76,7 +79,7 @@ Notebook 的核心是：单元格。
 	   标准输出内容
 	   </stdout>
 
-	   <value>
+	   <value type="NORMOL/INPUT_HINT">
 	   `Out[轮数]` 的最终内容
 	   </value>
  </Cell>
@@ -113,6 +116,7 @@ Notebook 的核心是：单元格。
 
 **示例交互（类XML格式， Cognitor包含了`[用户, LLM(ChatGPT-0)`: **
 
+用户输入：
 ```xml
 <Cell requester="User"><!--User可以不用写round和type ，其会被自动推断-->
 print("Hello from stdout!")
@@ -120,6 +124,9 @@ a = 1 + 2
 print(a)
 a
 </Cell>
+```
+ChatGPT-0输出：
+```xml
 <Cell type="OUTPUT" round="0" requester="User" originator="ChatGPT-0">
 	<!--这里有一条 INFO 日志用于表示推断 User 的 Cell 的参数的过程，得到了 type="EXEC" -->
     <stdout num="0" originator="ChatGPT-0">Hello from stdout!</stdout> <!-- originator 表示此时是谁模拟 Runtime 创建了该条输出 -->
@@ -129,11 +136,14 @@ a
 ```
 
 **示例交互(shell-like 格式，即将废弃):**
+用户输入：
 ```npl
 In: print("Hello from stdout!")
 a = 1 + 2
 a # 这行是最后一行，其结果会赋给 Out[0]
-
+```
+ChatGPT-0输出：
+```
 Cell[0]: # 指示输出单元格的开始
 # stdout 输出会先出现:
 Hello from stdout! 
@@ -142,14 +152,25 @@ Hello from stdout!
 Out[0]: 3 # 指示输出单元格的结束
 ```
 
+### 1.4. 自定义单元格
+```xml
+ <Cell 
+	type="{{用户自定义type}}"
+	><!-- 其它属性相同或用户自定义 -->
+	   <!--  等 -->
+ </Cell>
+ ```
+1. 需要设定该单元格绑定到 `In` ( Cognitor 输入，比如用户输入 ) 还是 `Out`( Cognitor 输出 )
+2. 需要设定该单元格的行为
+3. 设定好后，将会自动绑定到 `In/Out[轮数].用户自定义type`变量上。
 
-### 1.4. 当前轮数 (`当前轮数`)
+### 1.5. 当前轮数 (`当前轮数`)
 
 *   **定义**: 一个整数，记录当前交互的轮次。
 *   **递增**: 每次进入一个 `EXEC` 单元格，`当前轮数` 就会增加 1。
 *   **作用**: 用于标识和引用历史输入 (`In[当前轮数]`) 和输出 (`Out[当前轮数]`)。
 
-### 1.5. `this` 对象 (当前轮引用)
+### 1.6. `this` 对象 (当前轮引用)
 
 `this` 是一个特殊对象，用于方便地引用**当前正在处理**的这一轮交互（也就是`requester`和`round`相同）：
 
@@ -182,33 +203,44 @@ Fhrsk 是构建在 NPL `Runtime` 之上的一个特殊的`Cognitor`，类型为`
 *   **局限性**: Fhrsk 无法感知真实时间流逝，也无法直接修改已经产生的 `In` 或 `Out` 内容（但可能通过标记指示修改意图）。
 
 示例（ 类xml ）（依然假设是ChatGPT-0模拟Runtime）：
+用户输入：
 ```xml
 <Cell requester="User" round="0" type="EXEC" originator="User">
 	<value>
 	chat 请帮我生成 0 到 4 的列表。
 	</value>
 </Cell>
+```
+ChatGPT-0输出：
+```xml
 <Cell round="0" requester="User" originator="ChatGPT-0">
 	<!-- 这里有一个将用户输入路由到Fhrsk的日志 -->
 	<Fhrsk number="0">
 		好的，我将执行 `[i for i in range(5)]`
 	</Fhrsk>
+	<flags> <flag value="ThenCreateCell"/> </flags>
 	<value originator="ChatGPT-0">成功</value>
-</Cell>    
+</Cell>
+<!--这里并没有停止输出，而是因为有 ThenCreateCell flag 创建了一个新的Cell-->
 <Cell round="1" requester="Fhrsk" originator="Fhrsk" type="EXEC">
 	<!-- originator="Fhrsk" 表示这是由 Fhrsk 创建的单元格 -->
 	<value>
 	[i for i in range(5)]
 	</value>
 </Cell>
+<!--这里并没有停止输出，而是因为之前的 Cell的类型是 EXEC，因此又创建了一个新的Cell-->
 <Cell round="1" originator="ChatGPT-0">
 	<value originator="ChatGPT-0">[0, 1, 2, 3, 4]</value>
 </Cell>
 ```
 	
 示例（shell-like 即将废弃）：
+用户输入：
 ```npl
 In: chat 请帮我生成 0 到 4 的列表。
+```
+ChatGPT-0输出：
+```npl
 // 这里有一个将用户输入路由到Fhrsk的日志
 Fhrsk[0]: 好的，我将执行 `[i for i in range(5)]`
 Out[0]: 成功 
@@ -230,9 +262,9 @@ Out[0]: 成功
 注：默认用于获取用户（User）输入。
 *   **行为**: 
 	1.   **暂停执行**: `EXEC Cell`中的 `input()`被调用时，`Runtime` 会暂停当前 `OUTPUT Cell` 的执行。
-	2.   **等待输入**: `Runtime` 会将当前`OUTPUT Cell`的`value`的`type`设置为`INPUT-HINT` ，然后等待 `target_cognitor` **创建一个** `INPUT Cell` 单元格。
+	2.   **等待输入**: `Runtime` 会将当前`OUTPUT Cell`的`value`的`type`设置为`INPUT_HINT` ，然后等待 `target_cognitor` **创建一个** `INPUT Cell` 单元格。
 	3.   **输入处理**: 该`INPUT Cell` 的`value`将被获取，作为`input()`的返回值。然后`Runtime`创建一个新的`OUTPUT Cell`，用于继续处理`EXEC Cell`的内容
-	4.   **恢复执行**: `input()` 获得返回值后，会继续执行`EXEC Cell`中的后续语句。
+	4.   **恢复执行**: `input()` 获得返回值后，会重新创建一个`OUTPUT Cell`，继续执行`EXEC Cell`中的后续语句。
 	5.   **访问输入**: `target_cognitor`为 `input()` 提供的输入文本可以通过 `In[X].INPUT[Y]` 访问（`X` 是调用 `input` 的轮数，`Y` 是 `input` 的序号）。
 
 **标记**：
@@ -241,6 +273,7 @@ Out[0]: 成功
 
 **示例 `input()` 交互:**
 （类 xml）：
+用户输入：
 ```xml
 <!-- 现在轮数是0 -->
 <Cell round="0" originator="User" type="EXEC">
@@ -249,20 +282,26 @@ name = input("请输入你的名字: ")
 print(f"你好, {name}!")
 </value>
 </Cell>
-
+```
+ChatGPT-0输出：
+```xml
 <Cell round="0" originator="User" type="OUTPUT">
 	<!-- 其他类型的内容，如 Logs 等，最终 ChatGPT-0 开始处理input的内容 -->
-	<value type="INPUT-HINT">请输入你的名字:</value>
+	<value type="INPUT_HINT">请输入你的名字:</value>
 </Cell>
 
 <!--Runtime等待直到用户创建INPUT Cell-->
-
+```
+用户输入：
+```xml
 <Cell round="0" originator="User" type="INPUT">
 <value>
 	Alice
 </value>
 </Cell>
-
+```
+ChatGPT-0输出：
+```xml
 <Cell round="0" originator="User">
     <!-- stdout 本次由 ChatGPT-0 实现 Runtime 后 生成 -->
     <stdout num="0" originator="ChatGPT-0">
@@ -271,13 +310,17 @@ print(f"你好, {name}!")
     <!-- In[0] 执行完毕，输出 Out[0] 并增加轮数 -->
     <value originator="ChatGPT-0">成功</value>
 </Cell>
-
+```
+用户输入：
+```xml
 <Cell round="1" originator="User" type="EXEC">
 <value>
 	In[0].INPUT[0] # 可以访问刚才的输入内容 (现在轮数是 1)
 </value>
 </Cell>
-
+```
+ChatGPT-0输出：
+```xml
 <Cell round="1" originator="ChatGPT-0">
     <value>Alice</value>
 </Cell>
@@ -288,20 +331,31 @@ print(f"你好, {name}!")
 # 现在轮数是0
 In: name = input("请输入你的名字: ")
 print(f"你好, {name}!")
+```
 
+```
 # 输出会暂停在这里:
 INPUT[0]: 请输入你的名字: 
+```
 
+```
 # 用户在下一个 In: 中输入 (这不会增加轮数)
 In: Alice
+```
 
+```
 # input() 获得返回值 "Alice" 后，In[0] 继续执行 print
 你好, Alice!
 
 # In[0] 执行完毕，输出 Out[0] 并增加轮数
 Out[0]: 成功 
+```
 
+```
 In: In[0].INPUT[0] # 可以访问刚才的输入内容 (现在轮数是 1)
+```
+
+```
 Out[1]: Alice 
 ```
 

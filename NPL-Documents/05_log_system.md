@@ -47,7 +47,8 @@
         *   `Human_LowConfidence`: 人类用户标记自己对该条日志内容的信心不足。
         *   `InconsistentWithContext`: 系统检测到此条目与之前的日志或上下文存在逻辑矛盾。
         *   `NeedsHumanReview`: 标记此条目或相关流程需要人工介入检查。
-        *  `WillExec`: 标记即将执行 NPL 语句。
+    *  *Notebook特有标识:*
+        *  `WillCell`: 标记即将创建一个`Cell`。
 
 注：使用了`log_number`代替了难以由`Cognitor`获取的`timestamp`。
 
