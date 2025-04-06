@@ -2,6 +2,16 @@ from jinja2 import Environment, FileSystemLoader
 import yaml
 from pathlib import Path
 
+from datetime import datetime
+
+# 获取当前的日期和时间
+now = datetime.now()
+
+# 格式化日期和时间，精确到分钟
+formatted_now = now.strftime("%Y-%m-%d %H:%M")
+
+print(formatted_now)
+
 # 加载配置
 with open('config.yaml') as f:
     config = yaml.safe_load(f)
@@ -35,6 +45,7 @@ template = env.get_template('Prompts/Base/Prompt-Base.md')
 
 # 合并数据
 context = {
+    "current_date": formatted_now,
     **config_snippets,
     **md_snippets,  # 解包所有Markdown片段
     **yaml_snippets

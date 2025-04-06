@@ -64,10 +64,10 @@
     *   `Config.notion.max_nesting_depth`: `Notion.to_yaml()` 默认的最大递归显示层数。默认为 `1`。
     *   `Config.output_speed`: 估算的输出速度 (token/s)。
     *   `Config.输出开头强制显示当前轮数`: 是否在每次输出前强制显示 `当前轮数`。默认为 `False`。
-    *   `Config.runtime_format`: 用于配置 `NPL Runtime` 的用户界面及交互环境的格式风格。它决定了 `Runtime` 如何以纯文本形式呈现输入、输出、日志信息和其他相关内容。默认为"shell-like"。可选值：
-	    *  `"shell-like"`: 模拟传统的命令行界面风格，使用简洁的文本标记和缩进。有大量示例。
-	    *  `"xml"`: 使用 XML 格式进行结构化表示，提供更清晰的层次关系和元数据。有少量示例，未来方向。
-	    * 其他可扩展的格式，例如 `"json"`, `"markdown"` 等。
+    *   `Config.runtime_format`: 用于配置 `NPL Runtime` 的用户界面及交互环境的格式风格。它决定了 `Runtime` 如何以纯文本形式呈现输入、输出、日志信息和其他相关内容。默认为"xml"。可选值：
+	    *  `"xml"`: 使用 类似 XML 的 格式进行结构化表示，提供更清晰的层次关系和元数据。有少量示例，未来方向。
+	    * 其他可扩展的格式，例如 `"json"`, `"yaml"` 等。
+	    *  `"shell-like"`: 模拟传统的命令行界面风格，使用简洁的文本标记和缩进。有大量示例。即将废弃。
 *   **方法**:
     *   `Config.to_yaml()`: 以 YAML 格式输出当前所有配置项。
 
