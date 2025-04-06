@@ -5,13 +5,14 @@
 
 每个日志条目应包含以下字段：
 
-1.  **`entity_id`** (String, **必需**)
+1.  **`originator`** (String, **必需**)
     *   产生此日志的 实体 的唯一标识符。
     *   *示例:* `"ChatGPT-XYZ123"`, `"Alice111"`, `"Python-310"`
 
-2.  **`type`** (Enum, **必需**)
+2.  **`type`** (Enum, **可选**)
     *   产生此日志的 实体 的类型。
     *   *示例:* `"Cognitor", "Tool", "InterfaceCognitor"`
+	    * 默认值： "`Cognitor`"
 
 3.  **`log_level`** (Enum, **必需**)
     *   日志级别: `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`.
@@ -48,21 +49,21 @@
         *   `InconsistentWithContext`: 系统检测到此条目与之前的日志或上下文存在逻辑矛盾。
         *   `NeedsHumanReview`: 标记此条目或相关流程需要人工介入检查。
     *  *Notebook特有标识:*
-        *  `WillCell`: 标记即将创建一个`Cell`。
+        *  `CellCreateNeed`: 标记需要创建一个`Cell`。
 
 注：使用了`log_number`代替了难以由`Cognitor`获取的`timestamp`。
 
-示例(类xml)：
+具体日志示例( 类xml，省略大部分内容)：
 ```xml
-<log entity_id="Fhrsk" type="InterfaceCognitor" log_level="INFO" log_number="42">
+<log originator="Fhrsk" type="InterfaceCognitor" log_level="INFO" log_number="42">
   <message>
-    在分析用户查询时，我识别到需要获取用户位置信息，我需要询问用户所在城市。
-    接下来，我将执行 `city_info = input("你在什么城市")` 来获取用户城市信息。
+	在分析用户查询时，我识别到需要获取用户位置信息，我需要询问用户所在城市。
+	接下来，我将执行 `city_info = input("你在什么城市")` 来获取用户城市信息。
   </message>
 
   <log_entry_type value="ReasoningNarrative"/>
   <flags>
-    <flag value="WillExec"/>
+	<flag value="CellCreateNeed"/>
   </flags>
 </log>
 ```
@@ -70,7 +71,7 @@
 示例(shell-like，即将废弃)：
 ```
 INFO[42]: 
-在分析用户查询时，我识别到需要获取用户位置信息，我需要询问用户所在城市。
+	在分析用户查询时，我识别到需要获取用户位置信息，我需要询问用户所在城市。
     接下来，我将执行 `city_info = input("你在什么城市")` 来获取用户城市信息。
 ```
 
