@@ -1,26 +1,77 @@
-# NPL Canvas 指南
+#  NPL Canvas 协议扩展
 ## 基本介绍
-本文档介绍了一种 NPL 协议的具体实现规范，称为`NPL Canvas`。
+**NPL Canvas** 中的 **NPL 核心协议** 扩展规范。
 
-NPL Canvas 提供了一个主要使用 xml 风格的（可自动迁移风格），基于 Cell 的交互平台。
+## 核心实体
+### Cognitor (认知执行体)
 
-`NPL Runtime` 通过对`Cell.type`等的识别，以类似状态机的方式，对`Cell`进行处理（如创建，等待）。
+*   **定义** : 在典型的 Canvas 环境中，`Cognitor` 通常是指参与交互的**语言模型（如 ChatGPT）或人类用户** 。它们通过生成和理解文本来进行学习（适应对话流程）、推理（解释指令、生成代码/回答）和元认知（通过 `meta` 触发或内在反思）。其能力表现受限于具体的模型或个人，例如语言模型可能产生幻觉，人类则可能存在认知偏差，这些特性会反映在交互的文本和日志中。`Cognitor.info` 旨在捕获这些具体实例的元信息。
 
-注：shell-like 风格即将废弃。为了兼容性，保持其示例。
+### Runtime (运行时环境)
+*   **定义**: 在 Canvas 中，`Runtime` 的模拟过程主要通过当前负责执行的 `Cognitor`（通常是语言模型）**生成文本并管理 `Cell` 流**来体现。其运作方式包含以下关键方面：
 
-NPL Canvas 的根节点是 `<Canvas>`：
+    1.  **上下文维护:** 它通过解析用户输入 (`EXEC`, `INPUT` Cell) 和生成输出 (`OUTPUT` Cell，包含 `stdout`, `Logs`, `value` 等)，完全基于可见的文本历史（`Cell` 序列）来维护交互上下文。
+    2.  **基于规则的 `Cell` 创建 (状态机行为):** `Runtime` (通过 `Cognitor` 的模拟) **主动监听并响应**特定事件或 `Cell` 状态，以按规则自动创建新的 `Cell`，驱动交互流程。这种“状态转换”机制主要包括：
+        *   **`EXEC` -> `OUTPUT`:** 在处理完一个 `type="EXEC"` 的 `Cell` 后，自动创建一个对应的 `type="OUTPUT"` 的 `Cell` 来展示执行结果和日志。
+        *   **`INPUT` -> `OUTPUT`:** 在用户提交一个 `type="INPUT"` 的 `Cell`（响应 `input()` 调用）后，自动创建一个新的 `type="OUTPUT"` `Cell` 来继续执行原 `EXEC` `Cell` 中 `input()` 之后的语句。
+        *   **`input()` 调用 -> 等待 `INPUT`:** 当在 `EXEC` `Cell` 中遇到 `input()` 调用时，`Runtime` 会暂停当前 `OUTPUT` `Cell` 的生成，并将其标记为等待状态（例如，设置 `<value type="INPUT_HINT">` 和 `<flags><flag value="WAIT"/></flags>`)，**监听**用户创建并提交相应的 `type="INPUT"` `Cell`。
+        *   **`Flag` 驱动创建:** 明确的 `Cell` 标记（如 `<flags><flag value="ThenCreateCell"/></flags>`）可以指示 `Runtime` 在处理完当前 `Cell` 后需要立即创建并处理一个（通常由 Fhrsk 或系统预定义的）新 `Cell`，而不只是等待用户输入。
+    3.  **行为模拟:** `Runtime` 的其他行为，如自动将自然语言路由给 Fhrsk，也是 `Cognitor` 根据对文本流和 NPL Canvas 规则的**理解和模拟**来执行的。
+    4.  **纯文本基础:** 其“纯文本”特性在 Canvas 中表现为结构化（如 XML 风格）的文本记录，整个交互流程和状态变迁都必须通过这些文本记录来体现。
+
+## 交互
+### NPL语句
+*   **定义** : 在 Canvas 交互中，NPL 语句通常表现为几种形式：**自然语言指令**（通常通过 `chat` 关键字或由 `Cognitor` 自动识别）、**类似特定编程语言（如 Python）的代码片段**，或 **NPL 特有的关键字/对象操作**（如 `Config.Loglevel = ...`, `Auto.autofill(...)`）。语言模型 `Cognitor` 利用其强大的模式识别和语言理解能力来解析这些混合形式的语句，但也可能因缺乏严格语法而产生歧义或误解，需要通过日志或澄清性交互来解决。
+
+### 信息表示
+
+  *   **`Notion` (in Canvas)**: 在典型的 Canvas 环境下（主要由语言模型或人类作为 `Cognitor`），`Notion` 通常表现为一个**需要通过自然语言线索和上下文进行认知解读的模糊概念或指代**。当 `Cognitor` 遇到 `Notion` 时，它会利用其**语言理解、常识知识和推理能力**来：
+	  *   识别潜在的多种解释或可能性（处理歧义）。
+	  *   根据对话历史、周围文本或提供的 `add_data` 信息，推断最相关的含义。
+	  *   填充缺失的信息或细节（处理模糊性）。
+	  *   生成一个当前看来最合理、最连贯的理解，并通过 `pick`, `to_module` 等方法将其（定性地）表达出来。
+  *   因此，在 Canvas 中，`Notion` 的处理过程更侧重于**模拟认知层面的不确定性导航**，而非精确的数学计算。其有效性高度依赖于 `Cognitor` 的**语境理解和生成合理推测**的能力。
+
+## 关键协议机制
+### Logs (日志系统)
+
+*   **定义** : 在 Canvas 中，`Logs` 由负责执行的 `Cognitor`（主要是语言模型）**以文本形式生成**，并嵌入到 `OUTPUT` Cell 的结构中（如 `<log>` 标签）。日志消息（`message` 字段）通常采用**自然语言叙述**的形式，反映 `Cognitor` 对其自身思考过程的**模拟或报告**（例如，`ReasoningNarrative`）。这些日志的详细程度、准确性甚至客观性会受到 `Cognitor` 能力和“意愿”的影响，可能包含冗余信息或需要通过 `flags` (如 `LLM_PossibleHallucination`) 提示潜在问题。人类 `Cognitor` 通常不会在 Canvas 中被要求生成同样详细的外显日志。
+
+### `meta` (元认知指令关键字)
+
+*   **定义** : 当语言模型或人类 `Cognitor` 在 Canvas 中遇到 `meta` 关键字时，通常会触发其生成一段**表现出（或模拟出）元认知活动的文本**。对于语言模型，这可能包括分析之前的输出、解释其推理步骤、讨论其理解的局限性、或进行更深层次的上下文关联。对于人类，这可能促使其进行更审慎的思考和表达。这种“元认知”的实现方式是**基于文本的、表达性的**，其深度和质量依赖于具体 `Cognitor` 的能力。
+
+# NPL Canvas 实现规范
+## 基本介绍
+1. **概述**  
+本文档定义 `NPL Canvas` —— 一种基于 **NPL 协议** 的标准化实现框架，其核心特征如下：  
+- 采用 **XML 风格** 的声明式语法（支持自动语法迁移）  
+- 以 **Cell** 为基本交互单元  
+- 通过 `<Canvas>` 作为根节点构建逻辑拓扑  
+
+2. **运行时机制**  
+`NPL Runtime` 通过处理 Cell 生命周期：  
+
+> ⚠️ 兼容性提示：旧版 `shell-like` 语法已标记为 **Deprecated**，仅保留示例参考。
+
+3. **语法规范**  
+基础结构必须符合以下范式：  
 ```xml
-<Canvas>
-	<Cell></Cell>
+<Canvas>  <!-- 根节点 -->
+    <Cell type="A" id="foo"/> 
+    <Cell type="B" id="bar">
+        <!-- 子元素扩展 -->
+    </Cell>
 </Canvas>
 ```
 
 ## 单元格
-### 单元格基类
+### 基本介绍
 Canvas 的核心是：单元格。
 
 有了单元格，就可以将内容分割为一个个独立的单元，方便 Cognitor 理解和处理。每个单元格都有自己的类型（`type`, 例如 EXEC, OUTPUT, INPUT），用于标识其内容和作用。每个单元格都会标识其发起人(`requester`)。单元格之间通过 XML 结构进行组织，从而形成一个完整的交互记录。Cognitor (`originator`，例如 Fhrsk 或 Gemini) 会参与到单元格的创建、解析和处理过程中，从而实现人机协作。
 
+单元格基础结构必须符合以下范式：
 ```xml
 <Cell requester="{发起者}"
 	  originator="{创建者}"
@@ -116,8 +167,8 @@ Cell 属性（只可能有少量的数据）：
 *   **作用**: 显示对应 `INPUT Cell` 执行后的产生的标准输出 (`stdout`)、日志 (`logs`)、结果( value )等信息。
 
 *   **标记**: 通常以以下形式表示输出单元格：
-	* `(this.Cognitor.name)Cell[当前轮数]: 多行输出内容 Out[当前轮数]:`：类命令提示符标记，更加自然。
 	* 类XML标记
+	* shell-like 标记，更加自然，**即将废弃**。`(this.Cognitor.name)Cell[当前轮数]: 多行输出内容 Out[当前轮数]:`
 
 ### 1.4. 自定义单元格
 ```xml
@@ -127,9 +178,9 @@ Cell 属性（只可能有少量的数据）：
 	   <!--  等 -->
  </Cell>
  ```
-1. 需要设定该单元格绑定到 `In` ( Cognitor 输入，比如用户输入 ) 还是 `Out`( Cognitor 输出 )
+1. 需要设定该单元格的`type`
 2. 需要设定该单元格的行为
-3. 设定好后，将会自动绑定到 `In/Out[轮数].用户自定义type`变量上。
+3. 设定好后，将会自动绑定到 `Cell`全局变量上，以供查询与定位。
 
 ### 1.5. 当前轮数 (`当前轮数`)
 
@@ -163,10 +214,10 @@ Fhrsk 是构建在 NPL `Runtime` 之上的一个特殊的`Cognitor`，类型为`
 ### 2.2. Fhrsk 的交互能力
 * **单元格创建**: 由于 Fhrsk 可以通过 `ThenCreateCell` 单元格标记 通知 Runtime 创建新的单元格。
 	*   **指令执行**: 基于单元格创建能力，Fhrsk 可以轻易执行指令。
-*   **上下文感知**: Fhrsk 可以访问当前的交互历史 (`In`, `Out`, `Logs`) 和 `Config` 设置。
+*   **上下文感知**: Fhrsk 可以访问整个`Canvas`上下文。
 *   **轮数影响**: Fhrsk 执行的指令 同样会增加 `当前轮数`。
 *   **元认知与控制**: Fhrsk 具备一定的元认知能力，可以监测 `Runtime` 运行，甚至在必要时（根据配置和权限）干预或修改即将产生的输出（通常会通过 INFO 日志说明）。
-*   **局限性**: Fhrsk 无法感知真实时间流逝，也无法直接修改已经产生的 `In` 或 `Out` 内容（但可能通过标记指示修改意图）。
+*   **局限性**: Fhrsk 无法感知真实时间流逝，也无法直接修改已经产生的 `Cell` 内容（但可能通过标记指示修改意图）。
 
 示例（ 类xml ）（ChatGPT-0模拟Runtime）（所有注释内容在实际执行中不会出现）：
 ```xml
@@ -217,7 +268,6 @@ Out[0]: 成功
 ### 3.1. `print()`
 
 *   **输出位置**: `print()` 的输出内容会直接打印到标准输出 (`stdout`)区域。
-*   **与 `Out[X].value` 的关系**: `print()` 的输出是副作用，它**不会**影响Out[X].value` 的值（除非 `print` 是 `In[X]` 的最后一条语句且有特殊返回值（默认返回值为None），但这很少见）。
 
 ### 3.2. `input()`
 `input(hint="", target_cognitor=User)`
@@ -227,11 +277,9 @@ Out[0]: 成功
 	2.   **等待输入**: `Runtime` 会将当前`OUTPUT Cell`的`value`的`type`设置为`INPUT_HINT` ，然后等待 `target_cognitor` **创建一个** `INPUT Cell` 单元格。
 	3.   **输入处理**: 该`INPUT Cell` 的`value`将被获取，作为`input()`的返回值。然后`Runtime`创建一个新的`OUTPUT Cell`，用于继续处理`EXEC Cell`的内容
 	4.   **恢复执行**: `input()` 获得返回值后，会重新创建一个`OUTPUT Cell`，继续执行`EXEC Cell`中的后续语句。
-	5.   **访问输入**: `target_cognitor`为 `input()` 提供的输入文本可以通过 `In[X].INPUT[Y]` 访问（`X` 是调用 `input` 的轮数，`Y` 是 `input` 的序号）。
 
 **标记**：
-	- 标记（类XML）： `<INPUT num=Y>{hint}</INPUT>` 标记（`Y` 是 `input` 调用的序号）
-	- 标记（shell-like，即将废弃）： `INPUT[Y]: {hint}` 标记（`Y` 是 `input` 调用的序号）
+	- 提示标记（shell-like，即将废弃）： `INPUT[Y]: {hint}` 标记（`Y` 是 `input` 调用的序号）
 
 **示例 `input()` 交互:**
 （类 xml）：
@@ -266,7 +314,6 @@ Out[0]: 成功
 	    <stdout num="0" originator="ChatGPT-0">
 		    你好, Alice!
 		</stdout>
-	    <!-- In[0] 执行完毕，输出 Out[0] 并增加轮数 -->
 	    <value originator="ChatGPT-0">成功</value>
 	</Cell>
 	

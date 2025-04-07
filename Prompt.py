@@ -33,7 +33,7 @@ md_snippets = {
     'canvas_dialogue_compatibility': (doc_dir / '51_canvas_dialogue_compatibility.md').read_text(encoding='utf-8'),
     'canvas_example_0_0_x': (doc_dir / '81_canvas_example_0_0_x.md').read_text(encoding='utf-8'),
     'canvas_xml_example_0_1_x': (doc_dir / '82_canvas_xml_example_0_1_x.md').read_text(encoding='utf-8'),
-    'canvas_tiny_example_0_0_x': (doc_dir / '91_canvas_tiny_example_0_0_x.md').read_text(encoding='utf-8'),
+    'canvas_tiny_example_0_0_x': (doc_dir / '83_canvas_tiny_example_0_0_x.md').read_text(encoding='utf-8'),
     'file_naming_conventions': (doc_dir / '99_file_naming_conventions.md').read_text(encoding='utf-8'),
 }
 
