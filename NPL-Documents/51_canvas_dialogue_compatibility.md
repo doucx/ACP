@@ -36,6 +36,80 @@
     - 推荐但不强制使用`num`属性  
     - 允许简化属性标注（如仅声明`role="User"`）  
 
+
+## 节点
+### `<CodeBlock>`
+```xml
+<CodeBlock language="{编程语言}">
+{Markdown 代码块内容}
+</CodeBlock>
+```
+为了避免在 `<CanvasSection>` 标签内部使用 Markdown 的代码块语法（如 ```）与外部渲染引擎产生冲突，当需要在 `<CanvasSection>` 中展示代码时，应当使用其内置的 `<CodeBlock>` 标签来替代传统的 Markdown 代码块格式。  
+
+### 关键点说明：  
+1. **问题背景**：  
+   - 标准的 Markdown 代码块（如 ```code```）可能在 XML 结构的 `<CanvasSection>` 中引发解析冲突或渲染错误。  
+
+2. **解决方案**：  
+   - 使用 `<CanvasSection>` 原生的 `<CodeBlock>` 标签包裹代码内容，例如：  
+     ```xml
+     <CodeBlock language="python">
+     print(2+2)
+     </CodeBlock>
+     ```  
+
+3. **优势**：  
+   - **避免冲突**：XML 标签与 Markdown 语法分离，确保正确解析。  
+   - **结构化**：可通过属性（如 `language`）指定代码语言，增强可读性。  
+   - **一致性**：保持 `<CanvasSection>` 内部数据格式的纯粹性（纯 XML）。  
+
+### 错误 vs 正确示例：  
+❌ **避免**（混合 Markdown 语法）：  
+```xml
+<CanvasSection>
+	<Cell>
+		<log>
+		  \`\`\`python
+		  print(2+2)
+		  \`\`\`
+		</log>
+	</Cell>
+</CanvasSection>
+```  
+
+✅ **推荐**（使用 `<CodeBlock>`）：  
+
+```xml
+<CanvasSection>
+  <CodeBlock language="python">
+    print(2+2)
+  </CodeBlock>
+</CanvasSection>
+```
+
+*   在日志中使用：
+```xml
+<log originator="Gemini" type="LLM Agent" log_level="INFO" log_number="0">
+    <message>这是包含 Markdown 代码块的日志消息。</message>
+    <CodeBlock language="python">
+def hello_world():
+    print("Hello, world!")
+    </CodeBlock>
+</log>
+```
+
+*   在 Fhrsk 的回复中使用：
+```xml
+<Fhrsk number="0">
+    这是包含 Markdown 代码块的 Fhrsk 回复。
+    <CodeBlock language="javascript">
+console.log("Hello, world!");
+    </CodeBlock>
+</Fhrsk>
+```
+
+通过使用 `<CodeBlock>` 节点，可以清晰地将 Markdown 代码块与其他 XML 元素区分开来，从而提高代码的可读性和可维护性。
+
 ## 合规性示例  
 ### 标准交互流程  
 用户（Alice）输入：
@@ -49,12 +123,14 @@
 	</Cell>
 </CanvasSection>
 ```
-Agent（Gemini）回答（包括"\`\`\`"代码块）：
+Agent（Gemini）回答：
 ```xml
+\`\`\`
 <CanvasSection role="Agent">
 	<Cell type="OUTPUT" round="0" requester="User" originator="Gemini">
 		<stdout num="0" originator="Gemini">Hello from stdout!</stdout>
 	</Cell>
 	<!--基于Canvas Runtime规则，可能创建其它Cell-->
 </CanvasSection>
+\`\`\`
 ```
