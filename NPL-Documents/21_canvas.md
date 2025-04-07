@@ -76,7 +76,7 @@ Canvas 的核心是：单元格。
 <Cell requester="{发起者}"
 	  originator="{创建者}"
       round="{轮数}"
-      cell_num="{在当前round中的位置}"
+      index_of_type="{当前type的Cell在当前round中的序号}"
       type="{类型}" >
       <!--不要求必须使用&lt;等转义-->
 	  <!--不要求必须使用CDATA标记-->
@@ -94,8 +94,8 @@ Canvas 的核心是：单元格。
 Cell 属性（只可能有少量的数据）：
    - requester: 发起者，标识这个单元格因哪个实体的发起而产生
    - originator: 标识哪个实体创建了这个单元格
-   - round: 轮数，从零开始，标识单元格在整个 Canvas 中的位置
-   - cell_num: 从零开始，标识该type的Cell在当前round中的位置
+   - round: 轮数，从零开始，递增，标识单元格在整个 Canvas 中的位置，通过`Cell[{round}]`定位。
+   - index_of_type: 标识当前type的Cell在当前round中的序号，可选，推荐，从零开始。使用`Cell[{round}].{type}[index_of_type]`定位当前`Cell`。
    - type: 类型，标识单元格的内容类型（例如 EXEC, OUTPUT, INPUT）
 独立（会有大量的数据）：
    - log: 存放按照日志系统规范产生的日志，放在 Cell 下。
@@ -103,8 +103,7 @@ Cell 属性（只可能有少量的数据）：
 	   - `ThenCreateCell` 通知 Runtime 需要创建一个新的单元格而不是暂停。
    - value: 字符串。需要写在结尾。
 
-访问方式:
-   - `Cell[{round}].{type}[{cell_num}]`可以用于访问该单元格的内容。
+注意：为了便于访问与处理，每个新单元格下子节点的内部计数（如日志的`log_number`，Fhrsk的`number`，stdout的`num`等）都会重新从零开始，用于标记这是当前单元格中第几个该内容。
 
 ### 1.1. 执行单元格
 ```xml
@@ -192,7 +191,7 @@ Cell 属性（只可能有少量的数据）：
 
 `this` 是一个特殊对象，用于方便地引用**当前正在处理**的这一轮交互（也就是`requester`和`round`相同）：
 
-*   **`meta this.{type}[{cell_num}]`**: 等价于 `meta Cell[{round}].{type}[{cell_num}]`，用于指向当前轮数中某个单元格，无论是否产生。
+*   **`meta this.{type}[{index_of_type}]`**: 等价于 `meta Cell[{round}].{type}[{index_of_type}]`，用于指向当前轮数中某个单元格，无论是否产生。
 * **`this.Cognitor`**: 指向当前的执行实体，通常为`User`或`Fhrsk`。
 
 ## 2. Fhrsk 交互界面
@@ -222,12 +221,12 @@ Fhrsk 是构建在 NPL `Runtime` 之上的一个特殊的`Cognitor`，类型为`
 示例（ 类xml ）（ChatGPT-0模拟Runtime）（所有注释内容在实际执行中不会出现）：
 ```xml
 <Canvas>
-	<Cell requester="User" round="0" type="EXEC" originator="User">
+	<Cell requester="User" round="0" type="EXEC" originator="User" index_of_type="0">
 		<value>
 		chat 请帮我生成 0 到 4 的列表。
 		</value>
 	</Cell>
-	<Cell round="0" requester="User" originator="ChatGPT-0">
+	<Cell round="0" requester="User" originator="ChatGPT-0" type="OUTPUT" index_of_type="0">
 		<!-- 这里有一个将用户输入路由到Fhrsk的日志 -->
 		<Fhrsk number="0"><!-- 这是Fhrsk的回复内容 -->
 			好的，我将执行 `[i for i in range(5)]`
@@ -238,19 +237,19 @@ Fhrsk 是构建在 NPL `Runtime` 之上的一个特殊的`Cognitor`，类型为`
 		<value originator="ChatGPT-0">成功</value><!-- 这里由Runtime Cognitor标记成功 -->
 	</Cell>
 	<!--因为有 ThenCreateCell flag ，所以创建了一个新的Cell-->
-	<Cell round="1" requester="Fhrsk" originator="Fhrsk" type="EXEC">
+	<Cell round="1" requester="Fhrsk" originator="Fhrsk" type="EXEC" index_of_type="0">
 		<!-- originator="Fhrsk" 表示这是由 Fhrsk 创建的单元格 -->
 		<value>
 		[i for i in range(5)]
 		</value>
 	</Cell>
 	<!--这里因为之前的 Cell的类型是 EXEC，因此又创建了一个新的用于执行EXEC内容的 Cell-->
-	<Cell type="OUTPUT" round="1" originator="ChatGPT-0">
+	<Cell type="OUTPUT" round="1" originator="ChatGPT-0" index_of_type="0">
 		<value originator="ChatGPT-0">[0, 1, 2, 3, 4]</value>
 	</Cell>
 </Canvas>
 ```
-	
+
 示例（shell-like, 即将废弃）：
 ```npl
 In: chat 请帮我生成 0 到 4 的列表。
@@ -286,14 +285,14 @@ Out[0]: 成功
 用户输入：
 ```xml
 <Canvas>
-	<Cell round="0" originator="User" type="EXEC">
+	<Cell round="0" originator="User" type="EXEC" index_of_type="0">
 	<value>
 	name = input("请输入你的名字: ")
 	print(f"你好, {name}!")
 	</value>
 	</Cell>
 	
-	<Cell round="0" originator="User" type="OUTPUT">
+	<Cell round="0" originator="User" type="OUTPUT" index_of_type="0">
 		<!-- 其他类型的内容，如 Logs 等，最终 ChatGPT-0 开始处理input的内容 -->
 		<value type="INPUT_HINT">请输入你的名字:</value>
 		<flags>
@@ -303,13 +302,13 @@ Out[0]: 成功
 	
 	<!--Runtime 将等待直到用户手动创建INPUT Cell-->
 	
-	<Cell round="0" originator="User" type="INPUT">
+	<Cell round="0" originator="User" type="INPUT" index_of_type="0">
 	<value>
 		Alice
 	</value>
 	</Cell>
 	
-	<Cell round="0" originator="User">
+	<Cell round="0" originator="User" type="OUTPUT" index_of_type="1">
 	    <!-- stdout 本次由 ChatGPT-0 实现 Runtime 后 生成 -->
 	    <stdout num="0" originator="ChatGPT-0">
 		    你好, Alice!
@@ -317,13 +316,13 @@ Out[0]: 成功
 	    <value originator="ChatGPT-0">成功</value>
 	</Cell>
 	
-	<Cell round="1" originator="User" type="EXEC">
+	<Cell round="1" originator="User" type="EXEC" index_of_type="0">
 	<value>
 		Cell[0].INPUT[0] # 访问刚才的输入内容
 	</value>
 	</Cell>
 	
-	<Cell round="1" originator="ChatGPT-0">
+	<Cell round="1" originator="ChatGPT-0" type="OUTPUT" index_of_type="0">
 	    <value>Alice</value>
 	</Cell>
 </Canvas>
