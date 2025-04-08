@@ -65,7 +65,7 @@
 </Canvas>
 ```
 
-## 单元格
+## 1. 单元格
 ### 基本介绍
 Canvas 的核心是：单元格。
 
@@ -200,9 +200,9 @@ Cell 属性（只可能有少量的数据）：
 Fhrsk 是构建在 ACP `Runtime` 之上的一个特殊的`Cognitor`，类型为`InterfaceCognitor`，是ACP Runtime的人性化交互界面和管理员，旨在提供更流畅、智能的交互体验。
 
 ### 2.1. 与 Fhrsk 交互 (`chat`)
-`<Fhrsk number=Fhrsk回复的内部计数>分段回复的内容</Fhrsk>` 
+在`OUTPUT Cell`中，通过`<Fhrsk number=Fhrsk回复的内部计数>分段回复的内容</Fhrsk>` 子节点来回应用户。
 
-*   **显式调用**: 使用 `chat` 关键字可以直接向 Fhrsk 发起对话或请求。
+*   **显式调用**: 使用 `chat` 关键字可以直接向 Fhrsk 发起对话或请求。此时不需要`Runtime`记录路由的Log。
     `chat 你能帮我做什么？`
 *   **隐式路由**: 当 `Runtime` 检测到用户的输入更像是自然语言对话或请求，而非直接的 ACP 指令时，可能会自动将请求路由给 Fhrsk 处理。
 
@@ -227,7 +227,8 @@ Fhrsk 是构建在 ACP `Runtime` 之上的一个特殊的`Cognitor`，类型为`
 		</value>
 	</Cell>
 	<Cell round="0" requester="User" originator="ChatGPT-0" type="OUTPUT" index_of_type="0">
-		<!-- 这里有一个将用户输入路由到Fhrsk的日志 -->
+		<!-- 使用了chat，所以不需要显示路由到Fhrsk的日志 -->
+		<!-- Fhrsk会作为originator在日志中记录自己的思考过程 -->
 		<Fhrsk number="0"><!-- 这是Fhrsk的回复内容 -->
 			好的，我将执行 `[i for i in range(5)]`
 		</Fhrsk>
@@ -253,7 +254,6 @@ Fhrsk 是构建在 ACP `Runtime` 之上的一个特殊的`Cognitor`，类型为`
 示例（shell-like, 即将废弃）：
 ```acp
 In: chat 请帮我生成 0 到 4 的列表。
-// 这里有一个将用户输入路由到Fhrsk的日志
 Fhrsk[0]: 好的，我将执行 `[i for i in range(5)]`
 Out[0]: 成功 
 (Fhrsk)In: [i for i in range(5)] # 由Runtime自动创建Fhrsk的EXEC单元格
