@@ -14,8 +14,12 @@
 <variable name="appendix_symbols" role="content" description="Content for the appendix section explaining special symbols used in ACP.">
 {{ appendix_symbols }}
 </variable>
-<variable name="canvas" role="content" description="Content for the section discussing canvas in ACP.">
-{{ canvas }}
+<variable name="canvas_protocol" role="content" description="Content for the section discussing canvas protocol in ACP.">
+{{ canvas_protocol }}
+</variable>
+<variable name="canvas_implementation" role="content" description="Content for the section discussing canvas implementation in ACP.">
+{{ canvas_implementation }}
+</variable>
 </variable>
 <variable name="canvas_dialogue_compatibility" role="content" description="Content for the section on canvas dialogue compatibility in ACP.">
 {{ canvas_dialogue_compatibility }}
