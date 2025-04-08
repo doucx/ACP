@@ -24,8 +24,8 @@ config_snippets = {
 # 读取所有Markdown片段
 doc_dir = Path('Documents')
 examples_dir = [
-        # '81_canvas_example_0_0_x.md', 
-        '83_canvas_tiny_example_0_0_x.md', 
+        '81_canvas_example_0_0_x.md', 
+        # '83_canvas_tiny_example_0_0_x.md', 
         '82_canvas_xml_example_0_1_x.md'
         ]
 examples = "\n".join([f"{(doc_dir / e).read_text(encoding='utf-8')}" for e in examples_dir])
