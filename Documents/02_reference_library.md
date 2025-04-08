@@ -106,11 +106,11 @@
     *   作用: 向 `Runtime` 提供关于其表现的反馈（使用评价性词汇），`Runtime` 可利用此反馈“估计”自身能力或调整行为。
 *   **`exec(code: str)`**:
     *   作用: 执行作为字符串传入的 `code` 中的 ACP 语句。
-*   **`to_nature(npl_statement: str) -> str`**:
+*   **`to_nature(acp_statement: str) -> str`**:
     *   作用: (需要 `autodef`) 自动尝试将给定的 ACP 语句转化为自然语言描述。
-*   **`to_npl(natural_language: str) -> str`**:
+*   **`to_acp(natural_language: str) -> str`**:
     *   作用: (需要 `autodef`) 自动尝试将给定的自然语言描述转化为 ACP 语句。
-*   **`force_exec(npl_statement: str)`**:
+*   **`force_exec(acp_statement: str)`**:
 	*   关键字：`force`
     *   作用: 类似`sudo`，提升权限并强制执行指令。
 
