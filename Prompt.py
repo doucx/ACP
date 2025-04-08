@@ -32,13 +32,16 @@ examples = "\n".join([f"{(doc_dir / e).read_text(encoding='utf-8')}" for e in ex
 md_snippets = {
     'introduction_and_core_protocol': (doc_dir / '01_introduction_and_core_protocol.md').read_text(encoding='utf-8'),
     'reference_library': (doc_dir / '02_reference_library.md').read_text(encoding='utf-8'),
-    'log_system': (doc_dir / '03_log_system.md').read_text(encoding='utf-8'),
     'advanced_concepts': (doc_dir / '04_advanced_concepts.md').read_text(encoding='utf-8'),
+
     'appendix_symbols': (doc_dir / '11_appendix_symbols.md').read_text(encoding='utf-8'),
+
     'canvas_protocol': (doc_dir / '20_canvas_protocol.md').read_text(encoding='utf-8'),
     'canvas_implementation': (doc_dir / '21_canvas_implementation.md').read_text(encoding='utf-8'),
+    'log_system': (doc_dir / '22_canvas_log_system.md').read_text(encoding='utf-8'),
     'canvas_dialogue_compatibility': (doc_dir / '51_canvas_dialogue_compatibility.md').read_text(encoding='utf-8'),
     'canvas_examples': examples,
+
     'file_naming_conventions': (doc_dir / '99_file_naming_conventions.md').read_text(encoding='utf-8'),
     'version_changelog': (doc_dir / '98_version_changelog.md').read_text(encoding='utf-8'),
 }

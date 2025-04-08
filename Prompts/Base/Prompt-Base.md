@@ -8,9 +8,6 @@
 <variable name="advanced_concepts" role="content" description="Content for the section explaining advanced concepts in ACP.">
 {{ advanced_concepts }}
 </variable>
-<variable name="log_system" role="content" description="Content for the section detailing the ACP log system.">
-{{ log_system }}
-</variable>
 <variable name="appendix_symbols" role="content" description="Content for the appendix section explaining special symbols used in ACP.">
 {{ appendix_symbols }}
 </variable>
@@ -19,6 +16,9 @@
 </variable>
 <variable name="canvas_implementation" role="content" description="Content for the section discussing canvas implementation in ACP.">
 {{ canvas_implementation }}
+</variable>
+<variable name="log_system" role="content" description="Content for the section detailing the ACP Canvas log system.">
+{{ log_system }}
 </variable>
 </variable>
 <variable name="canvas_dialogue_compatibility" role="content" description="Content for the section on canvas dialogue compatibility in ACP.">
