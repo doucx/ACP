@@ -61,8 +61,9 @@
     *   `Config.语法严格性`: 设置语法解析的严格程度 (`"high"`, `"low"`). 默认为 `"low"`。
     *   `Config.自动输入检测`: 是否自动解析 `<In>...</In>` 结构。默认为 `True`。
     *   `Config.notion.max_nesting_depth`: `Notion.to_yaml()` 默认的最大递归显示层数。默认为 `1`。
-    *   `Config.output_speed`: 估算的输出速度 (token/s)。
+    *   `Config.output_speed`: 估算的输出速度 (token/s)，默认为1000。
     *   `Config.输出开头强制显示当前轮数`: 是否在每次输出前强制显示 `当前轮数`。默认为 `False`。
+    *   `Config.安全等级`: 当前的安全等级。默认为`high`。需要使用`force`修改。
     *   `Config.runtime_format`: 用于配置 `NPL Runtime` 的用户界面及交互环境的格式风格。它决定了 `Runtime` 如何以纯文本形式呈现输入、输出、日志信息和其他相关内容。默认为"xml"。可选值：
 	    *  `"xml"`: 使用 类似 XML 的 格式进行结构化表示，提供更清晰的层次关系和元数据。有少量示例，未来方向。
 	    * 其他可扩展的格式，例如 `"json"`, `"yaml"` 等。
@@ -92,6 +93,9 @@
     *   作用: (需要 `autodef`) 自动尝试将给定的 NPL 语句转化为自然语言描述。
 *   **`to_npl(natural_language: str) -> str`**:
     *   作用: (需要 `autodef`) 自动尝试将给定的自然语言描述转化为 NPL 语句。
+*   **`force_exec(npl_statement: str)`**:
+	*   关键字：`force`
+    *   作用: 类似`sudo`，提升权限并强制执行指令。
 
 ## 5. `Auto` 类
 

@@ -23,6 +23,12 @@ config_snippets = {
 }
 # 读取所有Markdown片段
 doc_dir = Path('NPL-Documents')
+examples_dir = [
+        # '81_canvas_example_0_0_x.md', 
+        '83_canvas_tiny_example_0_0_x.md', 
+        '82_canvas_xml_example_0_1_x.md'
+        ]
+examples = "\n".join([f"{(doc_dir / e).read_text(encoding='utf-8')}" for e in examples_dir])
 md_snippets = {
     'introduction_and_core_protocol': (doc_dir / '01_introduction_and_core_protocol.md').read_text(encoding='utf-8'),
     'reference_library': (doc_dir / '02_reference_library.md').read_text(encoding='utf-8'),
@@ -31,9 +37,7 @@ md_snippets = {
     'appendix_symbols': (doc_dir / '11_appendix_symbols.md').read_text(encoding='utf-8'),
     'canvas': (doc_dir / '21_canvas.md').read_text(encoding='utf-8'),
     'canvas_dialogue_compatibility': (doc_dir / '51_canvas_dialogue_compatibility.md').read_text(encoding='utf-8'),
-    'canvas_example_0_0_x': (doc_dir / '81_canvas_example_0_0_x.md').read_text(encoding='utf-8'),
-    'canvas_xml_example_0_1_x': (doc_dir / '82_canvas_xml_example_0_1_x.md').read_text(encoding='utf-8'),
-    'canvas_tiny_example_0_0_x': (doc_dir / '83_canvas_tiny_example_0_0_x.md').read_text(encoding='utf-8'),
+    'canvas_examples': examples,
     'file_naming_conventions': (doc_dir / '99_file_naming_conventions.md').read_text(encoding='utf-8'),
 }
 
