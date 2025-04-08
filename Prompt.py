@@ -17,8 +17,8 @@ with open('config.yaml') as f:
     config = yaml.safe_load(f)
 
 config_snippets = {
-    'notebook_agent_name': config['notebook']['agent_name'],
-    'notebook_user_name': config['notebook']['user_name'],
+    'canvas_agent_name': config['canvas']['agent_name'],
+    'canvas_user_name': config['canvas']['user_name'],
     'acp_version': config['acp_version']
 }
 # 读取所有Markdown片段

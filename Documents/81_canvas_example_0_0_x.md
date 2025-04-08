@@ -12,14 +12,14 @@
 
 **示例 1.1: 设置日志级别 (来自 RuntimeClip)**
 
-```npl
+```acp
 In: Config.Loglevel = Silent
 INFO [0]: Config.Loglevel 已设置为 Silent
 Out[0]: 成功
 ```
 
 **示例 1.2: 打印文档原文的一部分 (来自 RuntimeClip)**
-```npl
+```acp
 In: print(Doc.origin) 
 # ACP 核心协议: 介绍与基础
 
@@ -38,7 +38,7 @@ Out[1]: 成功
 ```
 
 **示例 1.3: 长循环输出 (来自 RuntimeClip, 保持完整)**
-```npl
+```acp
 In: for i in range(50): print(i)
 0
 1
@@ -94,7 +94,7 @@ Out[2]: 成功
 ```
 
 **示例 1.4: 修改配置并启用轮数显示 (来自 RuntimeClip)**
-```npl
+```acp
 In: Config.Loglevel = "INFO" 
 Config.输出开头显式当前轮数 = True // 在开头显示当前轮数，避免计数问题
 INFO [0]: Config.Loglevel已设置为 INFO
@@ -106,7 +106,7 @@ Out[3]: 成功
 ## 2. `init()` 与 `clear()`
 
 **示例 2.1: 执行 `init()` (演示默认行为)**
-```npl
+```acp
 In: init()
 当前轮数: 0 
 INFO [0]: 尝试执行 `auto Cognitor.info.clean()`
@@ -191,7 +191,7 @@ Out[0]: 初始化成功
 ```
 
 **示例 2.2: `clear` 命令的使用 (来自文档)**
-```npl
+```acp
 In: 1
 Out[0]: 1
 In: 3+1
@@ -210,14 +210,14 @@ Out[2]: ERROR: Out[2]尚不存在。
 ## 3. 基本输入输出与对象操作
 
 **示例 3.1: `print` 输出 (来自文档)**
-```npl
+```acp
 In: print(1)
 1
 Out[0]: 成功
 ```
 
 **示例 3.2: 循环 `print` (结果输出 "成功")**
-```npl
+```acp
 In: for i in range(5): print(i)
 0 
 1
@@ -228,7 +228,7 @@ Out[0]: 成功
 ```
 
 **示例 3.3: `input` 交互 (来自文档, 假设 `Config.输出开头强制显示当前轮数 = True`)**
-```npl
+```acp
 In:A = input()
 print(A)
 当前轮数: 0
@@ -249,7 +249,7 @@ Out[2]: qwq
 ```
 
 **示例 3.4: `Module` 示例 (来自文档)**
-```npl
+```acp
 In: a = [1, 2, 3] 
 a
 Out[0]: [1, 2, 3]
@@ -262,7 +262,7 @@ Out[2]: 3
 ## 4. Fhrsk 交互示例
 
 **示例 4.1: 基本 `chat` (来自文档, [已简略])**
-```npl
+```acp
 In: chat 你是谁？
 Fhrsk[0]: 
 我是Fhrsk，是一个建立在`Runtime`上的人性化交互界面，是被设计用来与用户交互的接口。[已简略]
@@ -282,7 +282,7 @@ Out[2]: 成功
 ```
 
 **示例 4.2: `meta chat` 交互 (来自文档, [已简略])**
-```npl
+```acp
 In: with meta: chat 请重新审视 {Out[0]} // meta代表此时给Fhrsk充分的元认知能力
 DEBUG[已删除]: [已删除]
 INFO[已删除]: [已删除]
@@ -323,7 +323,7 @@ Out[5]: 成功
 ```
 
 **示例 4.3: Fhrsk 执行指令 (来自文档, 假设 `Config.输出开头强制显示当前轮数 = True`)**
-```npl
+```acp
 In: chat 请生成0~9的列表。
 当前轮数: 0
 INFO[已删除]: [已删除]
@@ -365,7 +365,7 @@ Out[6]: "[i for i in range(n)]"
 ```
 
 **示例 4.4: Fhrsk 执行多段代码 (来自文档, 假设 `Config.输出开头强制显示当前轮数 = True`)**
-```npl
+```acp
 (Fhrsk)In: 
 <Fhrsk_In>
 print(2)
@@ -379,7 +379,7 @@ Out[0]: 3
 ```
 
 **示例 4.5: Fhrsk 异常检测 (来自文档, [已简略])**
-```npl
+```acp
 In: Fhrsk.stop() // 暂时关闭 Fhrsk 的功能
 print(1 + 1)
 INFO[0]: 1+1 = 3 // 运行时，手动更改INFO来产生一次错误。
@@ -435,7 +435,7 @@ Out[4]: 成功
 ## 5. 日志系统示例
 
 **示例 5.1: DEBUG 日志级别 (来自文档)**
-```npl
+```acp
 In: with Loglevel.DEBUG: 
     print(2*2*4)
 INFO[0]: 解析表达式结构
@@ -452,7 +452,7 @@ Out[1]: ["分解 2*2*4 → (2*2)*4", "计算 2*2 → 4", "计算 4*4 → 16"]
 ```
 
 **示例 5.2: INFO 日志级别 (来自文档)**
-```npl
+```acp
 In: 告诉我1+1等于几
 INFO[0]: 开始计算1+1
 INFO[1]: 计算成功，答案为2
@@ -460,7 +460,7 @@ Out[0]: 2
 ```
 
 **示例 5.3: WARN 日志级别 (来自文档)**
-```npl
+```acp
 In: auto 仅显示WARN日志。 # 假设这句是设置 Loglevel=WARN 的自然语言方式
 Out[0]: 成功
 In: with Auto.force(): 1298368*91273018 # Auto.force() 可能会触发警告
@@ -469,7 +469,7 @@ Out[1]: 118505965834624
 ```
 
 **示例 5.4: ERROR 日志级别 (来自文档)**
-```npl
+```acp
 In: ncuvisndkjfnje
 INFO[0]: 尝试理解用户输入
 ERROR [0]: 指令无法理解
@@ -479,7 +479,7 @@ Out[0]: ERROR: 指令无法理解
 ## 6. `this` 对象与 `meta` 关键字
 
 **示例 6.1: `this.Out` (来自文档, 假设autolet行为)**
-```npl
+```acp
 In: 1
 # 假设 Config. 输出开头强制显示当前轮数 = True
 当前轮数: 0
@@ -492,7 +492,7 @@ Out[1]: qwq
 ```
 
 **示例 6.2: `meta` 指向当前输出 (来自文档, [已简略]处理)**
-```npl
+```acp
 In:A = meta Out[0]
 print(A)
 INFO[[已删除]]: [已删除] 
@@ -517,7 +517,7 @@ Out[1]: 成功
 ## 7. `Auto` 类示例
 
 **示例 7.1: `Auto.autodef` (来自文档, [已简略])**
-```npl
+```acp
 In: Auto.autodef(Car, from="人类对汽车的基本认识")
 INFO[0]: 调用 Auto.autodef()，尝试定义 'Car'。
 INFO[1]: 从 "人类对汽车的基本认识" 中提取知识。
@@ -531,7 +531,7 @@ Out[1]: Uncertainty(Car: 具有品牌、型号、颜色、引擎类型等属性�
 ```
 
 **示例 7.2: `Auto.autofill` (来自文档, [已简略])**
-```npl
+```acp
 In: my_car = Car()  // 假设 Car 类已由 autodef 定义
 Auto.autofill(my_car, from="一辆红色宝马X5")
 INFO[0]: 尝试填充 'my_car' 对象。
@@ -549,7 +549,7 @@ Out[1]: Uncertainty(Car 对象: 品牌=宝马, 型号=X5, 颜色=红色, 引擎�
 ```
 
 **示例 7.3: `Auto.autolet` (来自文档, [已简略])**
-```npl
+```acp
 In: my_list = [1, 2, 3, ...] # 用 ... 表示 UncertaintyList
 Auto.autolet(没有奇数 in my_list)
 print(my_list)
@@ -586,7 +586,7 @@ Out[0]: 成功
 ## 8. `Uncertainty` 与 `Module` 交互示例
 
 **示例 8.1: `Module` 转换为 `Uncertainty` (来自文档)**
-```npl
+```acp
 In: a = [1, 2, 3]
 len(a)
 Out[0]: 3
@@ -614,7 +614,7 @@ Out[6]: 可数无穷
 ```
 
 **示例 8.2: `Uncertainty` 特征推断 (来自文档)**
-```npl
+```acp
 In: my_list = UncertaintyList([苹果, 香蕉, 梨, ...])
 my_list
 INFO[0]: 观察到创建了一个包含 "苹果", "香蕉", "梨" 等元素的 UncertaintyList。大概率为Uncertainty对象。
@@ -630,7 +630,7 @@ Out[1]: Uncertainty(True)
 ```
 
 **示例 8.3: `Uncertainty` 的 `__str__` (来自文档)**
-```npl
+```acp
 In: x = Uncertainty('x')
 x
 Out[0]: Uncertainty(类型: 变量, 能指: 'x', 主要含义: 未知数, 描述: 代表一个未确定的数值..., 上下文: 代数方程中的未知数) # 输出格式可能调整以适应单行
@@ -641,7 +641,7 @@ Out[1]: Uncertainty(类型: 变量, 能指: 'x', 主要含义: 未知数, 描述
 ```
 
 **示例 8.4: `Uncertainty.to_yaml` (来自文档)**
-```npl
+```acp
 In :p = Uncertainty(苹果) // 一个很宽泛的能指
 print(p.to_yaml())
 INFO [已删除] // 推断过程
@@ -679,7 +679,7 @@ Out[0]: 成功
 ```
 
 **示例 8.5: `Uncertainty.to_module` (来自文档)**
-```npl
+```acp
 In: a = UncertaintyList([苹果，香蕉])
 b = auto a.特征.to_module(log=True)
 INFO[0]: 开始分析 UncertaintyList 实例 'a' 的特征。
@@ -704,7 +704,7 @@ Out[1]: 水果 # 输出坍缩后的 Module
 ```
 
 **示例 8.6: `uncertaintys.fill` (来自文档)**
-```npl
+```acp
 In: A = "昨天，小李去了 Mask1。他打算 Mask2 一些钱进去。" # Mask1, Mask2 初始为 Uncertainty
 A.uncertaintys.fill() # 假设 fill 能根据上下文推断
 A.uncertaintys.to_module() # 假设 to_module 应用于字符串内的 Uncertainty
@@ -717,7 +717,7 @@ Out[0]: 成功 # 假设 A 被原地修改
 ## 9. 索引与筛选示例
 
 **示例 9.1: 使用索引和筛选 (来自文档)**
-```npl
+```acp
 In: with Loglevel.WARN: # 设置只看警告及以上日志
 	print(苹果.*.颜色.eq(绿色).品种.名称.to_module())
 WARN[0]: 关闭 INFO后对 Uncertainty 的提取可能不准确。
@@ -728,7 +728,7 @@ Out[0]: 成功
 ## 10. `Config` 相关示例
 
 **示例 10.1: 修改 `Config` 并观察效果 (来自文档)**
-```npl
+```acp
 In: A = 常识 # 假设 '常识' 需要 Auto 功能才能被理解
 print(A)
 Uncertainty(常识) # 假设默认 Config.auto=True，可以理解
@@ -743,7 +743,7 @@ Out[2]: ERROR: ”常识“未定义 # 因为 auto=False，无法自动理解
 ## 11. 特殊符号应用示例
 
 **示例 11.1: `[已删除]` 在文档解析中的应用 (来自文档)**
-```npl
+```acp
 In: print(Doc.origin.测试区域) # 访问原始文档中包含 [已删除] 的部分
 Out[0]: 昨天，小红去了[已删除]。他打算[已删除]一些钱进去。
 In: print(Doc.测试区域.to_module()) # 假设 Runtime 解析时会填充 [已删除]
@@ -752,10 +752,10 @@ Out[1]: 昨天，小红去了银行。他打算存一些钱进去。
 ```
 
 **示例 11.2: 文档示例中 `//` 的处理 (来自文档)**
-```npl
+```acp
 In: print(Doc.origin["示例中的 `//`"]["示例"].to_module()) # 访问文档中包含 // 注释的示例，并解析
 # 注意：输出的是解析后的 ACP 代码，文档中的 // 注释已被忽略
-```npl
+```acp
 In :print("Hello, world!")
 ```
 Out[0]: 成功

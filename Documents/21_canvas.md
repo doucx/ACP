@@ -251,7 +251,7 @@ Fhrsk 是构建在 ACP `Runtime` 之上的一个特殊的`Cognitor`，类型为`
 ```
 
 示例（shell-like, 即将废弃）：
-```npl
+```acp
 In: chat 请帮我生成 0 到 4 的列表。
 // 这里有一个将用户输入路由到Fhrsk的日志
 Fhrsk[0]: 好的，我将执行 `[i for i in range(5)]`
@@ -329,7 +329,7 @@ Out[0]: 成功
 ```
 
 （shell-like, 即将废弃）：
-```npl
+```acp
 # 现在轮数是0
 In: name = input("请输入你的名字: ")
 print(f"你好, {name}!")
