@@ -22,7 +22,7 @@ config_snippets = {
     'npl_version': config['npl_version']
 }
 # 读取所有Markdown片段
-doc_dir = Path('NPL-Documents')
+doc_dir = Path('Documents')
 examples_dir = [
         # '81_canvas_example_0_0_x.md', 
         '83_canvas_tiny_example_0_0_x.md', 
