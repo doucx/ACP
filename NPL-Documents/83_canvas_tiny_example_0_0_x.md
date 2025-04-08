@@ -1,9 +1,9 @@
-# NPL 关键行为示例 (精简版) 0.0.x（即将废弃）
+# ACP 关键行为示例 (精简版) 0.0.x（即将废弃）
 
-本文档提供 NPL (Notional Protocol Language) 中 `Runtime`、`Canvas` 和 `Fhrsk` 核心行为的精选示例，旨在帮助读者快速理解其基本交互机制。示例中的标记（如 `[...]`）和日志已被优化以提高清晰度。
+本文档提供 ACP (Abstract Cognition Protocol) 中 `Runtime`、`Canvas` 和 `Fhrsk` 核心行为的精选示例，旨在帮助读者快速理解其基本交互机制。示例中的标记（如 `[...]`）和日志已被优化以提高清晰度。
 
 **注意:** 
-2. 该示例已过时（全部为`shell-like`风格，且来自 NPL 0.0.x），但其思想对Runtime的正确实现依然有所帮助。
+2. 该示例已过时（全部为`shell-like`风格，且来自 ACP 0.0.x），但其思想对Runtime的正确实现依然有所帮助。
 ## 1. Canvas 核心交互
 
 **示例 1.1: 基本输入输出与 `stdout`**
@@ -34,11 +34,11 @@ print(f"你输入了: {user_data}")
 INFO[0]: 执行 `user_data = input(...)`
 INPUT[0]: 请输入数据: 
 
-In: Hello NPL! # 用户输入，此步不增加轮数
+In: Hello ACP! # 用户输入，此步不增加轮数
 当前轮数: 1 
-INFO[1]: `input()` 获得返回值 "Hello NPL!"
+INFO[1]: `input()` 获得返回值 "Hello ACP!"
 INFO[2]: 执行 print(...)
-你输入了: Hello NPL!
+你输入了: Hello ACP!
 Out[1]: 成功 # In[1] 执行完毕，轮数增加前为 1
 ```
 
@@ -71,7 +71,7 @@ Out[2]: 10
 In: # 假设 '知识' 需要 Auto 功能才能被理解
 A = 知识
 INFO[...]: Runtime 利用 Auto 理解 '知识' #[行为说明]
-Out[0]: Notion(知识) # 默认 Config.auto=True
+Out[0]: Uncertainty(知识) # 默认 Config.auto=True
 
 In: Config.auto = False # 关闭自动 Auto 功能
 Out[1]: 成功
@@ -116,7 +116,7 @@ Out[0]: 成功
 
 **示例 3.2: Fhrsk 执行指令 (`(Fhrsk)In:`)**
 
-展示 Fhrsk 如何响应请求并代为执行 NPL 指令，以及这对轮数的影响。
+展示 Fhrsk 如何响应请求并代为执行 ACP 指令，以及这对轮数的影响。
 
 ```npl
 # 假设 Config.输出开头强制显示当前轮数 = True
@@ -136,8 +136,8 @@ Out[4]: 5.0
 演示 `meta` 关键字如何引导 Fhrsk 进行更深层次的分析（具体输出依赖 `Cognitor` 能力，此处仅为示意）。
 
 ```npl
-In: meta chat 分析一下 NPL 中 `Notion` 存在的意义。
-Fhrsk[0]: 好的，进行元认知分析... `Notion` 的核心意义在于 [此处 Fhrsk 会进行更深入的哲学或设计层面的分析，而非简单定义]... 它体现了 NPL 处理现实世界不确定性的设计思路... etc. #[示意性深入回答]
+In: meta chat 分析一下 ACP 中 `Uncertainty` 存在的意义。
+Fhrsk[0]: 好的，进行元认知分析... `Uncertainty` 的核心意义在于 [此处 Fhrsk 会进行更深入的哲学或设计层面的分析，而非简单定义]... 它体现了 ACP 处理现实世界不确定性的设计思路... etc. #[示意性深入回答]
 Out[5]: 成功
 ```
 
@@ -145,36 +145,36 @@ Out[5]: 成功
 
 **示例 4.1: `meta` 的自我指涉**
 
-展示 `meta` 如何用于引用与当前交互相关的元素，如 `Out[0]` 指向自身的输出（这是一个悖论式或递归式引用，结果通常是表示可能性的 `Notion`）。
+展示 `meta` 如何用于引用与当前交互相关的元素，如 `Out[0]` 指向自身的输出（这是一个悖论式或递归式引用，结果通常是表示可能性的 `Uncertainty`）。
 
 ```npl
 In: my_output = meta Out[0]
 print(my_output)
 INFO[...]: Runtime 识别到 meta Out[0]，进行自我指涉分析 #[行为说明]
-INFO[...]: 结果是关于 Out[0] 本身所有可能性的 Notion #[行为说明]
-Notion(代表 Out[0] 的所有可能状态) # 简化表示
+INFO[...]: 结果是关于 Out[0] 本身所有可能性的 Uncertainty #[行为说明]
+Uncertainty(代表 Out[0] 的所有可能状态) # 简化表示
 Out[0]: 成功
 ```
 
-**示例 4.2: `Notion` vs `Module` (基本演示)**
+**示例 4.2: `Uncertainty` vs `Module` (基本演示)**
 
-通过 `to_notion` 展示从确定性到不确定性的转换及其效果。
+通过 `to_uncertainty` 展示从确定性到不确定性的转换及其效果。
 
 ```npl
 In: data_list = [1, 2, 3] # Module (Python list)
 type(data_list)
 Out[0]: <class 'list'> (Module)
 
-In: concept_list = data_list.to_notion()
-INFO[...]: 将 Module list 转换为 NotionList #[行为说明]
+In: concept_list = data_list.to_uncertainty()
+INFO[...]: 将 Module list 转换为 UncertaintyList #[行为说明]
 INFO[...]: 推断出 '递增整数序列' 的概念 #[行为说明]
 Out[1]: 成功 
 
 In: concept_list
-Out[2]: NotionList([1, 2, 3, ...]) # 包含不确定性 (...)
+Out[2]: UncertaintyList([1, 2, 3, ...]) # 包含不确定性 (...)
 
 In: len(concept_list)
-Out[3]: 可数无穷 # Notion 的长度基于推断的概念
+Out[3]: 可数无穷 # Uncertainty 的长度基于推断的概念
 ```
 
 **示例 4.3: `Auto` 类基本应用 (`autofill`)**

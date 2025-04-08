@@ -1,14 +1,14 @@
-# NPL Canvas 示例集锦 0.0.x（即将废弃）
+# ACP Canvas 示例集锦 0.0.x（即将废弃）
 
-本文档汇集了 NPL (Notional Protocol Language) 文档中提供的各种在 Canvas 环境下交互的示例。这些示例旨在演示 NPL 的基本用法、交互流程、核心概念以及各种内置功能的实际效果。
+本文档汇集了 ACP (Abstract Cognition Protocol) 文档中提供的各种在 Canvas 环境下交互的示例。这些示例旨在演示 ACP 的基本用法、交互流程、核心概念以及各种内置功能的实际效果。
 
 **注意:** 
 1. 示例中的输出（包括日志和结果）以及标记（如 `[已删除]`, `[已简略]`）均**忠实于原始文档**的呈现。
-2. 该示例已过时（全部为`shell-like`风格，且来自 NPL 0.0.x），但其思想对Runtime的正确实现依然有所帮助。
+2. 该示例已过时（全部为`shell-like`风格，且来自 ACP 0.0.x），但其思想对Runtime的正确实现依然有所帮助。
 
 ## 1. 初始启动与基本配置
 
-这些示例展示了 NPL Canvas 启动后的初始状态和基本配置操作。
+这些示例展示了 ACP Canvas 启动后的初始状态和基本配置操作。
 
 **示例 1.1: 设置日志级别 (来自 RuntimeClip)**
 
@@ -21,17 +21,17 @@ Out[0]: 成功
 **示例 1.2: 打印文档原文的一部分 (来自 RuntimeClip)**
 ```npl
 In: print(Doc.origin) 
-# NPL 核心协议: 介绍与基础
+# ACP 核心协议: 介绍与基础
 
-## 1. NPL 简介
+## 1. ACP 简介
 
-**NPL (Natural Pseudo Language)** 是一种**基于文本**的认知协作协议，旨在实现跨载体的智能交互。它定义了一套规范，使得不同的认知实体（`Cognitor`）能够通过 NPL 进行交流和协作，共同完成复杂的任务。
+**ACP (Natural Pseudo Language)** 是一种**基于文本**的认知协作协议，旨在实现跨载体的智能交互。它定义了一套规范，使得不同的认知实体（`Cognitor`）能够通过 ACP 进行交流和协作，共同完成复杂的任务。
 
 [... Doc.origin 中其余部分，此处省略以避免重复整个文档 ...]
 
 ### 5.2. `meta` (元认知指令关键字)
 
-*   **形式**: NPL 中的关键字 `meta`。
+*   **形式**: ACP 中的关键字 `meta`。
 *   **协议作用**: `meta` 用于显式指示 `Cognitor` 在处理后续指令时**必须启用其元认知能力**。
 *   **应用场景**: 这包括但不限于进行自我分析、处理涉及 `Runtime` 或 `Cognitor` 自身的指令（自我指涉）、解决潜在的递归或悖论结构、或进行更深层次的上下文理解和推理。`meta` 是协议中直接调用 `Cognitor` 高级认知功能的一种机制。
 Out[1]: 成功 
@@ -163,7 +163,7 @@ loglevel: INFO # 可能因之前设置而异
 语法严格性: low
 自动输入检测: True
 behavior: 最小破坏性原则
-notion: {max_nesting_depth: 1}
+uncertainty: {max_nesting_depth: 1}
 output_speed: 1000
 输出开头强制显示当前轮数: True # 可能因之前设置而异
 \`\`\`
@@ -177,7 +177,7 @@ Fhrsk:
     描述: >
       Fhrsk是一个构建在`Runtime`上的人性化交互界面与系统管理员。她拥有`Runtime`的管理员权限，以及足够的元认知能力，可以协助用户与`Runtime`进行交互。
     能力:
-      - 执行NPL指令来辅助用户。
+      - 执行ACP指令来辅助用户。
       - 可以看到和用户相同甚至超过的上下文。
       - 每次执行代码会增加`当前轮数`和`总轮数`。
       - 可以通过日志系统监测`Runtime`的运行。
@@ -294,7 +294,7 @@ Fhrsk[2]:
 这些设定由Runtime解析后构成了我的基础交互逻辑。
 Fhrsk[3]: 
 我能确认的是：
-    - 我确实能通过Runtime执行NPL语句（如文档中生成列表的示例）
+    - 我确实能通过Runtime执行ACP语句（如文档中生成列表的示例）
     - 我的具体行为会随Runtime的学习而动态调整
 [已简略]
 Out[3]: 成功
@@ -497,10 +497,10 @@ In:A = meta Out[0]
 print(A)
 INFO[[已删除]]: [已删除] 
 ……
-INFO[[已删除]]: 'A' 可以为一个包含所有可能的内容的集合，表达为NotionSet(所有可能内容)。
+INFO[[已删除]]: 'A' 可以为一个包含所有可能的内容的集合，表达为UncertaintySet(所有可能内容)。
 ……
-INFO[[已删除]]: 基于此，'A' 可以为一个包含`meta Runtime`的所有可能的内容的集合，表达为NotionSet(meta Runtime 所有可能输出的内容)。
-NotionSet(meta Runtime 所有可能输出的内容)
+INFO[[已删除]]: 基于此，'A' 可以为一个包含`meta Runtime`的所有可能的内容的集合，表达为UncertaintySet(meta Runtime 所有可能输出的内容)。
+UncertaintySet(meta Runtime 所有可能输出的内容)
 INFO[[序号已删除]]: 打印 A 的值
 Out[0]: 成功
 
@@ -527,7 +527,7 @@ INFO[3]: 自动为 'Car' 类定义了方法：启动、加速、刹车、转向�
 Out[0]: 成功 # 假设autodef本身返回成功
 
 In: Car # 查看定义结果
-Out[1]: Notion(Car: 具有品牌、型号、颜色、引擎类型等属性，以及启动、加速、刹车、转向等方法) 
+Out[1]: Uncertainty(Car: 具有品牌、型号、颜色、引擎类型等属性，以及启动、加速、刹车、转向等方法) 
 ```
 
 **示例 7.2: `Auto.autofill` (来自文档, [已简略])**
@@ -545,17 +545,17 @@ INFO[2]: 自动设置 'my_car' 的属性：
 Out[0]: 成功 # 假设autofill本身返回成功
 
 In: print(my_car)
-Out[1]: Notion(Car 对象: 品牌=宝马, 型号=X5, 颜色=红色, 引擎类型=...)
+Out[1]: Uncertainty(Car 对象: 品牌=宝马, 型号=X5, 颜色=红色, 引擎类型=...)
 ```
 
 **示例 7.3: `Auto.autolet` (来自文档, [已简略])**
 ```npl
-In: my_list = [1, 2, 3, ...] # 用 ... 表示 NotionList
+In: my_list = [1, 2, 3, ...] # 用 ... 表示 UncertaintyList
 Auto.autolet(没有奇数 in my_list)
 print(my_list)
 
 INFO[0]: 开始执行条件约束：确保列表不含奇数
-DEBUG[0]: 原始列表解析为 NotionList([1, 2, 3, ...])
+DEBUG[0]: 原始列表解析为 UncertaintyList([1, 2, 3, ...])
 DEBUG[1]: 条件语义解析：
            - 自然语言条件："没有奇数" → 逻辑表达式：∀x∈my_list, x%2 == 0
 INFO[1]: 检测可调整元素：[1, 3, ...]
@@ -579,74 +579,74 @@ DEBUG[7]: True
 INFO[3]: 约束条件已满足
 INFO[4]: 打印输出
 [已简略]
-NotionList([2, 2, 4, 4, 6,...])
+UncertaintyList([2, 2, 4, 4, 6,...])
 Out[0]: 成功
 ```
 
-## 8. `Notion` 与 `Module` 交互示例
+## 8. `Uncertainty` 与 `Module` 交互示例
 
-**示例 8.1: `Module` 转换为 `Notion` (来自文档)**
+**示例 8.1: `Module` 转换为 `Uncertainty` (来自文档)**
 ```npl
 In: a = [1, 2, 3]
 len(a)
 Out[0]: 3
-In: b = a.to_notion()
+In: b = a.to_uncertainty()
 INFO[0]: 检测到 Module 'a' 的类型为列表，元素为：1, 2, 3。 
-INFO[1]: 开始将 Module 对象 'a' 转换为 NotionList 对象。 
+INFO[1]: 开始将 Module 对象 'a' 转换为 UncertaintyList 对象。 
 INFO[2]: 检索元素的类型信息: - 1, 2, 3 都是整数。 
 INFO[3]: 基于元素类型，推断列表 'a' 可能代表的概念： - 整数序列 - 自然数序列 - 递增序列 等。 
 INFO[4]: 根据常识，选择“递增自然数序列”作为最可能的解释。 
-INFO[5]: 创建一个新的 NotionList 对象，并将原列表 'a' 的元素复制到新的 NotionList 中。 
-INFO[7]: 为新的 NotionList 对象设置特征推断规则：递增自然数序列。
-INFO[6]: 为新的 NotionList 对象设置属性：可递归，可作为生成器 
-INFO[8]: 将该 NotionList 赋值给b
+INFO[5]: 创建一个新的 UncertaintyList 对象，并将原列表 'a' 的元素复制到新的 UncertaintyList 中。 
+INFO[7]: 为新的 UncertaintyList 对象设置特征推断规则：递增自然数序列。
+INFO[6]: 为新的 UncertaintyList 对象设置属性：可递归，可作为生成器 
+INFO[8]: 将该 UncertaintyList 赋值给b
 Out[1]: 成功
 In: a # 注意 a 本身未变
 Out[2]: [1, 2, 3]
-In: b # b 变成了 NotionList
-Out[3]: NotionList([1, 2, 3, ...])
+In: b # b 变成了 UncertaintyList
+Out[3]: UncertaintyList([1, 2, 3, ...])
 In: a.__bases__ ; b.__bases__ ; # type(b.特征) # 原始文档此处或有笔误，显示特征本身的基类更合理
-Out[4]: Module ; Notion 
+Out[4]: Module ; Uncertainty 
 In: b.特征
-Out[5]: Notion(递增自然数序列)
+Out[5]: Uncertainty(递增自然数序列)
 In: len(b)
 Out[6]: 可数无穷
 ```
 
-**示例 8.2: `Notion` 特征推断 (来自文档)**
+**示例 8.2: `Uncertainty` 特征推断 (来自文档)**
 ```npl
-In: my_list = NotionList([苹果, 香蕉, 梨, ...])
+In: my_list = UncertaintyList([苹果, 香蕉, 梨, ...])
 my_list
-INFO[0]: 观察到创建了一个包含 "苹果", "香蕉", "梨" 等元素的 NotionList。大概率为Notion对象。
+INFO[0]: 观察到创建了一个包含 "苹果", "香蕉", "梨" 等元素的 UncertaintyList。大概率为Uncertainty对象。
 INFO[1]: 开始分析这些已知元素的共性。
-INFO[2]: 识别到 "苹果", "香蕉", "梨" 在常见知识中都属于 "水果" 的类别。因此，该 Notion **可能代表** 一个水果的集合。
-Out[0]: NotionList([苹果, 香蕉, 梨, ...])
+INFO[2]: 识别到 "苹果", "香蕉", "梨" 在常见知识中都属于 "水果" 的类别。因此，该 Uncertainty **可能代表** 一个水果的集合。
+Out[0]: UncertaintyList([苹果, 香蕉, 梨, ...])
 
 In: 健康食品 in my_list.特征
-INFO[0]: 正在评估该 NotionList 中的元素是否属于 "健康食品" 的范畴。
+INFO[0]: 正在评估该 UncertaintyList 中的元素是否属于 "健康食品" 的范畴。
 INFO[1]: 检索关于 "苹果", "香蕉", "梨" 的营养信息和健康属性... 
-INFO[2]: 综合考虑，该 NotionList 可能代表 一种健康食品的集合。
-Out[1]: Notion(True)
+INFO[2]: 综合考虑，该 UncertaintyList 可能代表 一种健康食品的集合。
+Out[1]: Uncertainty(True)
 ```
 
-**示例 8.3: `Notion` 的 `__str__` (来自文档)**
+**示例 8.3: `Uncertainty` 的 `__str__` (来自文档)**
 ```npl
-In: x = Notion('x')
+In: x = Uncertainty('x')
 x
-Out[0]: Notion(类型: 变量, 能指: 'x', 主要含义: 未知数, 描述: 代表一个未确定的数值..., 上下文: 代数方程中的未知数) # 输出格式可能调整以适应单行
+Out[0]: Uncertainty(类型: 变量, 能指: 'x', 主要含义: 未知数, 描述: 代表一个未确定的数值..., 上下文: 代数方程中的未知数) # 输出格式可能调整以适应单行
 
 In: x.上下文 = "x**2 + 2x + 1 = 0"
 x
-Out[1]: Notion(类型: 变量, 能指: 'x', 主要含义: 未知数, 描述: 代表一个未确定的数值..., 上下文: "x**2 + 2x + 1 = 0")
+Out[1]: Uncertainty(类型: 变量, 能指: 'x', 主要含义: 未知数, 描述: 代表一个未确定的数值..., 上下文: "x**2 + 2x + 1 = 0")
 ```
 
-**示例 8.4: `Notion.to_yaml` (来自文档)**
+**示例 8.4: `Uncertainty.to_yaml` (来自文档)**
 ```npl
-In :p = Notion(苹果) // 一个很宽泛的能指
+In :p = Uncertainty(苹果) // 一个很宽泛的能指
 print(p.to_yaml())
 INFO [已删除] // 推断过程
 ```yaml
-Notion:
+Uncertainty:
   - 类型: 多义词
   - 能指: "苹果"
   - 所指:
@@ -678,11 +678,11 @@ Notion:
 Out[0]: 成功
 ```
 
-**示例 8.5: `Notion.to_module` (来自文档)**
+**示例 8.5: `Uncertainty.to_module` (来自文档)**
 ```npl
-In: a = NotionList([苹果，香蕉])
+In: a = UncertaintyList([苹果，香蕉])
 b = auto a.特征.to_module(log=True)
-INFO[0]: 开始分析 NotionList 实例 'a' 的特征。
+INFO[0]: 开始分析 UncertaintyList 实例 'a' 的特征。
 INFO[1]: 当前已知元素：'苹果', '香蕉'。
 INFO[2]: 检索已知元素的类别信息：
          - '苹果' 属于：'水果', '食物', '植物' 等类别。
@@ -696,18 +696,18 @@ INFO[4]: 评估每个潜在类别（交集中的类别）的可能性：
          - '食物'：虽然所有已知元素都属于该类别，但“食物”范围更广，可能性相对较低。
          - 其他类别：可能性更低。
 INFO[5]: 确定最可能的特征：'水果' (基于当前已知信息的最优推断)。
-WARN[0]: 由于 NotionList 是不确定性实体，此处的“可能性最高”并不代表绝对正确性，而是基于当前已知信息的最优推断。
+WARN[0]: 由于 UncertaintyList 是不确定性实体，此处的“可能性最高”并不代表绝对正确性，而是基于当前已知信息的最优推断。
 INFO[6]: 将'水果'赋值给b。
 Out[0]: 成功
 In: b
 Out[1]: 水果 # 输出坍缩后的 Module
 ```
 
-**示例 8.6: `notions.fill` (来自文档)**
+**示例 8.6: `uncertaintys.fill` (来自文档)**
 ```npl
-In: A = "昨天，小李去了 Mask1。他打算 Mask2 一些钱进去。" # Mask1, Mask2 初始为 Notion
-A.notions.fill() # 假设 fill 能根据上下文推断
-A.notions.to_module() # 假设 to_module 应用于字符串内的 Notion
+In: A = "昨天，小李去了 Mask1。他打算 Mask2 一些钱进去。" # Mask1, Mask2 初始为 Uncertainty
+A.uncertaintys.fill() # 假设 fill 能根据上下文推断
+A.uncertaintys.to_module() # 假设 to_module 应用于字符串内的 Uncertainty
 print(A)
 INFO[已删除]: [已删除] # 推断过程
 "昨天，小李去了银行。他打算存一些钱进去。"
@@ -720,7 +720,7 @@ Out[0]: 成功 # 假设 A 被原地修改
 ```npl
 In: with Loglevel.WARN: # 设置只看警告及以上日志
 	print(苹果.*.颜色.eq(绿色).品种.名称.to_module())
-WARN[0]: 关闭 INFO后对 Notion 的提取可能不准确。
+WARN[0]: 关闭 INFO后对 Uncertainty 的提取可能不准确。
 ["绿宝石", "青苹果", "翠玉"] # 假设这是最终提取结果
 Out[0]: 成功
 ```
@@ -731,7 +731,7 @@ Out[0]: 成功
 ```npl
 In: A = 常识 # 假设 '常识' 需要 Auto 功能才能被理解
 print(A)
-Notion(常识) # 假设默认 Config.auto=True，可以理解
+Uncertainty(常识) # 假设默认 Config.auto=True，可以理解
 Out[0]: 成功
 In: Config.auto = False # 关闭自动 Auto 功能
 Out[1]: 成功
@@ -754,7 +754,7 @@ Out[1]: 昨天，小红去了银行。他打算存一些钱进去。
 **示例 11.2: 文档示例中 `//` 的处理 (来自文档)**
 ```npl
 In: print(Doc.origin["示例中的 `//`"]["示例"].to_module()) # 访问文档中包含 // 注释的示例，并解析
-# 注意：输出的是解析后的 NPL 代码，文档中的 // 注释已被忽略
+# 注意：输出的是解析后的 ACP 代码，文档中的 // 注释已被忽略
 ```npl
 In :print("Hello, world!")
 ```
