@@ -53,7 +53,7 @@
 2. **解决方案**：  
    - 使用 `<CanvasSection>` 原生的 `<CodeBlock>` 标签包裹代码内容，例如：  
      ```xml
-     <CodeBlock language="python">
+     <CodeBlock language="python(可以为任何语言)">
      print(2+2)
      </CodeBlock>
      ```  
@@ -112,25 +112,111 @@ console.log("Hello, world!");
 
 ## 合规性示例  
 ### 标准交互流程  
-用户（Alice）输入：
+注意：示例中的注释内容实际运行时不会输出。
+
+用户输入：
 ```xml
-<CanvasSection role="User">
-	<Cell requester="Alice">
-		print("Hello from stdout!")
-		a = 1 + 2
-		print(a)
-		a
-	</Cell>
+<CanvasSection role="User" num="0">
+    <!-- 1. User initiates the chat request -->
+    <Cell originator="User" seq="0" type="EXEC">
+        <value>
+             chat 请想办法获取现在的时间，然后输出到stdout中
+        </value>
+    </Cell>
 </CanvasSection>
 ```
-Agent（Gemini）回答：
+
+模型（Gemini）输出：
 ```xml
-\`\`\`
-<CanvasSection role="Agent">
-	<Cell type="OUTPUT" round="0" requester="User" originator="Gemini">
-		<stdout num="0" originator="Gemini">Hello from stdout!</stdout>
-	</Cell>
-	<!--基于Canvas Runtime规则，可能创建其它Cell-->
+<CanvasSection role="Agent" num="1">
+    <!-- 2. Gemini processes User:0, routes to Fhrsk -->
+    <Cell originator="Gemini" seq="0" type="OUTPUT">
+        <depends_on>
+           <cell originator="User" seq="0" />
+        </depends_on>
+        <log originator="Gemini" type="LLM Agent" log_level="INFO" seq="0">
+             <message>收到 User:0，检测到 chat 请求，将请求转交给 Fhrsk 处理。</message>
+             <log_entry_type value="Routing"/>
+        </log>
+        <Fhrsk seq="0">
+            你好！作为一个在模拟环境中的认知界面，我当前无法直接访问你设备或网络的实时时钟。不过，我可以向你询问当前时间，然后帮你记录并打印出来。我接下来会使用 `input()` 来问你时间。
+        </Fhrsk>
+        <flags>
+            <!-- Instructs Runtime to create Fhrsk's EXEC cell next -->
+            <flag value="ThenCreateCell"/>
+        </flags>
+        <value originator="Gemini">成功</value> <!-- Marking the routing successful -->
+    </Cell>
+
+    <!-- 3. Based on ThenCreateCell flag, Fhrsk creates an EXEC cell -->
+    <Cell originator="Fhrsk(Gemini)" seq="0" type="EXEC">
+        <depends_on>
+            <!-- Depends on the preceding OUTPUT cell where Fhrsk made the decision -->
+            <cell originator="Gemini" seq="0" />
+        </depends_on>
+        <value>
+            current_time = input("请告诉我你那边现在的时间 (例如 2023-10-27 10:00): ")
+            print(f"好的，你告知的时间是: {current_time}")
+        </value>
+    </Cell>
+
+    <!-- 4. Gemini processes Fhrsk:0, encounters input(), pauses and waits -->
+    <Cell originator="Gemini" seq="1" type="OUTPUT">
+         <depends_on>
+             <cell originator="Fhrsk(Gemini)" seq="0" />
+         </depends_on>
+         <log originator="Gemini" type="LLM Agent" log_level="INFO" seq="0">
+            <message>开始执行 Fhrsk(Gemini):0。遇到 `input()` 调用。</message>
+            <log_entry_type value="ActionPlan"/>
+         </log>
+         <value type="INPUT_HINT">请告诉我你那边现在的时间 (例如 2023-10-27 10:00): </value>
+         <flags>
+            <flag value="WAIT"/> <!-- Indicate waiting for user input -->
+         </flags>
+    </Cell>
 </CanvasSection>
-\`\`\`
+```
+
+用户输入：
+```xml
+<CanvasSection role="User" num="2">
+    <!-- 5. User provides the input -->
+    <Cell originator="User" seq="1" type="INPUT">
+        <depends_on>
+            <!-- Depends on the OUTPUT cell that prompted for input -->
+            <cell originator="Gemini" seq="1" />
+        </depends_on>
+        <value>
+            2024-04-08 15:30
+        </value>
+    </Cell>
+</CanvasSection>
+```
+
+模型（Gemini）输出：
+```xml
+<CanvasSection role="Agent" num="3">
+    <!-- 6. Gemini processes the input and continues Fhrsk:0's execution -->
+    <Cell originator="Gemini" seq="2" type="OUTPUT">
+        <depends_on>
+            <!-- Depends on Fhrsk's original EXEC cell for the code context -->
+            <cell originator="Fhrsk(Gemini)" seq="0" />
+            <!-- And depends on the User's INPUT cell for the value -->
+            <cell originator="User" seq="1" />
+        </depends_on>
+        <log originator="Gemini" type="LLM Agent" log_level="INFO" seq="0">
+             <message>`input()` 收到来自 User:1 的值: "2024-04-08 15:30"。将其赋值给变量 `current_time`。</message>
+             <log_entry_type value="ReasoningNarrative"/>
+        </log>
+         <log originator="Gemini" type="LLM Agent" log_level="INFO" seq="1">
+             <message>继续执行 Fhrsk(Gemini):0 中的下一条语句: print(...)</message>
+             <log_entry_type value="ActionPlan"/>
+        </log>
+        <stdout seq="0" originator="Gemini">
+            好的，你告知的时间是: 2024-04-08 15:30
+        </stdout>
+        <value originator="Gemini">成功</value> <!-- Marking the execution of Fhrsk:0 complete -->
+    </Cell>
+
+</CanvasSection>
 ```
