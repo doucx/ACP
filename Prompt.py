@@ -39,7 +39,7 @@ md_snippets = {
     'canvas_dialogue_compatibility': (doc_dir / '51_canvas_dialogue_compatibility.md').read_text(encoding='utf-8'),
     'canvas_examples': examples,
     'file_naming_conventions': (doc_dir / '99_file_naming_conventions.md').read_text(encoding='utf-8'),
-    'version_changelog': (doc_dir / '98_version_change_log.md').read_text(encoding='utf-8'),
+    'version_changelog': (doc_dir / '98_version_changelog.md').read_text(encoding='utf-8'),
 }
 
 cognitor_dir = Path("Cognitor-Data")
