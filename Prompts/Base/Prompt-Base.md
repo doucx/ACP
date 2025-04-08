@@ -20,14 +20,8 @@
     <variable name="canvas_dialogue_compatibility" role="content" description="Content for the section on canvas dialogue compatibility in NPL.">
         {{ canvas_dialogue_compatibility }}
     </variable>
-    <variable name="canvas_example_0_0_x" role="content" description="Content for the section containing examples of Canvas 0_0_x in NPL.">
-        {{ canvas_example_0_0_x }}
-    </variable>
-    <variable name="canvas_xml_example_0_1_x" role="content" description="Content for the section containing XML examples of Canvas 0_1_x in NPL.">
-        {{ canvas_xml_example_0_1_x }}
-    </variable>
-    <variable name="canvas_tiny_example_0_0_x" role="content" description="Content for the section containing tiny examples of Canvas 0_0_x in NPL.">
-        {{ canvas_tiny_example_0_0_x }}
+    <variable name="canvas_examples" role="content" description="Content for the section containing examples of Canvas in NPL.">
+        {{ canvas_examples }}
     </variable>
     <variable name="file_naming_conventions" role="content" description="Content for the section detailing file naming conventions in NPL.">
         {{ file_naming_conventions }}
