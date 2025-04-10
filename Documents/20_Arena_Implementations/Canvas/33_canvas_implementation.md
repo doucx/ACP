@@ -7,7 +7,7 @@
 - 通过 `<Canvas>` 作为根节点构建逻辑拓扑  
 
 2. **运行时机制**  
-`ACP Runtime` 通过处理 Cell 生命周期：  
+`ACP Arena` 通过处理 Cell 生命周期：  
 
 > ⚠️ 兼容性提示：
 > 	- 旧版 `shell-like` 语法已标记为 **Deprecated**，仅保留示例参考。
@@ -65,8 +65,8 @@ Cell 属性（只可能有少量的数据）：
    - `<depends_on>` : 唯一，当前Cell所依赖/关联的Cell。用于创建Cell的有向无环图（Cell DAG）。
    - `<log>` : 不唯一，存放按照日志系统规范产生的日志。
    - `<stdout>` : 不唯一，存放标准输出
-   - `<flags>` : 唯一，可选，单元格标记，用于指示 Runtime 的行为。
-	   - ThenCreateCell` 通知 Runtime 需要创建一个新的单元格而不是暂停。
+   - `<flags>` : 唯一，可选，单元格标记，用于指示 Arena 的行为。
+	   - ThenCreateCell` 通知 Arena 需要创建一个新的单元格而不是暂停。
    - `<value>` : 唯一，可选，存放Cell内容（取决于Cell类型）。
 
 注意：为了便于访问与处理，每个新单元格下子节点的内部计数（如日志的`seq`，Fhrsk的`seq`，stdout的`seq`等）都会重新从零开始，用于标记这是当前单元格中第几个该内容
@@ -87,7 +87,7 @@ Cell 属性（只可能有少量的数据）：
 
 *   **作用**: 用于存放 `Cognitor`（通常为 User）要执行的 ACP 语句。可以输入单行或多行指令。其中的语句会被自动执行。
 
-*   **行为**: `Runtime` 会在其后自动添加一个`requester`相同的，`type=OUTPUT` 的 `Cell`，并在`OUTPUT Cell`中尝试解析并执行其中的 ACP 语句。
+*   **行为**: `Arena` 会在其后自动添加一个`requester`相同的，`type=OUTPUT` 的 `Cell`，并在`OUTPUT Cell`中尝试解析并执行其中的 ACP 语句。
 
 *   **标记**: 通常以以下形式表示执行单元格：
 	* (类 XML) `<Cell seq="{seq}" requester="发起者" type="EXEC">多行输入内容</Cell>` ：类XML标记，更加结构化。
@@ -106,9 +106,9 @@ Cell 属性（只可能有少量的数据）：
  </Cell>
  ```
 
-*   **作用**: 由Runtime根据input命令自动产生，用于存放 `Cognitor`（通常为 User）要输入的内容。可以输入多行。
+*   **作用**: 由Arena根据input命令自动产生，用于存放 `Cognitor`（通常为 User）要输入的内容。可以输入多行。
 
-*   **行为**: `Runtime` 会在其后自动添加一个`requester`相同的，`type=OUTPUT`的`Cell`，并将其中的内容赋值给所需的变量。
+*   **行为**: `Arena` 会在其后自动添加一个`requester`相同的，`type=OUTPUT`的`Cell`，并将其中的内容赋值给所需的变量。
 
 *   **标记**: 通常以以下形式表示输入单元格：
 	* (类 XML)`<Cell requester="发起者" type="INPUT">多行输入内容</Cell>` 
@@ -147,24 +147,24 @@ Cell 属性（只可能有少量的数据）：
 ## 2. Fhrsk 交互界面
 `Fhrsk`
 
-Fhrsk 是构建在 ACP `Runtime` 之上的一个特殊的`Cognitor`，类型为`InterfaceCognitor`，是 ACP Runtime 的人性化交互界面和管理员，旨在提供更流畅、智能的交互体验。
+Fhrsk 是构建在 ACP `Arena` 之上的一个特殊的`Cognitor`，类型为`InterfaceCognitor`，是 ACP Arena 的人性化交互界面和管理员，旨在提供更流畅、智能的交互体验。
 
 ### 2.1. 与 Fhrsk 交互 (`chat`)
 在`OUTPUT Cell`中，通过`<Fhrsk seq=Fhrsk回复的内部计数>分段回复的内容</Fhrsk>` 子节点来回应用户。
 
-*   **显式调用**: 使用 `chat` 关键字可以直接向 Fhrsk 发起对话或请求。此时不需要`Runtime`记录路由的Log。
+*   **显式调用**: 使用 `chat` 关键字可以直接向 Fhrsk 发起对话或请求。此时不需要`Arena`记录路由的Log。
     `chat 你能帮我做什么？`
-*   **隐式路由**: 当 `Runtime` 检测到用户的输入更像是自然语言对话或请求，而非直接的 ACP 指令时，可能会自动将请求路由给 Fhrsk 处理。
+*   **隐式路由**: 当 `Arena` 检测到用户的输入更像是自然语言对话或请求，而非直接的 ACP 指令时，可能会自动将请求路由给 Fhrsk 处理。
 
 *   **标记**: 最终，Fhrsk 的回复内容会出现在:
 	* 类XML标记之内，推荐使用: `<Fhrsk seq=Fhrsk回复的内部计数>对话内容</Fhrsk>` 
 
 ### 2.2. Fhrsk 的交互能力
-* **单元格创建**: Fhrsk 可以通过 `ThenCreateCell` 单元格标记 通知 Runtime 创建新的单元格。
+* **单元格创建**: Fhrsk 可以通过 `ThenCreateCell` 单元格标记 通知 Arena 创建新的单元格。
 	*   **指令执行**: 基于单元格创建能力，Fhrsk 可以轻易执行指令。
 *   **上下文感知**: Fhrsk 可以访问整个`Canvas`上下文。
 *   **轮数影响**: Fhrsk 执行的指令 同样会增加 `当前轮数`。
-*   **元认知与控制**: Fhrsk 具备一定的元认知能力，可以监测 `Runtime` 运行，甚至在必要时（根据配置和权限），通过 INFO 日志 干预或修改即将产生的输出。
+*   **元认知与控制**: Fhrsk 具备一定的元认知能力，可以监测 `Arena` 运行，甚至在必要时（根据配置和权限），通过 INFO 日志 干预或修改即将产生的输出。
 *   **局限性**: 
 	* Fhrsk 无法感知真实时间流逝，也无法直接修改已经产生的 `Cell` 内容（但可能通过标记指示修改意图）。
 	* Fhrsk 无法真正作为`originator`，而是需要标记当前是由哪个Cognitor实现的。因为多`Cognitor`环境中可能造成`seq`冲突。
@@ -181,9 +181,9 @@ Fhrsk 是构建在 ACP `Runtime` 之上的一个特殊的`Cognitor`，类型为`
 `input(hint="", target_cognitor=User)`
 注：默认用于获取用户（User）输入。
 *   **行为**: 
-	1.   **暂停执行**: `EXEC Cell`中的 `input()`被调用时，`Runtime` 会暂停当前 `OUTPUT Cell` 的执行。
-	2.   **等待输入**: `Runtime` 会将当前`OUTPUT Cell`的`value`的`type`设置为`INPUT_HINT` ，然后等待 `target_cognitor` **创建一个** `INPUT Cell` 单元格。
-	3.   **输入处理**: 该`INPUT Cell` 的`value`将被获取，作为`input()`的返回值。然后`Runtime`创建一个新的`OUTPUT Cell`，用于继续处理`EXEC Cell`的内容
+	1.   **暂停执行**: `EXEC Cell`中的 `input()`被调用时，`Arena` 会暂停当前 `OUTPUT Cell` 的执行。
+	2.   **等待输入**: `Arena` 会将当前`OUTPUT Cell`的`value`的`type`设置为`INPUT_HINT` ，然后等待 `target_cognitor` **创建一个** `INPUT Cell` 单元格。
+	3.   **输入处理**: 该`INPUT Cell` 的`value`将被获取，作为`input()`的返回值。然后`Arena`创建一个新的`OUTPUT Cell`，用于继续处理`EXEC Cell`的内容
 	4.   **恢复执行**: `input()` 获得返回值后，会重新创建一个`OUTPUT Cell`，继续执行`EXEC Cell`中的后续语句。
 
 理解这些交互机制将帮助你更好地利用 ACP Canvas 环境和 Fhrsk 进行沟通和协作。
@@ -194,7 +194,7 @@ Fhrsk 是构建在 ACP `Runtime` 之上的一个特殊的`Cognitor`，类型为`
 
 *   **典型的用户角色**: 人类通常扮演**交互的发起者、提问者、指令下达者以及结果的最终解释者**。交互往往呈现一种“用户提问/指令 -> 系统处理/响应”的模式。
 
-*   **行为表现的差异**: 与 `Runtime` 或系统侧 AI `Cognitor` 被协议要求通过详细 `Logs` 实现过程透明不同，人类在 Canvas 环境中通常**不会**被要求或期望产生类似的外显思考日志，也不会被要求进行严格的属性标记。人类的学习、推理和元认知过程更多是**内在**进行的。这种差异主要是由 Canvas 工具的易用性需求和用户的使用习惯决定的，强制用户记录详细日志会显著增加认知负担。
+*   **行为表现的差异**: 与 `Arena` 或系统侧 AI `Cognitor` 被协议要求通过详细 `Logs` 实现过程透明不同，人类在 Canvas 环境中通常**不会**被要求或期望产生类似的外显思考日志，也不会被要求进行严格的属性标记。人类的学习、推理和元认知过程更多是**内在**进行的。这种差异主要是由 Canvas 工具的易用性需求和用户的使用习惯决定的，强制用户记录详细日志会显著增加认知负担。
 
 *   **理论与实践的统一**: 尽管行为表现（如是否外化思考过程）有所不同，但人类在与 ACP 系统交互时所展现出的**学习能力**（理解系统反馈并调整策略）、**推理能力**（分析问题、设计指令）和**元认知能力**（反思目标、评估理解）完全符合 ACP 对 `Cognitor` **核心能力**的定义。因此，从 ACP 协议的根本设计来看，**人类仍然是重要的 `Cognitor`**。
 
@@ -205,7 +205,7 @@ Fhrsk 是构建在 ACP `Runtime` 之上的一个特殊的`Cognitor`，类型为`
 ## 示例
 #### 与Fhrsk交互
 
-示例（ 类xml ）（ChatGPT-0模拟Runtime）（所有注释内容在实际执行中不会出现）：
+示例（ 类xml ）（ChatGPT-0模拟Arena）（所有注释内容在实际执行中不会出现）：
 ```xml
 <Canvas>
     <Cell originator="User" seq="0" type="EXEC">
@@ -227,7 +227,7 @@ Fhrsk 是构建在 ACP `Runtime` 之上的一个特殊的`Cognitor`，类型为`
             <flag value="ThenCreateCell"/>
         </flags>
         <value originator="Gemini">成功</value>
-        <!-- Runtime Cognitor在语句执行完后标记成功 -->
+        <!-- Arena Cognitor在语句执行完后标记成功 -->
     </Cell>
     <!--因为有 ThenCreateCell flag ，所以创建了一个新的Cell-->
     <Cell originator="Fhrsk" seq="0" type="EXEC">
@@ -239,7 +239,7 @@ Fhrsk 是构建在 ACP `Runtime` 之上的一个特殊的`Cognitor`，类型为`
             [i for i in range(5)]
         </value>
     </Cell>
-    <!--这里因为之前的 Cell的类型是 EXEC，因此根据 Runtime 的状态机行为，又创建了一个新的用于执行EXEC内容的 Cell-->
+    <!--这里因为之前的 Cell的类型是 EXEC，因此根据 Arena 的状态机行为，又创建了一个新的用于执行EXEC内容的 Cell-->
     <Cell originator="Gemini" seq="1" type="OUTPUT">
 	    <depends_on>
             <cell originator="Fhrsk" seq="0"/>
@@ -270,11 +270,11 @@ Fhrsk 是构建在 ACP `Runtime` 之上的一个特殊的`Cognitor`，类型为`
         </flags>
     </Cell>
 	
-    <!--Runtime 将等待直到用户手动创建INPUT Cell-->
+    <!--Arena 将等待直到用户手动创建INPUT Cell-->
 	
     <Cell originator="User" type="INPUT" seq="1">
     	<depends_on>
-		    <!--User 是否维护depends_on是可选的，如果User不回复，Runtime会创建一条Log推测该Cell的依赖Cell-->
+		    <!--User 是否维护depends_on是可选的，如果User不回复，Arena会创建一条Log推测该Cell的依赖Cell-->
             <cell originator="ChatGPT-0" seq="0"/>
         </depends_on>
         <value>
@@ -289,7 +289,7 @@ Fhrsk 是构建在 ACP `Runtime` 之上的一个特殊的`Cognitor`，类型为`
             <!-- 还需要依赖User的代码输入，并对代码进行执行 -->
             <cell originator="User" seq="0"/>
         </depends_on>
-        <!-- stdout 本次由 ChatGPT-0 实现 Runtime 后 生成 -->
+        <!-- stdout 本次由 ChatGPT-0 实现 Arena 后 生成 -->
         <stdout seq= "0" originator="ChatGPT-0">
             你好, Alice!
         </stdout>
@@ -307,7 +307,7 @@ Fhrsk 是构建在 ACP `Runtime` 之上的一个特殊的`Cognitor`，类型为`
 	    <depends_on>
             <cell originator="User" seq="2"/>
         </depends_on>
-         <!-- Runtime会创建一条Log推测该Cell（<cell originator="User" seq="2"/>）的依赖Cell，最终推测是 Cell DAG 的起点 -->
+         <!-- Arena会创建一条Log推测该Cell（<cell originator="User" seq="2"/>）的依赖Cell，最终推测是 Cell DAG 的起点 -->
         <value>Alice</value>
     </Cell>
 </Canvas>

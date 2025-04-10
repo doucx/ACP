@@ -50,7 +50,7 @@ ACP 协议定义了一个基础的**认知本体 (Cognitive Ontology)** 来结�
 *   **定义**: 代表 ACP 认知本体中的一个**可管理的、带有约束的不确定状态 (Managed Unresolved State with Constraints)**。它标记了信息中的一个节点，其具体指代、数值、属性或含义尚未完全确定，需要通过 `Cognitor` 的认知过程来逐步明晰。`Uncertainty` 不关心不确定性的来源或类型，仅提供一个通用的机制来添加和管理约束，以限制其存在的可能性空间。
 *   **约束**: 任何类型的约束（例如，取值范围、概率分布、语法规则、形状定义等）都可以施加于一个 `Uncertainty` 存在物上，以缩减其可能性。
 *   **持久性**: 无论约束如何增加，可能性空间如何缩小，`Uncertainty` 本身不会自动转变为一个 `Module` 实体。其“不确定性”的本质状态会持续存在。
-*   **交互**: 在 `Runtime` 环境中，对 `Uncertainty` 的交互和解读需要通过详细的 `Log` 来记录施加的约束和推断过程，目的是降低不同 `Cognitor` 对同一个 `Uncertainty` 认知的偏差。
+*   **交互**: 在 `Arena` 环境中，对 `Uncertainty` 的交互和解读需要通过详细的 `Log` 来记录施加的约束和推断过程，目的是降低不同 `Cognitor` 对同一个 `Uncertainty` 认知的偏差。
 
 #### Module (确定性实体)
 *继承于 Object*

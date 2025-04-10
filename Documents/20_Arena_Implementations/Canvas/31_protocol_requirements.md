@@ -1,4 +1,4 @@
-#  ACP Canvas 协议
+#  ACP Canvas 协议扩展
 ## 基本介绍
 **ACP Canvas** 中的 **ACP Textual Aren** 扩展规范。
 
