@@ -23,8 +23,12 @@ def generate_xml_structure(directory, base_path=None, blacklist=None):
         
         if rel_str in blacklist:
             # 添加跳过说明
+            print(f'{rel_str} 已跳过 (配置在黑名单中)')
             xml_lines.append(f'<!-- 文件 {rel_str} 已跳过 (配置在黑名单中) -->')
             continue
+        else:
+            print(rel_str)
+
             
         if item.is_dir():
             # 处理目录

@@ -38,10 +38,10 @@
         *   `ExternalInput`: 记录通过 `input()` 等方式获取的外部输入。
         *   `ToolOutput`: 记录调用外部工具（Function Call）的返回结果。
         *   `FhrskAnnotation`: Fhrsk 对其他日志条目添加的元注释。
-        *   `SystemEvent`: Runtime 内部事件。
+        *   `SystemEvent`: Arena 内部事件。
 
 7. **`flags`** (List[String], 可选)
-    *   用于标记此日志条目的特殊状态或引起注意，可由 Cognitor 自行添加或由 Runtime/Fhrsk 监控添加。
+    *   用于标记此日志条目的特殊状态或引起注意，可由 Cognitor 自行添加或由 Arena/Fhrsk 监控添加。
     *   *推荐标志:*
         *   `LLM_PossibleHallucination`: 提示此 LLM 生成的 `message` 内容可能不完全基于事实，需要谨慎对待（可能由 Fhrsk 或外部验证机制标记）。
         *   `LLM_SelfCorrection_Prompted`: 表明 LLM 的修正是被明确提示后发生的。

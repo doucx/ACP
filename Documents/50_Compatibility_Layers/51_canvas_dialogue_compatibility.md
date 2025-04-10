@@ -2,7 +2,7 @@
 ## 设计背景  
 当用户与`Agent`仅能通过某种对话界面以对话形式交互时，本规范确保：  
 1. **上下文完整性** - 在非结构化对话中维持Canvas的XML语义  
-2. **行为一致性** - 强制Agent遵守Runtime状态机逻辑  
+2. **行为一致性** - 强制Agent遵守Arena状态机逻辑  
 3. **错误预防** - 解决传统对话模式导致的三大问题：  
    - 格式违规（如缺失关键属性）  
    - 响应不完整（如忽略多轮交互需求）  
@@ -142,7 +142,7 @@ console.log("Hello, world!");
             你好！作为一个在模拟环境中的认知界面，我当前无法直接访问你设备或网络的实时时钟。不过，我可以向你询问当前时间，然后帮你记录并打印出来。我接下来会使用 `input()` 来问你时间。
         </Fhrsk>
         <flags>
-            <!-- Instructs Runtime to create Fhrsk's EXEC cell next -->
+            <!-- Instructs Arena to create Fhrsk's EXEC cell next -->
             <flag value="ThenCreateCell"/>
         </flags>
         <value originator="Gemini">成功</value> <!-- Marking the routing successful -->
