@@ -1,38 +1,5 @@
 <ACP-DOCUMENTATION version="{{ acp_version }}">
-<variable name="introduction_and_core_protocol" role="content" description="Content for the section introducing the ACP protocol and its core principles.">
-{{ introduction_and_core_protocol }}
-</variable>
-<variable name="reference_library" role="content" description="Content for the section providing a reference library for ACP.">
-{{ reference_library }}
-</variable>
-<variable name="advanced_concepts" role="content" description="Content for the section explaining advanced concepts in ACP.">
-{{ advanced_concepts }}
-</variable>
-<variable name="appendix_symbols" role="content" description="Content for the appendix section explaining special symbols used in ACP.">
-{{ appendix_symbols }}
-</variable>
-<variable name="canvas_protocol" role="content" description="Content for the section discussing canvas protocol in ACP.">
-{{ canvas_protocol }}
-</variable>
-<variable name="canvas_implementation" role="content" description="Content for the section discussing canvas implementation in ACP.">
-{{ canvas_implementation }}
-</variable>
-<variable name="log_system" role="content" description="Content for the section detailing the ACP Canvas log system.">
-{{ log_system }}
-</variable>
-</variable>
-<variable name="canvas_dialogue_compatibility" role="content" description="Content for the section on canvas dialogue compatibility in ACP.">
-{{ canvas_dialogue_compatibility }}
-</variable>
-<variable name="canvas_examples" role="content" description="Content for the section containing examples of Canvas in ACP.">
-{{ canvas_examples }}
-</variable>
-<variable name="file_naming_conventions" role="content" description="Content for the section detailing file naming conventions in ACP.">
-{{ file_naming_conventions }}
-</variable>
-<variable name="version_changelog" role="content" description="Version Changelog in ACP.">
-{{ file_naming_conventions }}
-</variable>
+{{ document_structure }}
 </ACP-DOCUMENTATION>
 
 <CognitorInfo>
