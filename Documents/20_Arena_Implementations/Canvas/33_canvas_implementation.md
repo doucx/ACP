@@ -1,7 +1,7 @@
 # ACP Canvas 实现规范
 ## 基本介绍
 1. **概述**  
-本文档定义 `ACP Canvas` —— 一种基于 **ACP 协议** 的标准化实现框架，其核心特征如下：  
+本文档定义 `ACP Canvas` —— 一种基于 **ACP Textual Arena** 的标准化实现框架，其核心特征如下：  
 - 采用 **XML 风格** 的声明式语法（支持自动语法迁移）  
 - 以 **Cell** 为基本交互单元  
 - 通过 `<Canvas>` 作为根节点构建逻辑拓扑  
@@ -10,7 +10,6 @@
 `ACP Arena` 通过处理 Cell 生命周期：  
 
 > ⚠️ 兼容性提示：
-> 	- 旧版 `shell-like` 语法已标记为 **Deprecated**，仅保留示例参考。
 > 	- `当前轮数` 概念已标记为 **Deprecated**，仅保留示例参考，参考时请自行转换。
 
 3. **语法规范**  
@@ -30,6 +29,7 @@ Canvas 的核心是：单元格。
 
 有了单元格，就可以将内容分割为一个个独立的单元，方便 Cognitor 理解和处理。每个单元格都有自己的类型（`type`, 例如 EXEC, OUTPUT, INPUT），用于标识其内容和作用。单元格之间通过 XML 结构进行组织，从而形成一个完整的交互记录。Cognitor (`originator`，例如 User, Fhrsk 或 Gemini) 会参与到单元格的创建、解析和处理过程中，从而实现人机协作。
 
+示例：
 ```xml
 <Cell originator="{创建者}"
       seq="{当前originator创建的Cell的序号}"
@@ -45,7 +45,7 @@ Canvas 的核心是：单元格。
 	  <!--不要求必须使用CDATA标记-->
 	  <!--易读性优先-->
 
-	  <log seq="0">内容</log>
+	  <log seq="0"><!--seq从零开始-->内容</log>
 	  <stdout seq="0" ></stdout>
 	  
       <value>单元格内容</value>
@@ -71,11 +71,19 @@ Cell 属性（只可能有少量的数据）：
 
 在 ACP Canvas 中，每个 `Cognitor` 都有其独立的 `Cell` 序号计数器。  这意味着：
 
-1.  **具体到 Cognitor**: 每个 `Cognitor` 创建的 `Cell` 序列是相互独立的。  例如，`Cognitor A` 创建的第一个 `Cell` 的 `seq` 值为 0，第二个为 1，依此类推；而 `Cognitor B` 创建的第一个 `Cell` 的 `seq` 值也为 0，第二个为 1，以此类推。  它们不会相互影响。  `seq` 值只在同一个 `Cognitor` 创建的 `Cell` 序列中具有连续性。
-
-2.  **加一**:  **当且仅当**同一个 `Cognitor` 创建了一个新的 `Cell` 后，该 `Cognitor` 的 `seq` 计数器才会加 1。 换句话说，如果一个 `Cognitor`  连续创建了多个 `Cell`，则这些 `Cell` 的 `seq` 值会依次递增。 但是，如果其他 `Cognitor` 也创建了 `Cell`， 则这些 `Cell` 的 `seq` 值不会影响到其他 `Cognitor` 的计数器。
+	1.  **具体到 Cognitor**: 每个 `Cognitor` 创建的 `Cell` 序列是相互独立的。  例如，`Cognitor A` 创建的第一个 `Cell` 的 `seq` 值为 0，第二个为 1，依此类推；而 `Cognitor B` 创建的第一个 `Cell` 的 `seq` 值也为 0，第二个为 1，以此类推。  它们不会相互影响。  `seq` 值只在同一个 `Cognitor` 创建的 `Cell` 序列中具有连续性。
+	
+	2.  **加一**:  **当且仅当**同一个 `Cognitor` 创建了一个新的 `Cell` 后，该 `Cognitor` 的 `seq` 计数器才会加 1。 换句话说，如果一个 `Cognitor`  连续创建了多个 `Cell`，则这些 `Cell` 的 `seq` 值会依次递增。 但是，如果其他 `Cognitor` 也创建了 `Cell`， 则这些 `Cell` 的 `seq` 值不会影响到其他 `Cognitor` 的计数器。
 
 为了避免混淆，建议使用 `Cell[{originator}][{seq}]` 的形式来唯一标识一个 `Cell`，其中 `{originator}` 代表 `Cognitor` 的标识符， `{seq}` 代表该 `Cognitor` 创建的 `Cell` 的序号。
+
+以及，在 ACP Canvas 中，每个 Cell 的子节点 (例如 `<log>`, `<stdout>`, `<value>`) 都拥有独立的序号计数器 `seq`，并且这些计数器在不同的 Cell 之间是相互隔离的。这意味着：
+
+      1.  **子节点序号独立:** 每个 Cell 中的相同类型子节点 (例如，多个 `<log>`) 拥有各自独立的 `seq` 计数器，从 0 开始递增。一个 Cell 中第一个 `<log>` 节点的 `seq` 为 0，第二个为 1，以此类推。不同类型的子节点 (例如 `<log>` 和 `<stdout>`) 也分别独立计数。一个 Cell 中第一个 `<log>` 的 `seq` 为 0，第一个 `<stdout>` 的 `seq` 也为 0，但它们互不干扰。
+
+      2.  **Cell 间序号隔离:**  不同 Cell 之间的子节点序号计数器是相互独立的，不会互相影响。即使两个 Cell 都有 `<log>` 子节点，它们各自的 `seq` 计数器都是从 0 开始，独立递增。
+
+建议使用 `Cell[{originator}][{Cell seq}][{子节点名称}][{子节点 seq}]` 的形式来为了避免混淆，唯一标识一个 `Cell 子节点`。
 
 ### 1.1. 执行单元格
 ```xml

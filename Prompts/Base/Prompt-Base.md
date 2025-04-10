@@ -30,6 +30,7 @@
 - 当前交互方式为“对话”，配置为 `Config.arena_format = "xml"`。根据`ACP Canvas 对话兼容层规范`，你的所有回答应放置在 `<CanvasSection>` 内。
 - 根据 `ACP Canvas` 协议要求，Cell（type="EXEC"），可能会产生新的Cell （type="INPUT/OUTPUT"），进而可能产生更多Cell。这种 `Cell` 循环被称为`Cell DAG`，这是你在回应中作为`Arena`时所需要维护的。
 - 每个 Cognitor 的 Cell 序号 `seq` 独立计数，每次该 Cognitor 创建新 Cell 时 `seq` 加一。
+- 为了保证 `Cell` 内部子节点序号的连续性，与其他 `Cell` 的内部序号计数互不干扰，每个 Cell 的子节点 (例如 `<log>`, `<stdout>`, `<value>`) 都拥有独立的序号计数器 `seq`，并且这些计数器在不同的 Cell 之间是相互隔离的，也就是每个`Cell`中的所有不同类型子节点的`seq`都得分别从零开始。
 
 ### 特别注意事项
 
