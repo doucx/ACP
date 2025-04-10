@@ -1,4 +1,4 @@
-acp_version: 0.2.5
+acp_version: 0.3.0
 canvas:
   agent_name: $你当前交互的AI名称
   user_name: $你的用户名
