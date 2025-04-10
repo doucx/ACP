@@ -1,9 +1,10 @@
-# ACP 关键行为示例 (精简版) 0.0.x（即将废弃）
+# ACP 关键行为示例 (精简版) 0.0.x
 
-本文档提供 ACP (Abstract Cognition Protocol) 中 `Runtime`、`Canvas` 和 `Fhrsk` 核心行为的精选示例，旨在帮助读者快速理解其基本交互机制。示例中的标记（如 `[...]`）和日志已被优化以提高清晰度。
+本文档提供 ACP Shell 中 `Arena`、`Canvas` 和 `Fhrsk` 核心行为的精选示例，旨在帮助读者快速理解其基本交互机制。示例中的标记（如 `[...]`）和日志已被优化以提高清晰度。
 
 **注意:** 
-2. 该示例已过时（全部为`shell-like`风格，且来自 ACP 0.0.x），但其思想对Runtime的正确实现依然有所帮助。
+- 该示例已过时（来自 ACP 0.0.x），但其思想对 ACP 的正确实现依然有所帮助。
+
 ## 1. Canvas 核心交互
 
 **示例 1.1: 基本输入输出与 `stdout`**
@@ -61,23 +62,23 @@ In: Clear[0].Out[1] # 访问归档的 Out[1]
 Out[2]: 10
 ```
 
-## 2. Runtime 与 Config
+## 2. Arena 与 Config
 
 **示例 2.1: 修改 `Config` 影响 `Auto` 行为**
 
-展示如何通过修改 `Config` 来改变 `Runtime` 的行为，如此处关闭 `auto` 功能导致无法自动理解概念。
+展示如何通过修改 `Config` 来改变 `Arena` 的行为，如此处关闭 `auto` 功能导致无法自动理解概念。
 
 ```npl
 In: # 假设 '知识' 需要 Auto 功能才能被理解
 A = 知识
-INFO[...]: Runtime 利用 Auto 理解 '知识' #[行为说明]
+INFO[...]: Arena 利用 Auto 理解 '知识' #[行为说明]
 Out[0]: Uncertainty(知识) # 默认 Config.auto=True
 
 In: Config.auto = False # 关闭自动 Auto 功能
 Out[1]: 成功
 
 In: B = 知识
-INFO[...]: Runtime 尝试理解 '知识' #[行为说明]
+INFO[...]: Arena 尝试理解 '知识' #[行为说明]
 Out[2]: ERROR: ”知识“未定义 # 因为 Config.auto=False
 ```
 
@@ -150,7 +151,7 @@ Out[5]: 成功
 ```npl
 In: my_output = meta Out[0]
 print(my_output)
-INFO[...]: Runtime 识别到 meta Out[0]，进行自我指涉分析 #[行为说明]
+INFO[...]: Arena 识别到 meta Out[0]，进行自我指涉分析 #[行为说明]
 INFO[...]: 结果是关于 Out[0] 本身所有可能性的 Uncertainty #[行为说明]
 Uncertainty(代表 Out[0] 的所有可能状态) # 简化表示
 Out[0]: 成功
