@@ -57,7 +57,7 @@ Canvas 的核心是：单元格。
 其中：
 Cell 属性（只可能有少量的数据）：
    - originator: 标识哪个实体创建了这个单元格。
-   - seq: 当前originator创建的Cell的序号，必须，从零开始。使用`Cell[{originator}][{seq}]`找到该`Cell`。
+   - seq: 当前originator创建的Cell的序号，必须，从零开始，递增。使用`Cell[{originator}][{seq}]`找到该`Cell`。
 	   - 不同的`originator`间的`seq`属性是独立的。
    - type: 类型，标识单元格的内容类型（例如 EXEC, OUTPUT, INPUT）
 
@@ -69,7 +69,13 @@ Cell 属性（只可能有少量的数据）：
 	   - ThenCreateCell` 通知 Arena 需要创建一个新的单元格而不是暂停。
    - `<value>` : 唯一，可选，存放Cell内容（取决于Cell类型）。
 
-注意：为了便于访问与处理，每个新单元格下子节点的内部计数（如日志的`seq`，Fhrsk的`seq`，stdout的`seq`等）都会重新从零开始，用于标记这是当前单元格中第几个该内容
+在 ACP Canvas 中，每个 `Cognitor` 都有其独立的 `Cell` 序号计数器。  这意味着：
+
+1.  **具体到 Cognitor**: 每个 `Cognitor` 创建的 `Cell` 序列是相互独立的。  例如，`Cognitor A` 创建的第一个 `Cell` 的 `seq` 值为 0，第二个为 1，依此类推；而 `Cognitor B` 创建的第一个 `Cell` 的 `seq` 值也为 0，第二个为 1，以此类推。  它们不会相互影响。  `seq` 值只在同一个 `Cognitor` 创建的 `Cell` 序列中具有连续性。
+
+2.  **加一**:  **当且仅当**同一个 `Cognitor` 创建了一个新的 `Cell` 后，该 `Cognitor` 的 `seq` 计数器才会加 1。 换句话说，如果一个 `Cognitor`  连续创建了多个 `Cell`，则这些 `Cell` 的 `seq` 值会依次递增。 但是，如果其他 `Cognitor` 也创建了 `Cell`， 则这些 `Cell` 的 `seq` 值不会影响到其他 `Cognitor` 的计数器。
+
+为了避免混淆，建议使用 `Cell[{originator}][{seq}]` 的形式来唯一标识一个 `Cell`，其中 `{originator}` 代表 `Cognitor` 的标识符， `{seq}` 代表该 `Cognitor` 创建的 `Cell` 的序号。
 
 ### 1.1. 执行单元格
 ```xml
@@ -239,7 +245,7 @@ Fhrsk 是构建在 ACP `Arena` 之上的一个特殊的`Cognitor`，类型为`In
             [i for i in range(5)]
         </value>
     </Cell>
-    <!--这里因为之前的 Cell的类型是 EXEC，因此根据 Arena 的状态机行为，又创建了一个新的用于执行EXEC内容的 Cell-->
+    <!--这里因为之前的 Cell的类型是 EXEC，因此根据 Arena 的状态机行为，又创建了一个新的用于执行的 OUTPUT Cell。并且由于这是"Gemini"的第二个Cell， seq 增加为了 `1`。 -->
     <Cell originator="Gemini" seq="1" type="OUTPUT">
 	    <depends_on>
             <cell originator="Fhrsk" seq="0"/>
