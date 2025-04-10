@@ -1,0 +1,1 @@
+NPL ( Natural Pseudo Language ) 是对于
