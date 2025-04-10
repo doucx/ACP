@@ -11,29 +11,27 @@
 ## 语法规范  
 采用分块式XML结构替代完整Canvas封装：  
 ```xml
-<CanvasSection role="User|Agent" num="{区块序号}">
+<CanvasSection role="User|Agent">
     <!-- 当前产生的完整Cell链 -->
 </CanvasSection>
 ```
 
 ### 关键属性  
-| 属性     | 取值               | 强制要求            | 说明                                                   |
-| ------ | ---------------- | --------------- | ---------------------------------------------------- |
-| `role` | `User` / `Agent` | 双方必需            | 声明交互主体类型                                             |
-| `num`  | 整数序列             | Agent强制，用户可选 | 对话轮次编号，遵循：用户发起端：0,2,4,... 代理响应端：1,3,5,... |
+| 属性     | 取值               | 强制要求         | 说明                                        |
+| ------ | ---------------- | ------------ | ----------------------------------------- |
+| `role` | `User` / `Agent` | 双方必需         | 声明交互主体类型                                  |
 
 ### 实现要求  
 1. **Agent义务**  
    - 必须将响应内容包裹在标准的markdown XML代码块中：  
  ```xml
- <CanvasSection role="Agent" num="3">
+ <CanvasSection role="Agent">
 	 <!-- 响应内容：完整Cell链 -->
  </CanvasSection>
  ```
    - 需完整继承并扩展前序`CanvasSection`的上下文  
 
 2. **用户建议**  
-    - 推荐但不强制使用`num`属性  
     - 允许简化属性标注（如仅声明`role="User"`）  
 
 
@@ -89,7 +87,7 @@
 
 *   在日志中使用：
 ```xml
-<log originator="Gemini" type="LLM Agent" log_level="INFO" log_number="0">
+<log originator="Gemini" type="LLM Agent" log_level="INFO" seq="0">
     <message>这是包含 Markdown 代码块的日志消息。</message>
     <CodeBlock language="python">
 def hello_world():
@@ -100,7 +98,7 @@ def hello_world():
 
 *   在 Fhrsk 的回复中使用：
 ```xml
-<Fhrsk number="0">
+<Fhrsk seq="0">
     这是包含 Markdown 代码块的 Fhrsk 回复。
     <CodeBlock language="javascript">
 console.log("Hello, world!");
@@ -116,7 +114,7 @@ console.log("Hello, world!");
 
 用户输入：
 ```xml
-<CanvasSection role="User" num="0">
+<CanvasSection role="User">
     <!-- 1. User initiates the chat request -->
     <Cell originator="User" seq="0" type="EXEC">
         <value>
@@ -128,7 +126,7 @@ console.log("Hello, world!");
 
 模型（Gemini）输出：
 ```xml
-<CanvasSection role="Agent" num="1">
+<CanvasSection role="Agent">
     <!-- 2. Gemini processes User:0, routes to Fhrsk -->
     <Cell originator="Gemini" seq="0" type="OUTPUT">
         <depends_on>
@@ -179,7 +177,7 @@ console.log("Hello, world!");
 
 用户输入：
 ```xml
-<CanvasSection role="User" num="2">
+<CanvasSection role="User">
     <!-- 5. User provides the input -->
     <Cell originator="User" seq="1" type="INPUT">
         <depends_on>
@@ -195,7 +193,7 @@ console.log("Hello, world!");
 
 模型（Gemini）输出：
 ```xml
-<CanvasSection role="Agent" num="3">
+<CanvasSection role="Agent">
     <!-- 6. Gemini processes the input and continues Fhrsk:0's execution -->
     <Cell originator="Gemini" seq="2" type="OUTPUT">
         <depends_on>
