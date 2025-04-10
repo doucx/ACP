@@ -1,4 +1,4 @@
-# ACP 日志条目格式
+# ACP Canvas 日志条目格式
 本规范定义了 ACP Canvas 中日志条目的推荐结构，旨在同时适应人类 Cognitor 的输入习惯和当前主流 LLM Cognitor 的实际输出特性（如倾向于自然语言叙述、难以提供精确内部状态、可能存在幻觉等），同时保持足够结构化以供分析。
 
 ## 日志条目结构
@@ -17,7 +17,7 @@
 3.  **`log_level`** (Enum, **必需**)
     *   日志级别: `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`.
 
-4.  `log_number` (String, **必需**)
+4.  `seq` (String, **必需**)
 	- 当前日志在同层级日志中的序号。
 
 5.  **`message`** (String, **必需**)
@@ -41,22 +41,14 @@
         *   `SystemEvent`: Arena 内部事件。
 
 7. **`flags`** (List[String], 可选)
-    *   用于标记此日志条目的特殊状态或引起注意，可由 Cognitor 自行添加或由 Arena/Fhrsk 监控添加。
-    *   *推荐标志:*
-        *   `LLM_PossibleHallucination`: 提示此 LLM 生成的 `message` 内容可能不完全基于事实，需要谨慎对待（可能由 Fhrsk 或外部验证机制标记）。
-        *   `LLM_SelfCorrection_Prompted`: 表明 LLM 的修正是被明确提示后发生的。
-        *   `Human_LowConfidence`: 人类用户标记自己对该条日志内容的信心不足。
-        *   `InconsistentWithContext`: 系统检测到此条目与之前的日志或上下文存在逻辑矛盾。
-        *   `NeedsHumanReview`: 标记此条目或相关流程需要人工介入检查。
-        *   `Routing`: 标记接下来会路由到其它 Cognitor。
     *  *Notebook特有标识:*
         *  `CellCreateNeed`: 标记需要创建一个`Cell`。
 
 注：使用了`log_number`代替了难以由`Cognitor`获取的`timestamp`。
 
-具体日志示例( 类xml，省略大部分内容)：
+具体日志示例( ACP Canvas，省略大部分内容)：
 ```xml
-<log originator="Fhrsk" type="InterfaceCognitor" log_level="INFO" log_number="42">
+<log originator="Fhrsk" type="InterfaceCognitor" log_level="INFO" seq="42">
   <message>
 	在分析用户查询时，我识别到需要获取用户位置信息，我需要询问用户所在城市。
 	接下来，我将执行 `city_info = input("你在什么城市")` 来获取用户城市信息。
@@ -69,7 +61,7 @@
 </log>
 ```
 
-示例(shell-like，即将废弃)：
+转换示例( ACP Shell )：
 ```
 INFO[42]: 
 	在分析用户查询时，我识别到需要获取用户位置信息，我需要询问用户所在城市。
