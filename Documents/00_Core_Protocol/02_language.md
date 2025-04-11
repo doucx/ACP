@@ -1,4 +1,4 @@
-# **ACP 认知本体扩展：`Language`
+# ACP 认知本体扩展：`Language`
 
 ## **实体名称**  
 **`Language`** 或 **语言**
