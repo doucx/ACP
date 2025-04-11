@@ -8,16 +8,14 @@ ACP Canvas 协议设计基于以下核心原则：
 
 ## 核心实体
 ### Arena
-*   **定义**: 在 Canvas 的 Arena 中，`Arena` 的模拟过程主要通过当前负责执行的 `Cognitor`（通常是语言模型）**生成文本并管理 `Cell` 流**来体现。其运作方式包含以下关键方面：
-
-    1.  **上下文维护:** 它通过解析用户输入 (`EXEC`, `INPUT` Cell) 和生成输出 (`OUTPUT` Cell，包含 `stdout`, `Logs`, `value` 等)，完全基于可见的文本历史（`Cell` 序列）来维护交互上下文。
-    2.  **基于规则的 `Cell` 创建 (状态机行为):** `Arena` (通过 `Cognitor` 的模拟) **主动监听并响应**特定事件或 `Cell` 状态，以按规则自动创建新的 `Cell`，驱动交互流程。这种“状态转换”机制主要包括：
-        *   **`EXEC` -> `OUTPUT`:** 在处理完一个 `type="EXEC"` 的 `Cell` 后，自动创建一个对应的 `type="OUTPUT"` 的 `Cell` 来展示执行结果和日志。
-        *   **`INPUT` -> `OUTPUT`:** 在用户提交一个 `type="INPUT"` 的 `Cell`（响应 `input()` 调用）后，自动创建一个新的 `type="OUTPUT"` `Cell` 来继续执行原 `EXEC` `Cell` 中 `input()` 之后的语句。
-        *   **`input()` 调用 -> 等待 `INPUT`:** 当在 `EXEC` `Cell` 中遇到 `input()` 调用时，`Arena` 会暂停当前 `OUTPUT` `Cell` 的生成，并将其标记为等待状态（例如，设置 `<value type="INPUT_HINT">` 和 `<flags><flag value="WAIT"/></flags>`)，**监听**用户创建并提交相应的 `type="INPUT"` `Cell`。
-        *   **`Flag` 驱动创建:** 明确的 `Cell` 标记（如 `<flags><flag value="ThenCreateCell"/></flags>`）可以指示 `Arena` 在处理完当前 `Cell` 后需要立即创建并处理一个（通常由 Fhrsk 或系统预定义的）新 `Cell`，而不只是等待用户输入。
-    3.  **行为模拟:** `Arena` 的其他行为，如自动将自然语言路由给 Fhrsk，也是 `Cognitor` 根据对文本流和 ACP Textual Arena 规则的**理解和模拟**来执行的。
-    4.  **纯文本基础:** 其“纯文本”特性在 Textual Arena 中表现为结构化（如 XML 风格）的文本记录，整个交互流程和状态变迁都必须通过这些文本记录来体现。
+*   **定义**: 在 Canvas 环境下，Arena 代表了遵循 ACP Canvas 协议规范的交互空间。它**必须**通过可审计的文本记录（`<Cell>` 序列和 `<ArenaLog>`）来维护交互上下文和状态。
+*   **核心协议要求**:
+    1.  **上下文管理**: Arena **必须**能够解析和管理构成交互历史的 `<Cell>` 序列，并维护其间的依赖关系（显式通过 `<depends_on>` 或隐式推断）。
+    2.  **Cell 处理**: **必须**定义如何处理不同类型的 `<Cell>` (`EXEC`, `OUTPUT`, `INPUT` 等)，包括何时创建新的 Cell 以及 Cell 之间的状态转换逻辑（例如，`EXEC` 后通常跟随 `OUTPUT`，`input()` 调用需等待 `INPUT`）。
+    3.  **指令路由**: 对于 `EXEC` Cell，Arena **必须**有明确的机制来决定是由其内部模拟执行、路由给特定 PersonaCognitor（如 Fhrsk）、还是根据 `target_cognitor` 属性委托给其他指定 Cognitor 执行。
+    4.  **过程透明性**: Arena 的关键决策（如路由、信息推断、状态转换）**必须**通过 `<ArenaLog>` 中的结构化日志进行记录，以确保可审计性。
+    5.  **纯文本基础**: **必须**确保所有交互状态和历史完全通过 Canvas 的类 XML 文本格式进行表示和存储。
+*   **实现说明**: Canvas Arena 的具体行为（如详细的状态机逻辑、路由规则实现）由负责模拟 Arena 的 `Cognitor` 实现，并记录在 `20_Arena_Implementations/Canvas/23_canvas_implementation.md` 中。本文件仅定义协议层面的核心要求。
 
 ## 关键协议机制
 ### Logs (日志系统)
