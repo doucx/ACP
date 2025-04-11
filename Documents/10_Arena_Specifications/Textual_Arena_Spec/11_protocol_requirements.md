@@ -5,6 +5,7 @@
 ## 核心原则
 ACP Textual Arena 协议设计基于以下核心原则：
 *   **纯文本交互**: ACP Textual Arena 的 Arena Context 是纯文本。所有指令、数据和元信息都以且仅以文本形式交换。这意味着即使 `Cognitor` 通过实现 `Arena` 模拟了函数、变量等高级概念，其状态和行为也**必须**通过文本日志进行记录和维护，以确保跨载体的一致性和可审计性。
+	* 由于是纯文本，因此整个 `Textual Arena` 都自然被 `Language` 约束。
 
 ## 核心实体
 ### Cognitor (认知执行体)
