@@ -21,4 +21,4 @@ ACP Canvas 协议设计基于以下核心原则：
 
 ## 关键协议机制
 ### Logs (日志系统)
-*   **定义** : 在 Canvas 中，`Logs` 嵌入到 `OUTPUT` Cell 的`<log>` 节点中。
+*   **定义** : 在 Canvas 中，`Logs` 嵌入到 `<log>` 节点中。
