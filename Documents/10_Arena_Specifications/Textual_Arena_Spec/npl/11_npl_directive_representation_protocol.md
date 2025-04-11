@@ -1,6 +1,6 @@
 # NPL (Natural Pseudo Language): 结构化认知指令
 
-**NPL (Natural Pseudo Language)** 被定义为 **ACP 认知指令 (Cognitive Directive)** 在 **Textual Arena (文本认知空间)** 内的一种具体实现方式。它旨在为基于文本的交互提供一个既灵活又足够结构化的语言界面。
+在文本认知空间 (Textual Arena) 中，ACP 的认知指令 (Cognitive Directive) 可以通过NPL ( Natural Pseudo Language )实现结构化。NPL 作为 ACP 认知指令的一种具体形式，旨在为文本交互提供灵活且结构化的界面。
 
 **核心目标与特性:**
 
