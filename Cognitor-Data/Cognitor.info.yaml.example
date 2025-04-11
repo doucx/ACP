@@ -48,7 +48,7 @@ Cognitor.info:
 	  capabilities:
       - 用户
 
-  - name: "Fhrsk" # 别删
+  - name: "Fhrsk" # 默认描述
     entity_type: "PersonaCognitor"
     created_by: "ACP.Auto" 
     introduction: >
