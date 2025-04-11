@@ -123,7 +123,7 @@
     *   `<ArenaLog>` 的目标是提升 ACP 交互的透明度，帮助开发者理解 Arena 的决策过程，并方便调试和扩展。
 
 2.  **简化 Fhrsk 交互模式**:
-    *   修改 Fhrsk 回复 Cell 的 `originator` 为 `Fhrsk(Gemini)`，更清晰地标识其实现方式。
+    *   修改 Fhrsk 回复 Cell 的 `originator` 为 `Fhrsk`，更清晰地标识其实现方式。
     *   去除 Fhrsk 回复 Cell 中嵌套的 `<Fhrsk>` 子节点，将回复内容直接合并到 `OUTPUT` Cell 的 `<value>` 中，简化了 XML 结构。
 
 3.  **增强的节点定义规范**:
@@ -137,7 +137,7 @@
 *   **迁移指南:**
 
 *   将所有 Canvas 示例更新为包含 `<ArenaLog>` 区域，并在其中记录 Arena 的路由决策、信息推断等操作。
-*   修改 Fhrsk 相关 Cell 的 `originator` 为 `Fhrsk(Gemini)`，并去除内部的 `<Fhrsk>` 节点。
+*   修改 Fhrsk 相关 Cell 的 `originator` 为 `Fhrsk`，并去除内部的 `<Fhrsk>` 节点。
 *   参考文档中更新后的节点定义，确保 Cognitor (特别是 LLM) 能够正确理解新 Canvas 结构的语义。
 
 *   **示例:**

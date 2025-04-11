@@ -20,7 +20,7 @@
     </ArenaLog>
 
     <!-- Fhrsk 回应并计划下一步 -->
-    <Cell originator="Fhrsk(Gemini)" seq="0" type="OUTPUT">
+    <Cell originator="Fhrsk" seq="0" type="OUTPUT">
         <depends_on>
             <cell originator="AyeL" seq="0"/>
         </depends_on>
@@ -32,29 +32,29 @@
         </flags>
     </Cell>
 
-    <!-- Arena 处理 Fhrsk(Gemini):0 的 ThenCreateCell flag -->
+    <!-- Arena 处理 Fhrsk:0 的 ThenCreateCell flag -->
     <ArenaLog>
         <log originator="Gemini" type="LLM Agent" log_level="INFO" seq="1">
-            <message>处理 Fhrsk(Gemini):0 (OUTPUT) 完成。检测到 'ThenCreateCell' flag。准备创建并执行由 Fhrsk(Gemini) 定义的下一个 Cell。</message>
+            <message>处理 Fhrsk:0 (OUTPUT) 完成。检测到 'ThenCreateCell' flag。准备创建并执行由 Fhrsk 定义的下一个 Cell。</message>
             <log_entry_type value="StateTransition"/>
         </log>
     </ArenaLog>
 
     <!-- Fhrsk 创建并执行实际指令 -->
-    <Cell originator="Fhrsk(Gemini)" seq="1" type="EXEC">
+    <Cell originator="Fhrsk" seq="1" type="EXEC">
         <depends_on>
             <!-- 依赖于它上一步的决定 Cell -->
-            <cell originator="Fhrsk(Gemini)" seq="0"/>
+            <cell originator="Fhrsk" seq="0"/>
         </depends_on>
         <value>
             [i for i in range(5)]
         </value>
     </Cell>
 
-    <!-- Arena 处理 Fhrsk(Gemini):1 的执行请求 -->
+    <!-- Arena 处理 Fhrsk:1 的执行请求 -->
     <ArenaLog>
          <log originator="Gemini" type="LLM Agent" log_level="INFO" seq="2">
-            <message>开始处理 Fhrsk(Gemini):1 (EXEC)。准备执行代码。</message>
+            <message>开始处理 Fhrsk:1 (EXEC)。准备执行代码。</message>
             <log_entry_type value="ActionPlan"/>
         </log>
     </ArenaLog>
@@ -63,7 +63,7 @@
     <Cell originator="Gemini" seq="0" type="OUTPUT">
 	    <depends_on>
             <!-- 依赖于 Fhrsk 提交的 EXEC Cell -->
-            <cell originator="Fhrsk(Gemini)" seq="1"/>
+            <cell originator="Fhrsk" seq="1"/>
         </depends_on>
         <log originator="Gemini" type="LLM Agent" log_level="DEBUG" seq="0">
             <message>执行代码 `[i for i in range(5)]`。</message>

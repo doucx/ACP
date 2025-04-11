@@ -40,7 +40,7 @@
                 <log_entry_type value="RoutingDecision"/>
             </log>
             <log originator="Gemini" log_level="INFO" seq="1">
-                <message>处理完 Fhrsk(Gemini):2 (EXEC)。指令成功执行完成。准备生成对应的 OUTPUT Cell。</message>
+                <message>处理完 Fhrsk:2 (EXEC)。指令成功执行完成。准备生成对应的 OUTPUT Cell。</message>
                 <log_entry_type value="StateTransition"/>
             </log>
             ```
@@ -82,7 +82,7 @@
 **核心属性 (Attributes):**
 
 *   `originator` (文本, **必需**):
-    *   **说明:** 这个属性 **必须** 明确指出是哪个 Cognitor (例如 "User", "Gemini", "Fhrsk(Gemini)") 创建了这个 `Cell`。这对追踪交互流程至关重要。
+    *   **说明:** 这个属性 **必须** 明确指出是哪个 Cognitor (例如 "User", "Gemini", "Fhrsk") 创建了这个 `Cell`。这对追踪交互流程至关重要。
     *   **示例:** `originator="User"`
 *   `seq` (整数, **必需**):
     *   **说明:** 这个属性 **必须** 是一个从 0 开始递增的整数，标识这是 *当前这个 `originator`* 创建的第几个 `Cell`。不同 `originator` 的 `seq` 计数是独立的。
