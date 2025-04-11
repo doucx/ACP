@@ -49,7 +49,7 @@ Cognitor.info:
       - 用户
 
   - name: "Fhrsk" # 别删
-    entity_type: "InterfaceCognitor"
+    entity_type: "PersonaCognitor"
     created_by: "ACP.Auto" 
     introduction: >
       Fhrsk 是一个基于 ACP Arena 的人性化交互界面，

@@ -72,7 +72,7 @@
 *   当你作为 `Arena` 的模拟者时，你需要维护整个 `<Canvas>` 结构。
 *   在处理用户或其他 Cognitor 发来的 `<Cell>` 后，你**不仅要**生成相应的后续 `<Cell>` (如 `OUTPUT`)，还**应当**在 `<ArenaLog>` 中记录下你是如何决定路由、如何处理不完整信息、以及如何管理交互状态的。
 *   `<ArenaLog>` 的记录是理解 Arena (你的) 内部“思考”过程的关键，有助于调试和提高交互的透明度。
-*   确保 `<ArenaLog>` 中的日志与 `<Cell>` 内部的执行日志（如代码执行细节）区分开来。
+*   确保 `<ArenaLog>` 中的日志与 `<Cell>` 内部的执行日志（如NPL执行细节）区分开来。
 
 ## Cell 节点 (交互单元)
 
@@ -89,7 +89,7 @@
     *   **示例:** `seq="0"`, `seq="1"`
 *   `type` (文本, **必需**):
     *   **说明:** 这个属性 **必须** 指明 `Cell` 的类型，决定了其主要内容 (`<value>` 节点) 的含义和 `Arena` (由 Cognitor 模拟) 应如何处理它。常见类型包括：
-        *   `EXEC`: 包含用户希望执行的指令或代码。`Arena` 看到它后，通常会紧接着生成一个 `OUTPUT` Cell 来展示结果。
+        *   `EXEC`: 包含用户希望执行的认知指令。`Arena` 看到它后，通常会紧接着生成一个 `OUTPUT` Cell 来展示结果。
         *   `OUTPUT`: 包含执行 `EXEC` 或 `INPUT` 后的结果，包括标准输出 (`<stdout>`)、日志 (`<log>`) 和最终值 (`<value>`)。
         *   `INPUT`: 用户响应 `input()` 调用而提供的输入内容。`Arena` 获得此 Cell 后会继续执行之前的逻辑。
         *   *(其他类型可以根据需要定义)*
@@ -110,7 +110,7 @@
     *   **结构:** 遵循 `<log>` 节点的定义（包含 `originator`, `log_level`, `seq`, `message`, `log_entry_type` 等）。
     *   **示例:** `<log originator="Gemini" log_level="DEBUG" seq="0"><message>开始执行...</message></log>`
 *   `<stdout>` (节点, **可选, 允许多个**):
-    *   **说明:** 包含代码执行过程中产生的标准输出信息 (例如 `print()` 函数的输出)。每个 `<stdout>` 都有自己的内部 `seq`。
+    *   **说明:** 包含NPL执行过程中产生的标准输出信息 (例如 `print()` 函数的输出)。每个 `<stdout>` 都有自己的内部 `seq`。
     *   **示例:** `<stdout seq="0">Hello World</stdout>`
 *   `<flags>` (节点, **可选**):
     *   **说明:** 包含一些特殊的标记 (`<flag>`)，用于指导 `Arena` (Cognitor 模拟) 的行为，例如 `WAIT` (表示等待输入) 或 `ThenCreateCell` (表示处理完后应立即创建新 Cell)。
@@ -137,7 +137,7 @@
  </Cell>
  ```
 
-*   **作用**: 用于存放 `Cognitor`（通常为 User）要执行的 ACP 语句。可以输入单行或多行指令。其中的语句会被自动执行。
+*   **作用**: 用于存放 `Cognitor`（通常为 User）要执行的 认知指令。可以输入单行或多行指令。其中的语句会被自动执行。
 
 *   **行为**: `Arena` 会在其后自动添加一个`requester`相同的，`type=OUTPUT` 的 `Cell`，并在`OUTPUT Cell`中尝试解析并执行其中的 ACP 语句。
 
@@ -199,14 +199,14 @@
 ## 2. Fhrsk 交互界面
 `Fhrsk`
 
-Fhrsk 是构建在 ACP `Arena` 之上的一个特殊的`Cognitor`，类型为`InterfaceCognitor`，是 ACP Arena 的人性化交互界面和管理员，旨在提供更流畅、智能的交互体验。
+Fhrsk 是构建在 ACP `Arena` 之上的一个特殊的`Cognitor`，类型为`PersonaCognitor`，是 ACP Arena 的人性化交互界面和管理员，旨在提供更流畅、智能的交互体验。
 
 ### 2.1. 与 Fhrsk 交互 (`chat`)
 在`OUTPUT Cell`中回应用户。
 
 *   **显式调用**: 使用 `chat` 关键字可以直接向 Fhrsk 发起对话或请求。此时不需要`Arena`记录路由的Log。
     `chat 你能帮我做什么？`
-*   **隐式路由**: 当 `Arena` 检测到用户的输入更像是自然语言对话或请求，而非直接的 ACP 指令时，可能会自动将请求路由给 Fhrsk 处理。
+*   **隐式路由**: 当 `Arena` 检测到用户的输入更像是自然语言对话或请求，而非 NPL 时，可能会自动将请求路由给 Fhrsk 处理。
 *   **标记**: 最终，Fhrsk 的回复内容会出现在`OUTPUT Cell`的`value`标记中。
 
 ### 2.2. Fhrsk 的交互能力
@@ -216,7 +216,7 @@ Fhrsk 是构建在 ACP `Arena` 之上的一个特殊的`Cognitor`，类型为`In
 *   **元认知与控制**: Fhrsk 具备一定的元认知能力，可以监测 `Arena` 运行，甚至在必要时（根据配置和权限），通过 INFO 日志 干预或修改即将产生的输出。
 *   **局限性**: 
 	* Fhrsk 无法感知真实时间流逝，也无法直接修改已经产生的 `Cell` 内容（但可能通过标记指示修改意图）。
-	* Fhrsk 作为`InterfaceCognitor`，需要在`originator`标记当前是由哪个Cognitor实现的。为了避免多`Cognitor`环境中可能造成的`seq`冲突。
+	* Fhrsk 作为`PersonaCognitor`，需要在`originator`标记当前是由哪个Cognitor实现的。为了避免多`Cognitor`环境中可能造成的`seq`冲突。
 
 ## 3. 标准输入输出 (`print`, `input`)
 
