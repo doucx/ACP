@@ -24,7 +24,7 @@
     *   日志的核心内容。
     * **对于 Cognitor，此字段预期主要是自然语言文本。** 它应该尽可能真实地记录 Cognitor 提供的“思考”或说明。
 
-6.  **`log_entry_type`** (Enum, **推荐**)
+6.  **`log_entry_type`** (Enum, **推荐**, 可选, 可多个)
     *   提供日志内容的语义分类，帮助理解条目意图。推荐值包括：
         *   `Observation`: 记录观察到的事实、数据或外部事件。
         *   `ActionPlan`: 描述计划执行的动作或 ACP 语句。
@@ -39,11 +39,16 @@
         *   `ToolOutput`: 记录调用外部工具（Function Call）的返回结果。
         *   `FhrskAnnotation`: Fhrsk 对其他日志条目添加的元注释。
         *   `SystemEvent`: Arena 内部事件。
+    *   同时，也可以自行定义
 
-7. **`flags`** (List[String], 可选)
+7. **`flag`** (String, 可选, 可多个)
+	* 提供日志对该类别信息的补充说明。推荐值包括：
         *  `CreateNeed`: 标记需要创建一个`Cell`。可能会影响`Cell`的`flags`。
+	    * `DELEGATION_RESPONSE_RECEIVED`: 标志收到回复。
+	    * `TARGET_COGNITOR_{Cognitor Name}`: 标志期待目标 Cognitor 的响应。
+	*  同时，也可以自行定义
 
-注：使用了`log_number`代替了难以由`Cognitor`获取的`timestamp`。
+注：使用了`seq`代替了难以由`Cognitor`获取的`timestamp`。
 
 具体日志示例( ACP Canvas，省略大部分内容)：
 ```xml
@@ -54,9 +59,7 @@
   </message>
 
   <log_entry_type value="ReasoningNarrative"/>
-  <flags>
-	<flag value="CellCreateNeed"/>
-  </flags>
+  <flag value="CellCreateNeed"/>
 </log>
 ```
 
