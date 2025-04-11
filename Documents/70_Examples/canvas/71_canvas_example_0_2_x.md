@@ -1,7 +1,10 @@
-# ACP Canvas 关键行为示例 0.2.x（正在编写）
-基于 `ACP Canvas 0.2.x`，对常见的Chat环境进行优化。
+# ACP Canvas 关键行为示例 0.2.x
+基于 `ACP Canvas 0.2.x`。
 
 Cognitor包含了`[用户(User), LLM(Gemini), Fhrsk]`
+
+> ⚠️ 兼容性提示：当前示例与`0.3+`不兼容。
+
 ## 基本
 **基本示例(LANG=English)：**
 ```xml

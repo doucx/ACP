@@ -41,8 +41,7 @@
         *   `SystemEvent`: Arena 内部事件。
 
 7. **`flags`** (List[String], 可选)
-    *  *Notebook特有标识:*
-        *  `CellCreateNeed`: 标记需要创建一个`Cell`。
+        *  `CreateNeed`: 标记需要创建一个`Cell`。可能会影响`Cell`的`flags`。
 
 注：使用了`log_number`代替了难以由`Cognitor`获取的`timestamp`。
 
