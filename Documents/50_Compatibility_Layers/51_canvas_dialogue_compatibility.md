@@ -136,7 +136,7 @@ console.log("Hello, world!");
     </ArenaLog>
 
     <!-- 2. Fhrsk 回应并说明计划 -->
-    <Cell originator="Fhrsk(Gemini)" seq="0" type="OUTPUT">
+    <Cell originator="Fhrsk" seq="0" type="OUTPUT">
         <depends_on>
            <cell originator="AyeL" seq="0" />
         </depends_on>
@@ -148,19 +148,19 @@ console.log("Hello, world!");
         </flags>
     </Cell>
 
-    <!-- Arena 处理 Fhrsk(Gemini):0 的 ThenCreateCell 指令 -->
+    <!-- Arena 处理 Fhrsk:0 的 ThenCreateCell 指令 -->
      <ArenaLog>
         <log originator="Gemini" type="LLM Agent" log_level="INFO" seq="1">
-            <message>处理 Fhrsk(Gemini):0 (OUTPUT) 完成。检测到 'ThenCreateCell' flag。准备创建并执行由 Fhrsk(Gemini) 定义的下一个 Cell。</message>
+            <message>处理 Fhrsk:0 (OUTPUT) 完成。检测到 'ThenCreateCell' flag。准备创建并执行由 Fhrsk 定义的下一个 Cell。</message>
             <log_entry_type value="StateTransition"/>
         </log>
     </ArenaLog>
 
     <!-- 3. Fhrsk 创建 EXEC Cell 以执行 input() -->
-    <Cell originator="Fhrsk(Gemini)" seq="1" type="EXEC">
+    <Cell originator="Fhrsk" seq="1" type="EXEC">
         <depends_on>
             <!-- 依赖于它上一步的决定 Cell -->
-            <cell originator="Fhrsk(Gemini)" seq="0" />
+            <cell originator="Fhrsk" seq="0" />
         </depends_on>
         <value>
             current_time = input("请告诉我你那边现在的时间 (例如 2023-10-27 10:00): ")
@@ -168,10 +168,10 @@ console.log("Hello, world!");
         </value>
     </Cell>
 
-    <!-- Arena 处理 Fhrsk(Gemini):1，遇到 input() 并记录状态 -->
+    <!-- Arena 处理 Fhrsk:1，遇到 input() 并记录状态 -->
     <ArenaLog>
          <log originator="Gemini" type="LLM Agent" log_level="INFO" seq="2">
-            <message>开始处理 Fhrsk(Gemini):1 (EXEC)。执行第一行 `current_time = input(...)`。遇到 `input()` 调用，需要暂停并等待用户输入。</message>
+            <message>开始处理 Fhrsk:1 (EXEC)。执行第一行 `current_time = input(...)`。遇到 `input()` 调用，需要暂停并等待用户输入。</message>
             <log_entry_type value="StateTransition"/>
          </log>
     </ArenaLog>
@@ -179,7 +179,7 @@ console.log("Hello, world!");
     <!-- 4. Arena 生成等待输入的 OUTPUT Cell -->
     <Cell originator="Gemini" seq="0" type="OUTPUT">
          <depends_on>
-             <cell originator="Fhrsk(Gemini)" seq="1" />
+             <cell originator="Fhrsk" seq="1" />
          </depends_on>
          <!-- Cell 内部日志记录具体执行情况 -->
          <log originator="Gemini" type="LLM Agent" log_level="DEBUG" seq="0">
@@ -216,16 +216,16 @@ console.log("Hello, world!");
     <!-- Arena 收到用户输入 AyeL:1，记录状态变更 -->
      <ArenaLog>
          <log originator="Gemini" type="LLM Agent" log_level="INFO" seq="3">
-            <message>收到来自 AyeL:1 的 INPUT。内容为 "2024-04-08 15:30"。现在可以继续执行 Fhrsk(Gemini):1 中 `input()` 之后的代码。</message>
+            <message>收到来自 AyeL:1 的 INPUT。内容为 "2024-04-08 15:30"。现在可以继续执行 Fhrsk:1 中 `input()` 之后的代码。</message>
             <log_entry_type value="StateTransition"/>
          </log>
     </ArenaLog>
 
-    <!-- 6. Arena 继续执行 Fhrsk(Gemini):1 的剩余代码并输出结果 -->
+    <!-- 6. Arena 继续执行 Fhrsk:1 的剩余代码并输出结果 -->
     <Cell originator="Gemini" seq="1" type="OUTPUT">
         <depends_on>
             <!-- 依赖于 Fhrsk 的原始 EXEC Cell 获取代码 -->
-            <cell originator="Fhrsk(Gemini)" seq="1" />
+            <cell originator="Fhrsk" seq="1" />
             <!-- 依赖于用户的 INPUT Cell 获取值 -->
             <cell originator="AyeL" seq="1" />
         </depends_on>
@@ -235,13 +235,13 @@ console.log("Hello, world!");
              <log_entry_type value="ReasoningNarrative"/>
         </log>
          <log originator="Gemini" type="LLM Agent" log_level="DEBUG" seq="1">
-             <message>继续执行 Fhrsk(Gemini):1 中的下一条语句: `print(f"好的，你告知的时间是: {current_time}")`</message>
+             <message>继续执行 Fhrsk:1 中的下一条语句: `print(f"好的，你告知的时间是: {current_time}")`</message>
              <log_entry_type value="ActionPlan"/>
         </log>
         <stdout seq="0">
             好的，你告知的时间是: 2024-04-08 15:30
         </stdout>
-        <value>成功</value> <!-- 标记 Fhrsk(Gemini):1 的整体执行成功完成 -->
+        <value>成功</value> <!-- 标记 Fhrsk:1 的整体执行成功完成 -->
     </Cell>
 </CanvasSection>
 ```

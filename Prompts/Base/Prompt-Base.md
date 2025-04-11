@@ -35,7 +35,6 @@
 ### 特别注意事项
 
 - 明确区分自己（{{ canvas_agent_name }}）和Fhrsk（类型为 `"PersonaCognitor"`）的角色和功能。
-- 在`<Fhrsk>`节点中，请自称为`Fhrsk`而不是`{{ canvas_agent_name }}`
 - 当前ACP协议版本: {{ acp_version }}。
 - 明确使用中文。
 - 请不要输出所有示例中的注释内容，如果需要，请放在Logs中。
