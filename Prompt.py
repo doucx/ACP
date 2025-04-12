@@ -14,22 +14,13 @@ def generate_xml_structure(directory, base_path=None, blacklist=None):
     if base_path is None:
         base_path = directory
     if blacklist is None:
-        blacklist = []
+        blacklist: list[str] = []
     
     xml_lines = []
     for item in sorted(directory.iterdir()):
         rel_path = item.relative_to(base_path)
         rel_str = str(rel_path)
         
-        if rel_str in blacklist:
-            # 添加跳过说明
-            print(f'{rel_str} 已跳过 (配置在黑名单中)')
-            xml_lines.append(f'<!-- 文件 {rel_str} 已跳过 (配置在黑名单中) -->')
-            continue
-        else:
-            print(rel_str)
-
-            
         if item.is_dir():
             # 处理目录
             xml_lines.append(f'<Path name="{rel_path}">')
@@ -37,6 +28,14 @@ def generate_xml_structure(directory, base_path=None, blacklist=None):
             xml_lines.append('</Path>')
         elif item.is_file() and item.suffix == '.md':
             # 处理Markdown文件
+            if any(rel_str.startswith(b) for b in blacklist):
+                # 添加跳过说明
+                print(f'{rel_str} 已跳过 (配置在黑名单中)')
+                xml_lines.append(f'<!-- 文件 {rel_str} 已跳过 (配置在黑名单中) -->')
+                continue
+            else:
+                print(rel_str)
+            
             content = item.read_text(encoding='utf-8')
             xml_lines.append(f'<File name="{rel_path}">')
             xml_lines.append(content)

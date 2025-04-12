@@ -45,7 +45,7 @@
       *   NPL作为人造语言已经不合适了，它现在应该是一种协议。名称从 `Natural Pseudo Language (NPL)` 更名为 `Notional Protocol Language (NPL)`（居然恰好缩写一样），更准确地反映了其设计理念，同时承载了一定的历史意义。
 
   2.  **核心对象方法:**
-      *   `Module` 类：新增 `to_notion()` 方法，用于将确定性实体转换为不确定性实体。
+      *   `Forma` 类：新增 `to_notion()` 方法，用于将确定性实体转换为不确定性实体。
       *   `Notion` 类：
           *   改进 `fill()` 方法，增强了上下文填充能力。
           *   新增 `pick(num=1, ...)` 方法，用于提取多种可能性。

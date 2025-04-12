@@ -154,17 +154,17 @@ Uncertainty(代表 Out[0] 的所有可能状态) # 简化表示
 Out[0]: 成功
 ```
 
-**示例 4.2: `Uncertainty` vs `Module` (基本演示)**
+**示例 4.2: `Uncertainty` vs `Forma` (基本演示)**
 
 通过 `to_uncertainty` 展示从确定性到不确定性的转换及其效果。
 
 ```npl
-In: data_list = [1, 2, 3] # Module (Python list)
+In: data_list = [1, 2, 3] # Forma (Python list)
 type(data_list)
-Out[0]: <class 'list'> (Module)
+Out[0]: <class 'list'> (Forma)
 
 In: concept_list = data_list.to_uncertainty()
-INFO[...]: 将 Module list 转换为 UncertaintyList #[行为说明]
+INFO[...]: 将 Forma list 转换为 UncertaintyList #[行为说明]
 INFO[...]: 推断出 '递增整数序列' 的概念 #[行为说明]
 Out[1]: 成功 
 

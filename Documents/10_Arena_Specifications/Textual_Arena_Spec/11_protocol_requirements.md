@@ -68,10 +68,10 @@ Textual Arena 中的 `Cognitor` **应能够**区分自然语言指令和 NPL 指
 	  *   生成一个当前看来最合理、最连贯的理解，并通过 `pick`, `to_module` 等方法将其（定性地）表达出来。
   *   因此，在 Textual Arena 中，`Uncertainty` 的处理过程更侧重于**模拟认知层面的不确定性导航**，而非精确的数学计算。其有效性高度依赖于 `Cognitor` 的**语境理解和生成合理推测**的能力。
 
-#### Module 确定性实体
+#### Forma 确定性实体
 继承于 `Object`
 
-在 ACP Textual Arena 中，Module 通常指一段文本的能指。
+在 ACP Textual Arena 中，Forma 通常指一段文本的能指。
 
 ## 关键协议机制
 ### Logs (日志系统)

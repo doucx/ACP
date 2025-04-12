@@ -247,13 +247,13 @@ In: In[0].INPUT[0]
 Out[2]: qwq 
 ```
 
-**示例 3.4: `Module` 示例 (来自文档)**
+**示例 3.4: `Forma` 示例 (来自文档)**
 ```acp
 In: a = [1, 2, 3] 
 a
 Out[0]: [1, 2, 3]
 In: a.__bases__
-Out[1]: Module
+Out[1]: Forma
 In: len(a)
 Out[2]: 3
 ```
@@ -582,16 +582,16 @@ UncertaintyList([2, 2, 4, 4, 6,...])
 Out[0]: 成功
 ```
 
-## 8. `Uncertainty` 与 `Module` 交互示例
+## 8. `Uncertainty` 与 `Forma` 交互示例
 
-**示例 8.1: `Module` 转换为 `Uncertainty` (来自文档)**
+**示例 8.1: `Forma` 转换为 `Uncertainty` (来自文档)**
 ```acp
 In: a = [1, 2, 3]
 len(a)
 Out[0]: 3
 In: b = a.to_uncertainty()
-INFO[0]: 检测到 Module 'a' 的类型为列表，元素为：1, 2, 3。 
-INFO[1]: 开始将 Module 对象 'a' 转换为 UncertaintyList 对象。 
+INFO[0]: 检测到 Forma 'a' 的类型为列表，元素为：1, 2, 3。 
+INFO[1]: 开始将 Forma 对象 'a' 转换为 UncertaintyList 对象。 
 INFO[2]: 检索元素的类型信息: - 1, 2, 3 都是整数。 
 INFO[3]: 基于元素类型，推断列表 'a' 可能代表的概念： - 整数序列 - 自然数序列 - 递增序列 等。 
 INFO[4]: 根据常识，选择“递增自然数序列”作为最可能的解释。 
@@ -605,7 +605,7 @@ Out[2]: [1, 2, 3]
 In: b # b 变成了 UncertaintyList
 Out[3]: UncertaintyList([1, 2, 3, ...])
 In: a.__bases__ ; b.__bases__ ; # type(b.特征) # 原始文档此处或有笔误，显示特征本身的基类更合理
-Out[4]: Module ; Uncertainty 
+Out[4]: Forma ; Uncertainty 
 In: b.特征
 Out[5]: Uncertainty(递增自然数序列)
 In: len(b)
@@ -699,7 +699,7 @@ WARN[0]: 由于 UncertaintyList 是不确定性实体，此处的“可能性最
 INFO[6]: 将'水果'赋值给b。
 Out[0]: 成功
 In: b
-Out[1]: 水果 # 输出坍缩后的 Module
+Out[1]: 水果 # 输出坍缩后的 Forma
 ```
 
 **示例 8.6: `uncertaintys.fill` (来自文档)**
