@@ -1,6 +1,11 @@
 # ACP (Abstract Cognition Protocol)
 
-**Version: 0.3.4**
+**Version: 0.4.0 beta 0**
+
+目标：
+1. 完善 NPL 的 api。
+2. 完善 meta 关键字的真实行为。
+3. 让 Shell 基于 NPL 构建。
 
 ## 简介
 
