@@ -4,7 +4,7 @@
 
 **`Language`** (或 **语言载体**) 在 ACP Textual Arena 中，被定义为 **源自文本符号序列及其交互语境的、结构化的不确定性状态**。它是对核心协议中 **`Uncertainty`** 实体在处理文本信息时的具体化和特化。
 
-*   **继承关系**: `Object` -> `Uncertainty` -> `Language`
+*   **继承关系**: `Existent` -> `Uncertainty` -> `Language`
 *   **核心载体**: 在 Textual Arena 中，`Language` 实体主要通过**文本字符串** (Text String) 这一 `Forma` 形式来承载和表现。
 *   **本质**: 其核心在于**文本符号序列与 `ArenaContext` 中认知状态动态耦合所产生的意义可能性空间**。
 

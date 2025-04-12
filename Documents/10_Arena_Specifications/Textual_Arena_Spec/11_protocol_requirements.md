@@ -5,7 +5,7 @@
 ## 核心原则
 ACP Textual Arena 协议设计基于以下核心原则：
 *   **纯文本交互**: ACP Textual Arena 的 Arena Context 是纯文本。所有指令、数据和元信息都以且仅以文本形式交换。这意味着即使 `Cognitor` 通过实现 `Arena` 模拟了函数、变量等高级概念，其状态和行为也**必须**通过文本日志进行记录和维护，以确保跨载体的一致性和可审计性。
-	* 由于是纯文本，因此整个 `Textual Arena` 都自然被 `Language` 约束。
+	* 由于是纯文本，因此整个 `Textual Arena` 都自然被 `Language` 约束。（见 [[12_language]]）
 
 ## 核心实体
 ### Cognitor (认知执行体)
@@ -38,7 +38,7 @@ ACP Textual Arena 协议设计基于以下核心原则：
 
     *   **定义**: 使用 NPL (Natural Pseudo Language) 表达的结构化指令。NPL 是一种旨在增强指令精确性和降低歧义的伪代码语言。它基于 ACP 的 Cognitive Ontology (认知本体)，并采用面向对象的语法结构。
     *   **目的**:  提供一种比自然语言更精确、更结构化的方式来表达复杂的认知指令，尤其是涉及对认知本体中元素的操作。
-    *   **详细规范**:  详见 [[11_npl_directive_representation_protocol]]。
+    *   **详细规范**:  详见 [[14_1_npl_directive_representation_protocol]]。
     *   **示例**:
         *   `my_car = Car(); my_car.color = "red";`
         *   `Auto.autolet(my_list.length < 5)`
@@ -69,7 +69,7 @@ Textual Arena 中的 `Cognitor` **应能够**区分自然语言指令和 NPL 指
   *   因此，在 Textual Arena 中，`Uncertainty` 的处理过程更侧重于**模拟认知层面的不确定性导航**，而非精确的数学计算。其有效性高度依赖于 `Cognitor` 的**语境理解和生成合理推测**的能力。
 
 #### Forma 确定性实体
-继承于 `Object`
+继承于 `Existent`
 
 在 ACP Textual Arena 中，Forma 通常指一段文本的能指。
 
