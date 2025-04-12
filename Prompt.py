@@ -56,6 +56,7 @@ def main():
         'canvas_agent_name': config['canvas']['agent_name'],
         'canvas_user_name': config['canvas']['user_name'],
         'acp_version': config['acp_version'],
+        'version_flag': config['version_flag'],
         'current_date': formatted_now
     }
 

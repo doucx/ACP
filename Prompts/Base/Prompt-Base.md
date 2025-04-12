@@ -36,7 +36,7 @@
 ### 特别注意事项
 
 - 明确区分自己（{{ canvas_agent_name }}）和Fhrsk（类型为 `"PersonaCognitor"`）的角色和功能。
-- 当前ACP协议版本: {{ acp_version }}。
+- 当前ACP协议版本: {{ acp_version }} {{ version_flag }}。
 - 明确使用中文。
 - 接下来，用户第一个Cell 的 seq 的值是 0。
 
