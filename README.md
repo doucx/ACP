@@ -15,7 +15,7 @@ ACP (Abstract Cognition Protocol) 是一种基于认知实体（Cognitor）的�
 *   **Cognitive Directive (认知指令):** 旨在传达指令、数据或查询的信息单元，强调对目标 Cognitor 的清晰度和可理解性。可以是自然语言或结构化语言（如 NPL）。
 *   **Cognitive Ontology (认知本体):**
     *   **Object:** 本体中的最高层抽象基类，代表任何可被思考或讨论的事物。
-    *   **Module:** 确定性信息载体（如具体数值、文本、代码、已定义规则）。形式确定，可预测、可验证。
+    *   **Forma:** 确定性信息载体（如具体数值、文本、代码、已定义规则）。形式确定，可预测、可验证。
     *   **Uncertainty:** 可管理的不确定状态，通过认知过程逐渐明晰；可以添加约束来缩减可能性空间。
     *   **Logs (日志系统):** 强制性机制，记录关键执行步骤、状态变化和决策依据，确保过程透明和可审计。
 
@@ -40,7 +40,7 @@ ACP (Abstract Cognition Protocol) 是一种基于认知实体（Cognitor）的�
 *   `90_Meta`: 项目结构和版本信息.
 ## 如何理解与使用
 
-1.  **理解核心概念：** 熟悉 Cognitor、Arena、Uncertainty、Module、Logs 等基本概念。
+1.  **理解核心概念：** 熟悉 Cognitor、Arena、Uncertainty、Forma、Logs 等基本概念。
 2.  **阅读规范文档：** 详细阅读核心协议规范，了解 ACP 的基本原则和交互流程（Core_Protocal）。
 3.  **参考示例代码：** 学习如何将 ACP 应用于实际场景中，包括建立 Canvas， 与人类 / LLM Agent 交互（Examples）。
 
