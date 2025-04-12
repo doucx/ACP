@@ -3,3 +3,7 @@ canvas:
   agent_name: $你当前交互的AI名称
   user_name: $你的用户名
 file_blacklist:
+  - 00_Core_Protocol/09_advanced_concepts.md
+  - 70_Examples/
+  - 80_Appendices/81_appendix_symbols.md
+  - 90_Meta/98_version_changelog.md
