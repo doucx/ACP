@@ -38,7 +38,7 @@ ACP Textual Arena 协议设计基于以下核心原则：
 
     *   **定义**: 使用 NPL (Natural Pseudo Language) 表达的结构化指令。NPL 是一种旨在增强指令精确性和降低歧义的伪代码语言。它基于 ACP 的 Cognitive Ontology (认知本体)，并采用面向对象的语法结构。
     *   **目的**:  提供一种比自然语言更精确、更结构化的方式来表达复杂的认知指令，尤其是涉及对认知本体中元素的操作。
-    *   **详细规范**:  详见 [[14_1_npl_directive_representation_protocol]]。
+    *   **详细规范**:  详见 [[14.1_npl_directive_representation_protocol]]。
     *   **示例**:
         *   `my_car = Car(); my_car.color = "red";`
         *   `Auto.autolet(my_list.length < 5)`
