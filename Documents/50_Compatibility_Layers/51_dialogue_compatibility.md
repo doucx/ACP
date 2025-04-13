@@ -1,40 +1,48 @@
 # ACP Textual Arena 对话兼容层规范  
 ## 设计背景  
 当`User`与`LLM Agent`仅能通过某种对话界面以对话形式交互时，本规范确保：  
-1. **上下文完整性** - 在非结构化对话中维持整个 Textual Arena Context 完整性
+1. **上下文完整性** - 在非结构化对话中，从逻辑上维持整个 Textual Arena Context 完整性
 2. **行为一致性** - 强制 Agent 遵守 Arena 逻辑
+
+注：同时作为 ACP Tracer 的兼容层规范。
 
 ## 语法规范  
 格式：
 ```txt
 <ContextSection role="User|Agent">
-    <!-- 当前产生的ArenaLog，完整Node链等，及其内部内容 -->
+// 这里需要换行
+// ArenaContext 切片
+// 这里也需要换行
 </ContextSection>
 ```
 
-采用多个`ContextSection`替代完整`ArenaContext`：
+采用多个`ContextSection`替代完整的`ArenaContext`上下文：
+
 如 ：
-User 输入 :
+User（不包括\`\`\`txt）：
 ```txt
 <ContextSection role="User">
-	 <!-- User 的 ArenaContext 切片 -->
+
+// User 生成的 完整内容
+
  </ContextSection>
  ```
  
-Agent 响应 : 
+Agent （不包括\`\`\`txt）: 
 ```txt
  <ContextSection role="Agent">
-	 <!-- Agent 的 ArenaContext 切片 -->
+ 
+// Agent 生成的 完整内容
+
  </ContextSection>
 ```
 
 等价于：
 
 ```txt
- <!-- User 的 ArenaContext 切片 -->
- <!-- Agent 的 ArenaContext 切片 -->
+// User 生成的 完整内容
+// Agent 生成的 完整内容
 ```
-
 
 ### 关键属性  
 | 属性     | 取值               | 强制要求         | 说明                                        |
@@ -47,6 +55,8 @@ Agent 响应 :
    
  ```txt
  <ContextSection role="Agent">
-	 <!-- Agent 响应内容：完整Node链，ArenaLog等 -->
+
+// Agent 生成的 完整内容
+
  </ContextSection>
  ```

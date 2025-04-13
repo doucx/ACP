@@ -55,7 +55,7 @@
 *   `log_entry_type`: (可选) 内容的语义分类 (如 `ReasoningNarrative`, `ConstraintApplication`)。
 *   `flag`: (可选) 特殊标记。
 
-**在纯文本 Shell 实现中，这些元数据通常会被简化或省略，主要依赖日志级别关键字（如 `INFO:`）和 `message` 内容 (`Forma`) 本身。**
+**在纯文本 Tracer 实现中，这些元数据通常会被简化或省略，主要依赖日志级别关键字（如 `INFO:`）和 `message` 内容 (`Forma`) 本身。**
 
 ## 7. 总结
 
