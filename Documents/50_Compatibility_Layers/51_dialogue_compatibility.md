@@ -6,7 +6,7 @@
 
 ## 语法规范  
 格式：
-```xml
+```txt
 <ContextSection role="User|Agent">
     <!-- 当前产生的ArenaLog，完整Node链等，及其内部内容 -->
 </ContextSection>
@@ -15,14 +15,14 @@
 采用多个`ContextSection`替代完整`ArenaContext`：
 如 ：
 User 输入 :
-```xml
+```txt
 <ContextSection role="User">
 	 <!-- User 的 ArenaContext 切片 -->
  </ContextSection>
  ```
  
 Agent 响应 : 
-```xml
+```txt
  <ContextSection role="Agent">
 	 <!-- Agent 的 ArenaContext 切片 -->
  </ContextSection>
@@ -30,7 +30,7 @@ Agent 响应 :
 
 等价于：
 
-```xml
+```txt
  <!-- User 的 ArenaContext 切片 -->
  <!-- Agent 的 ArenaContext 切片 -->
 ```
@@ -43,12 +43,10 @@ Agent 响应 :
 
 ### 实现要求  
 **Agent 义务**:
-   - 必须将响应内容包裹在标准的markdown XML代码块中：  
+   - 回复必须以`<ContextSection role="Agent">`开头。此时它作为页面真正的xml标记使用。因此，请不要将它放在 xml 代码块中。
    
- ```xml
- <ContextSection role="Agent/User">
+ ```txt
+ <ContextSection role="Agent">
 	 <!-- Agent 响应内容：完整Node链，ArenaLog等 -->
  </ContextSection>
  ```
-
-需完整继承并扩展前序`ContextSection`的上下文，
