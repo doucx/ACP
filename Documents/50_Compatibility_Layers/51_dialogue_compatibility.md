@@ -8,7 +8,7 @@
 格式：
 ```xml
 <ContextSection role="User|Agent">
-    <!-- 当前产生的ArenaLog，完整Cell链等，及其内部内容 -->
+    <!-- 当前产生的ArenaLog，完整Node链等，及其内部内容 -->
 </ContextSection>
 ```
 
@@ -47,7 +47,7 @@ Agent 响应 :
    
  ```xml
  <ContextSection role="Agent/User">
-	 <!-- Agent 响应内容：完整Cell链，ArenaLog等 -->
+	 <!-- Agent 响应内容：完整Node链，ArenaLog等 -->
  </ContextSection>
  ```
 
