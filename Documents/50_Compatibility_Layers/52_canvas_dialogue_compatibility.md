@@ -10,14 +10,14 @@
 3. **错误预防** - 解决传统对话模式导致的三大问题： 
    - 格式违规（如缺失关键属性）  
    - 响应不完整（如忽略多轮交互需求）  
-   - 单单元格谬误（违反Canvas的Cell链式处理原则）  
+   - 单单元格谬误（违反Canvas的Node链式处理原则）  
 
 ## 语法规范  
 格式：
 ```txt
 <ContextSection role="User|Agent">
 \`\`\`xml
-    <!-- 当前产生的ArenaLog，完整Cell链等，及其内部内容 -->
+    <!-- 当前产生的ArenaLog，完整Node链等，及其内部内容 -->
 \`\`\`
 </ContextSection>
 ```
@@ -28,7 +28,7 @@ User 输入 :
 ```txt
 <ContextSection role="User">
 \`\`\`xml
-	 <!-- User 生成的 ArenaLog，完整Cell链等，及其内部内容 -->
+	 <!-- User 生成的 ArenaLog，完整Node链等，及其内部内容 -->
 \`\`\`
  </ContextSection>
  ```
@@ -37,7 +37,7 @@ Agent 响应 :
 ```txt
  <ContextSection role="Agent">
 \`\`\`xml
-	 <!-- Agent 生成的 ArenaLog，完整Cell链等，及其内部内容 -->
+	 <!-- Agent 生成的 ArenaLog，完整Node链等，及其内部内容 -->
 \`\`\`
  </ContextSection>
 ```
@@ -46,8 +46,8 @@ Agent 响应 :
 
 ```xml
 <Canvas>
-	 <!-- User 生成的 ArenaLog，完整Cell链等，及其内部内容 -->
-	 <!-- Agent 生成的 ArenaLog，完整Cell链等，及其内部内容 -->
+	 <!-- User 生成的 ArenaLog，完整Node链等，及其内部内容 -->
+	 <!-- Agent 生成的 ArenaLog，完整Node链等，及其内部内容 -->
  </Canvas>
 ```
 
@@ -86,13 +86,13 @@ print(2+2) <!--这里是顶格的-->
 ❌ **避免**（混合 Markdown 语法，并且代码不顶格）：  
 ```xml
 <ContextSection role="Agent">
-	<Cell>
+	<Node>
 		<log>
 			\`\`\`python
 			print(2+2)
 			\`\`\`
 		</log>
-	</Cell>
+	</Node>
 </ContextSection>
 ```  
 
@@ -100,13 +100,13 @@ print(2+2) <!--这里是顶格的-->
 
 ```xml
 <ContextSection role="Agent">
-	<Cell>
+	<Node>
 		<log>
 		  <CodeBlock language="python">
 print(2+2)
 		  </CodeBlock>
 		</log>
-	</Cell>
+	</Node>
 </ContextSection>
 ```
 
