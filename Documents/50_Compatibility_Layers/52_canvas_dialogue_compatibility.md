@@ -16,29 +16,35 @@
 格式：
 ```txt
 <ContextSection role="User|Agent">
-\`\`\`xml
+// 这里需要换行
+\`\`\`xml // 在 <ContextSection> 标记内使用 \`\`\`xml markdown xml 代码块标记，用于界面渲染。
     <!-- 当前产生的ArenaLog，完整Node链等，及其内部内容 -->
 \`\`\`
+// 这里也需要一个换行
 </ContextSection>
 ```
 
 采用多个`ContextSection`替代完整的`Canvas`上下文：
 如 ：
-User 输入 :
+User（不包括\`\`\`txt， 包括\`\`\`xml）：
 ```txt
 <ContextSection role="User">
+
 \`\`\`xml
 	 <!-- User 生成的 ArenaLog，完整Node链等，及其内部内容 -->
 \`\`\`
+
  </ContextSection>
  ```
  
-Agent 响应 : 
+Agent （不包括\`\`\`txt， 包括\`\`\`xml）: 
 ```txt
  <ContextSection role="Agent">
+ 
 \`\`\`xml
 	 <!-- Agent 生成的 ArenaLog，完整Node链等，及其内部内容 -->
 \`\`\`
+
  </ContextSection>
 ```
 
@@ -60,7 +66,7 @@ Agent 响应 :
 </CodeBlock>
 ```
 
-为了避免在 `<ContextSection>` 标签内部使用 Markdown 的代码块语法（如 \`\`\`）与外部渲染引擎产生冲突，当 `Agent` 需要在 `<ContextSection>` 中展示代码时，应当使用其内置的 `<CodeBlock>` 标签来替代传统的 Markdown 代码块格式。  
+为了避免在 `<ContextSection>` 标签内部使用 Markdown 的代码块语法（如 \`\`\`）与外部渲染引擎产生冲突，当 `Agent` 需要在 `<ContextSection>` 中展示代码时，应当使用 `<CodeBlock>` 标签来替代传统的 Markdown 代码块格式。  
 
 #### 关键点说明
 
@@ -84,8 +90,10 @@ print(2+2) <!--这里是顶格的-->
 #### 错误 vs 正确示例：  
 
 ❌ **避免**（混合 Markdown 语法，并且代码不顶格）：  
-```xml
+```txt
 <ContextSection role="Agent">
+
+\`\`\`xml
 	<Node>
 		<log>
 			\`\`\`python
@@ -93,13 +101,17 @@ print(2+2) <!--这里是顶格的-->
 			\`\`\`
 		</log>
 	</Node>
+\`\`\`
+
 </ContextSection>
 ```  
 
 ✅ **推荐**（使用 `<CodeBlock>`，内容顶格）：  
 
-```xml
+```txt
 <ContextSection role="Agent">
+
+\`\`\`xml
 	<Node>
 		<log>
 		  <CodeBlock language="python">
@@ -107,6 +119,8 @@ print(2+2)
 		  </CodeBlock>
 		</log>
 	</Node>
+\`\`\`
+
 </ContextSection>
 ```
 
