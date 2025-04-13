@@ -22,7 +22,7 @@
 </ContextSection>
 ```
 
-采用多个`ContextSection`替代完整`Canvas`：
+采用多个`ContextSection`替代完整的`Canvas`上下文：
 如 ：
 User 输入 :
 ```txt
