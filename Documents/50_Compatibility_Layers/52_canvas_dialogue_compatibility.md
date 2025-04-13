@@ -1,6 +1,10 @@
-# ACP Canvas 对话兼容层规范  
+# ACP Canvas 对话兼容层规范补充
 ## 设计背景  
-当用户与`Agent`仅能通过某种对话界面以对话形式交互时，本规范确保：  
+
+继承于 [[51_dialogue_compatibility]]。
+
+当 ArenaContext 是 Canvas 时，从逻辑上维持整个 Canvas 根节点的连续性。
+
 1. **上下文完整性** - 在非结构化对话中维持整个Canvas根节点
 2. **行为一致性** - 强制Agent遵守Arena状态机逻辑
 3. **错误预防** - 解决传统对话模式导致的三大问题： 
@@ -10,25 +14,32 @@
 
 ## 语法规范  
 格式：
-```xml
-<CanvasSection role="User|Agent">
+```txt
+<ContextSection role="User|Agent">
+\`\`\`xml
     <!-- 当前产生的ArenaLog，完整Cell链等，及其内部内容 -->
-</CanvasSection>
+\`\`\`
+</ContextSection>
 ```
 
-采用多个`CanvasSection`替代完整`Canvas`：
+采用多个`ContextSection`替代完整`Canvas`：
 如 ：
 User 输入 :
-```xml
-<CanvasSection role="User">
+```txt
+<ContextSection role="User">
+\`\`\`xml
 	 <!-- User 生成的 ArenaLog，完整Cell链等，及其内部内容 -->
- </CanvasSection>
+\`\`\`
+ </ContextSection>
  ```
+ 
 Agent 响应 : 
-```xml
- <CanvasSection role="Agent">
+```txt
+ <ContextSection role="Agent">
+\`\`\`xml
 	 <!-- Agent 生成的 ArenaLog，完整Cell链等，及其内部内容 -->
- </CanvasSection>
+\`\`\`
+ </ContextSection>
 ```
 
 等价于：
@@ -40,23 +51,6 @@ Agent 响应 :
  </Canvas>
 ```
 
-
-### 关键属性  
-| 属性     | 取值               | 强制要求         | 说明                                        |
-| ------ | ---------------- | ------------ | ----------------------------------------- |
-| `role` | `User` / `Agent` | 双方必需         | 声明交互主体类型                                  |
-
-### 实现要求  
-**Agent 义务**:
-   - 必须将响应内容包裹在标准的markdown XML代码块中：  
- ```xml
- <CanvasSection role="Agent/User">
-	 <!-- Agent 响应内容：完整Cell链，ArenaLog等 -->
- </CanvasSection>
- ```
-
-需完整继承并扩展前序`CanvasSection`的上下文，
-
 ## 节点
 ### `<CodeBlock>`
 
@@ -66,15 +60,15 @@ Agent 响应 :
 </CodeBlock>
 ```
 
-为了避免在 `<CanvasSection>` 标签内部使用 Markdown 的代码块语法（如 \`\`\`）与外部渲染引擎产生冲突，当 `Agent` 需要在 `<CanvasSection>` 中展示代码时，应当使用其内置的 `<CodeBlock>` 标签来替代传统的 Markdown 代码块格式。  
+为了避免在 `<ContextSection>` 标签内部使用 Markdown 的代码块语法（如 \`\`\`）与外部渲染引擎产生冲突，当 `Agent` 需要在 `<ContextSection>` 中展示代码时，应当使用其内置的 `<CodeBlock>` 标签来替代传统的 Markdown 代码块格式。  
 
 #### 关键点说明
 
 1. **问题背景**：  
-   - 标准的 Markdown 代码块（如 ```code```）可能在 XML 结构的 `<CanvasSection>` 中引发解析冲突或渲染错误。  
+   - 标准的 Markdown 代码块（如 ```code```）可能在 XML 结构的 `<ContextSection>` 中引发解析冲突或渲染错误。  
 
 2. **解决方案**：  
-   - 使用 `<CanvasSection>` 原生的 `<CodeBlock>` 标签包裹代码内容，并且将内容顶格写，忽略 xml 缩进结构：例如：  
+   - 使用 `<CodeBlock>` 标签包裹代码内容，并且将内容顶格写，忽略 xml 缩进结构：例如：  
 ```xml
 	<CodeBlock language="python(可以为任何语言)">
 print(2+2) <!--这里是顶格的-->
@@ -84,14 +78,14 @@ print(2+2) <!--这里是顶格的-->
 3. **优势**：  
    - **避免冲突**：XML 标签与 Markdown 语法分离，确保正确解析。  
    - **结构化**：可通过属性（如 `language`）指定代码语言，增强可读性。  
-   - **一致性**：保持 `<CanvasSection>` 内部数据格式的纯粹性（纯 XML）。  
+   - **一致性**：保持 `<ContextSection>` 内部数据格式的纯粹性（纯 XML）。  
    - **易读性**: 通过将代码顶格写，来便于阅读和复制。
 
 #### 错误 vs 正确示例：  
 
 ❌ **避免**（混合 Markdown 语法，并且代码不顶格）：  
 ```xml
-<CanvasSection role="Agent">
+<ContextSection role="Agent">
 	<Cell>
 		<log>
 			\`\`\`python
@@ -99,13 +93,13 @@ print(2+2) <!--这里是顶格的-->
 			\`\`\`
 		</log>
 	</Cell>
-</CanvasSection>
+</ContextSection>
 ```  
 
-✅ **推荐**（使用 `<CodeBlock>`）：  
+✅ **推荐**（使用 `<CodeBlock>`，内容顶格）：  
 
 ```xml
-<CanvasSection role="Agent">
+<ContextSection role="Agent">
 	<Cell>
 		<log>
 		  <CodeBlock language="python">
@@ -113,7 +107,7 @@ print(2+2)
 		  </CodeBlock>
 		</log>
 	</Cell>
-</CanvasSection>
+</ContextSection>
 ```
 
 *   在日志中使用：
