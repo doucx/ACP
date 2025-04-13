@@ -156,15 +156,15 @@
   *   **主要变更:**
 		* 将 Canvas 中的 Cell 改为 Node ，更有助于协作的概念
 		* 完善语言在ACP中的地位，并修复 Textural Arena 协议
-        * 将 Shell 重命名为 Tracer
+        * 将 Shell 重命名为 Shell
   *   **影响:**
       *   需要更新所有文档、示例代码。
       *   需要重新进行协议布局规划。
   *   **迁移指南:**（概要）
       *   将所有 `Cell` 替换为 `Node`。
-      *   将所有 `Shell` 替换为 `Tracer`。
+      *   将所有 `Shell` 替换为 `Shell`。
   *   **已知问题:**
-      *   Tracer 实现不全：需要基于 NPL 实现 Tracer
+      *   Shell 实现不全：需要基于 NPL 实现 Shell
       *   日志结构不清晰
       *   Canvas 基于文档模拟，未接入 NPL ，可能对后续重构有不良影响
       *   meta 指令作用不清晰

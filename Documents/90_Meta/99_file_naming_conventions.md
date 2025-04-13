@@ -22,10 +22,10 @@
 *   **10**: **认知空间规范 (Arena Specifications)**. 描述不同类型 Arena 需要符合的规范。 对应 `10_Arena_Specifications` 目录.
      *       一级子目录`Textual_Arena_Spec`, `Visual_Arena_Spec`等  描述更加细化的分类
 *   **20**: **认知空间实现 (Arena Implementations)**. 提供具体认知空间环境的实现细节。  对应 `20_Arena_Implementations` 目录。
-     *       一级子目录`Canvas`,  `Tracer` 等  描述更加细化的分类
+     *       一级子目录`Canvas`,  `Shell` 等  描述更加细化的分类
 *   **50**: **兼容性层**. 处理特定场景下的兼容性问题。  对应 `50_Compatibility_Layers` 目录。
 *   **70**: **示例**. 展示 ACP 的使用方法和效果。  对应 `70_examples` 目录.
-     *       一级子目录`Tracer`,  `Canvas` 等  描述更加细化的分类
+     *       一级子目录`Shell`,  `Canvas` 等  描述更加细化的分类
 *   **80**: **附录**.  提供补充信息、参考资料等。 对应 `80_Appendices` 目录。
 *   **90**: **元信息**.  描述项目结构、版本历史等元数据. 对应 `90_Meta` 目录.
 
