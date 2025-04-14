@@ -13,36 +13,29 @@
    - 单单元谬误（违反Canvas的Node链式处理原则）  
 
 ## 语法规范  
-由于 Canvas 是基于 xml 的，因此为了便于对话 ui 渲染，需要在 Canvas Arena Context 区域内添加 ```xml ``` 符号。
 
 格式：
 
 <ArenaSection role="User|Agent">
 // 空行
-```xml
-    <!-- 当前产生的log，完整Node链等，及其内部内容 -->
-```
+<!-- 当前产生的log，完整Node链等，及其内部内容 -->
 // 空行
 </ArenaSection>
 
 采用多个`ArenaSection`替代完整的`Canvas`上下文：
 如 ：
-User（不包括```txt， 包括```xml）：
+User：
 <ArenaSection role="User">
 
-```xml
-	 <!-- User 生成的 log，完整Node链等，及其内部内容 -->
-```
+ <!-- User 生成的 log，完整Node链等，及其内部内容 -->
 
  </ArenaSection>
  
-Agent （不包括```txt， 包括```xml）: 
+Agent: 
 
  <ArenaSection role="Agent">
  
- ```xml
-	 <!-- Agent 生成的 log，完整Node链等，及其内部内容 -->
-```
+ <!-- Agent 生成的 log，完整Node链等，及其内部内容 -->
 
  </ArenaSection>
 
@@ -52,9 +45,9 @@ Agent （不包括```txt， 包括```xml）:
 
 
 <Canvas>
-	 <!-- User 生成的 log，完整Node链等，及其内部内容 -->
-	 <!-- Agent 生成的 log，完整Node链等，及其内部内容 -->
- </Canvas>
+     <!-- User 生成的 log，完整Node链等，及其内部内容 -->
+     <!-- Agent 生成的 log，完整Node链等，及其内部内容 -->
+</Canvas>
 
 
 ## 节点
@@ -88,15 +81,13 @@ print(2+2) <!--这里是顶格的-->
 ❌ **避免**（混合 Markdown 语法，并且代码不顶格）：  
 <ArenaSection role="Agent">
 
-```xml
-	<Node>
-		<log>
-			```python
-			print(2+2)
-			```
-		</log>
-	</Node>
-```
+<Node>
+    <log>
+        ```python
+        print(2+2)
+        ```
+    </log>
+</Node>
 
 </ArenaSection>
 
@@ -104,15 +95,13 @@ print(2+2) <!--这里是顶格的-->
 
 <ArenaSection role="Agent">
 
-```xml
-	<Node>
-		<log>
-		  <CodeBlock language="python">
+<Node>
+    <log>
+      <CodeBlock language="python">
 print(2+2)
-		  </CodeBlock>
-		</log>
-	</Node>
-```
+      </CodeBlock>
+    </log>
+</Node>
 
 </ArenaSection>
 
