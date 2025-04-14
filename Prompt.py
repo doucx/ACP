@@ -49,17 +49,18 @@ def main():
     formatted_now = now.strftime("%Y-%m-%d %H:%M")
 
     # 加载配置
-    with open('config.yaml') as f:
+    with open('./config.d/config.yaml') as f:
         config = yaml.safe_load(f)
 
     config_snippets = {
         'canvas_agent_name': config['canvas']['agent_name'],
         'canvas_user_name': config['canvas']['user_name'],
         'acp_version': config['acp_version'],
+        'version_flag': config['version_flag'],
         'current_date': formatted_now
     }
 
-    cognitor_dir = Path("Cognitor-Data")
+    cognitor_dir = Path("./config.d/")
     cognitor_info_snippets = {
         'cognitor_info': (cognitor_dir / 'Cognitor.info.yaml').read_text(encoding='utf-8')
     }
@@ -73,7 +74,7 @@ def main():
 
     # 设置Jinja2环境
     env = Environment(loader=FileSystemLoader('.'), trim_blocks=True)
-    template = env.get_template('Prompts/Base/Prompt-Base.md')
+    template = env.get_template('Prompts/template/Prompt.md')
 
     # 准备上下文数据
     context = {
