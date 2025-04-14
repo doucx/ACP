@@ -7,7 +7,7 @@
 **核心场景:**
 *   AI Cognitor 请求 Human Cognitor 执行需要物理世界交互或访问本地环境的命令（如操作本地文件、运行特定软件、访问硬件）。
 *   一个 Cognitor 请求另一个拥有特定专业知识库或计算资源的 Cognitor 执行专门的计算或推理。
-*   Human Cognitor 委托 AI Cognitor 执行大规模数据处理或复杂模拟。
+*   Human Cognitor 委托 外部工具 执行大规模数据处理或复杂模拟。
 
 ## 2. 协议机制 (Canvas 实现建议)
 
