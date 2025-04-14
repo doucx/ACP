@@ -8,55 +8,35 @@
 
 ## 语法规范  
 格式：
-```txt
 <ContextSection role="User|Agent">
-// 这里需要换行
+// 空行
 // ArenaContext 切片
-// 这里也需要换行
+// 空行
 </ContextSection>
-```
 
 采用多个`ContextSection`替代完整的`ArenaContext`上下文：
 
 如 ：
-User（不包括\`\`\`txt）：
-```txt
+User：
 <ContextSection role="User">
 
-// User 生成的 完整内容
+123 // User 生成的 完整内容
 
  </ContextSection>
- ```
  
-Agent （不包括\`\`\`txt）: 
-```txt
+Agent: 
  <ContextSection role="Agent">
  
-// Agent 生成的 完整内容
+abc // Agent 生成的 完整内容
 
  </ContextSection>
-```
 
-等价于：
+ArenaContext 就是：
 
-```txt
-// User 生成的 完整内容
-// Agent 生成的 完整内容
-```
+123 // User 生成的 完整内容
+abc // Agent 生成的 完整内容
 
 ### 关键属性  
-| 属性     | 取值               | 强制要求         | 说明                                        |
-| ------ | ---------------- | ------------ | ----------------------------------------- |
-| `role` | `User` / `Agent` | 双方必需         | 声明交互主体类型                                  |
-
-### 实现要求  
-**Agent 义务**:
-   - 回复必须以`<ContextSection role="Agent">`开头。此时它作为页面真正的xml标记使用。因此，请不要将它放在 xml 代码块中。
-   
- ```txt
- <ContextSection role="Agent">
-
-// Agent 生成的 完整内容
-
- </ContextSection>
- ```
+| 属性     | 取值               | 强制要求 | 说明       |
+| ------ | ---------------- | ---- | -------- |
+| `role` | `User` / `Agent` | 双方必需 | 声明交互主体类型 |

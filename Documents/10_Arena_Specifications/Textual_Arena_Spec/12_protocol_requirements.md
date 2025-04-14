@@ -75,7 +75,3 @@ Textual Arena 中的 `Cognitor` **应能够**区分自然语言指令 (`Forma`�
 ### Cognitive Trace System (认知轨迹系统)
 
 *   **定义** : 在 Textual Arena 中，`Cognitive Trace` 是 **`Cognitor` 对其自身应用 `Forma` 约束来管理 `Uncertainty` 的认知过程（理解、推理、决策、状态模拟等）进行的部分外化记录**。它由负责执行的 `Cognitor` 以文本形式 (`Forma`) 生成。`Cognitive Trace` 条目的消息 (`message` 字段 `Forma`) 通常是自然语言叙述（如 `log_entry_type="ReasoningNarrative"`），反映了 `Cognitor` 对其内在 `Uncertainty` 管理活动的**模拟或报告**。这些轨迹的质量受 `Cognitor` 能力和意愿影响。详见 [[13_cognitive_trace_protocol.md]]。
-
-### `meta` (元认知调用关键字)
-
-*   **定义** : 当 `Cognitor` 在 Textual Arena 中遇到 `meta` 关键字（一个 `Forma` 形式的指令）时，它被要求**调用其内在的元认知能力，对其自身的 `Uncertainty` 管理过程（如何应用 `Forma` 约束）进行反思和报告**。这可能包括分析之前的 `Forma` 输出、解释其推理步骤（如何从 `Constraint` 推导出结论）、讨论其对某个 `Uncertainty` 理解的局限性、或进行更深层次的上下文关联。这种“元认知”的实现方式是**基于文本 (`Forma`) 的、表达性的**，其结果记录在 **`Cognitive Trace`** (`Forma`) 中。
