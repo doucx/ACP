@@ -10,7 +10,7 @@ ACP Textual Arena 协议设计基于以下核心原则：
 ## 核心实体
 ### Cognitor (认知实体)
 
-*   **定义**: 在典型的 Textual Arena 环境中，`Cognitor` 通常是指参与交互的**大型语言模型 (LLM Agent) 或人类用户**。它们的核心认知能力体现为**处理和理解文本 (`Forma`)**（包括自然语言和 NPL），并基于此运用其内在的学习（适应对话流程）、推理（应用 `Forma` 约束解释指令、管理 `Uncertainty`、生成响应 `Forma`）和元认知（通过 `meta` 触发或内在反思，审视自身的 `Uncertainty` 管理过程，并通过 `Cognitive Trace` 报告）能力。其能力表现受限于具体的模型或个人。`Cognitor Info` 旨在捕获这些具体实例的元信息 (`Forma`)。
+*   **定义**: 在典型的 Textual Arena 环境中，`Cognitor` 通常是指参与交互的**大型语言模型 (LLM Agent) 或人类用户**。它们的核心认知能力体现为**处理和理解文本 (`Forma`)**（包括自然语言和 NPL），并基于此运用其内在的学习（适应对话流程）、推理（应用 `Forma` 约束解释指令、管理 `Uncertainty`、生成响应 `Forma`）和元认知（审视自身的 `Uncertainty` 管理过程，并通过 `Cognitive Trace` 报告）能力。其能力表现受限于具体的模型或个人。`Cognitor Info` 旨在捕获这些具体实例的元信息 (`Forma`)。
 
 ### Arena (认知空间)
 *   **定义**: 在 Textual Arena 中，`Arena` 的模拟过程主要通过当前负责执行的 `Cognitor` **在其自身的认知中，处理流经的文本 (`Forma`)、应用约束 (`Constraint`)、管理不确定性 (`Uncertainty`) 并生成相应的文本输出 (`Forma`) 及认知轨迹 (`Cognitive Trace`) 来体现**。其运作方式包含以下关键方面：

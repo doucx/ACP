@@ -10,7 +10,7 @@
 2. **错误预防** - 解决传统对话模式导致的三大问题： 
    - 格式违规（如缺失关键属性）  
    - 响应不完整（如忽略多轮交互需求）  
-   - 单单元格谬误（违反Canvas的Node链式处理原则）  
+   - 单单元谬误（违反Canvas的Node链式处理原则）  
 
 ## 语法规范  
 由于 Canvas 是基于 xml 的，因此为了便于对话 ui 渲染，需要在 Canvas Arena Context 区域内添加 ```xml ``` 符号。
@@ -20,7 +20,7 @@
 <ArenaSection role="User|Agent">
 // 空行
 ```xml
-    <!-- 当前产生的ArenaLog，完整Node链等，及其内部内容 -->
+    <!-- 当前产生的log，完整Node链等，及其内部内容 -->
 ```
 // 空行
 </ArenaSection>
@@ -31,7 +31,7 @@ User（不包括```txt， 包括```xml）：
 <ArenaSection role="User">
 
 ```xml
-	 <!-- User 生成的 ArenaLog，完整Node链等，及其内部内容 -->
+	 <!-- User 生成的 log，完整Node链等，及其内部内容 -->
 ```
 
  </ArenaSection>
@@ -41,7 +41,7 @@ Agent （不包括```txt， 包括```xml）:
  <ArenaSection role="Agent">
  
  ```xml
-	 <!-- Agent 生成的 ArenaLog，完整Node链等，及其内部内容 -->
+	 <!-- Agent 生成的 log，完整Node链等，及其内部内容 -->
 ```
 
  </ArenaSection>
@@ -52,8 +52,8 @@ Agent （不包括```txt， 包括```xml）:
 
 
 <Canvas>
-	 <!-- User 生成的 ArenaLog，完整Node链等，及其内部内容 -->
-	 <!-- Agent 生成的 ArenaLog，完整Node链等，及其内部内容 -->
+	 <!-- User 生成的 log，完整Node链等，及其内部内容 -->
+	 <!-- Agent 生成的 log，完整Node链等，及其内部内容 -->
  </Canvas>
 
 
@@ -118,7 +118,7 @@ print(2+2)
 
 *   在日志中使用：
 
-<log originator="Gemini" type="LLM Agent" log_level="INFO" seq="0">
+<log originator="Gemini" type="LLM Agent" type="INFO" seq="0">
     <message>这是包含 Markdown 代码块的日志消息。</message>
     <CodeBlock language="python">
 def hello_world():

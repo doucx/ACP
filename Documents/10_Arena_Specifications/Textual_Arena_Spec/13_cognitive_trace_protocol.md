@@ -26,28 +26,20 @@
     - 遇到 `Uncertainty` 分支（歧义）并进行消解选择时。
     - 模拟执行操作（即应用推断出的行为 `Forma`）前后。
     - 内部状态（`Uncertainty` 的表征）发生显著变化时。
-    - 响应 `meta` 指令，反思 `Uncertainty` 管理过程时。
+    - 反思 `Uncertainty` 管理过程时。
 
 ### 3.1. 关于 NPL `Log` 对象的说明
 
-在 NPL (Natural Pseudo Language) 参考库 ([[`14.2_npl_reference_library.md`]]) 中，用于**在 NPL 代码中生成这些 `Cognitive Trace` 条目的标准化 NPL 工具对象被命名为 `Log`** (例如 `Log.info(...)`)。此命名是为了保持 NPL 语法的简洁性和用户熟悉度（类似常见编程语言的日志库）。因此，在阅读 NPL 代码或示例时，请理解 NPL `Log` 对象是用于创建 `Cognitive Trace` 的接口。
+在 NPL (Natural Pseudo Language) 参考库 ([[`14.2_npl_reference_library.md`]]) 中，用于**在 NPL 代码中创建这些 `Cognitive Trace` 条目的标准化 NPL 工具对象被命名为 `Log`** (例如 `Log.info(...)`)。此命名是为了保持 NPL 语法的简洁性和用户熟悉度（类似常见编程语言的日志库）。因此，在阅读 NPL 代码或示例时，请理解 NPL `Log` 对象是用于创建 `Cognitive Trace` 的接口。
 
-## 4. `meta` 与认知轨迹：触发对 `Uncertainty` 管理过程的反思记录
-
-`meta` 关键字在认知轨迹协议中扮演关键角色。当 `Cognitor` 遇到 `meta Log.info(...)` (或其他包含 NPL `Log` 对象的方法调用) 或类似指令时，它被明确要求：
-1.  **调用其元认知能力**：对自身的**`Uncertainty` 管理过程**、状态或对 `Forma` 约束的理解进行反思。
-2.  **生成阐述性认知轨迹 (`Forma`)**：将反思的结果以文本 (`Forma`) 的形式记录在 `Cognitive Trace` 中，描述其如何应用约束、处理不确定性。
-
-这使得认知轨迹不仅仅是行为记录 (`Forma` 输出)，更能包含对行为**背后理由和 `Uncertainty` 管理策略**的洞察。
-
-## 5. 认知轨迹内容的特点与局限性 (Textual Arena)
+## 4. 认知轨迹内容的特点与局限性 (Textual Arena)
 
 *   **自然语言为主 (`Forma`):** LLM Agent 和 Human 生成的 `Cognitive Trace` 倾向于使用自然语言叙述其 `Uncertainty` 管理过程。
 *   **模拟性:** LLM Agent 生成的 `Cognitive Trace` 是其对自身**如何应用约束管理 `Uncertainty` 的认知过程**的 *模拟或报告*，而非**真实内在状态**的直接转储。其详细度、准确性、客观性受模型能力和“意愿”影响。
 *   **潜在冗余或不足:** 认知轨迹可能包含冗余信息（重复描述约束应用），也可能遗漏关键的 `Uncertainty` 处理步骤（取决于 `Cognitor` 的实现）。
 *   **无强制格式 (内容层面):** 协议不强制规定 `message` 内容 (`Forma`) 的严格格式，重点在于其对其他 `Cognitor` 理解 `Uncertainty` 管理过程的可读性。结构化信息主要依赖元数据字段。
 
-## 6. 认知轨迹条目结构
+## 5. 认知轨迹条目结构
 
 虽然 Textual Arena 本身是纯文本流，但在概念上，其 `Cognitive Trace` 条目应包含与 ACP Canvas 实现中类似的元数据信息，以方便理解和潜在的结构化处理。一个典型的认知轨迹条目（即使在纯文本中表现为一段话）应隐含或可以推断出以下信息（具体格式见 [[14.4_npl_cognitive_trace_reference]] 的设计理念，Textual Arena 实现时会简化其表示）：
 
@@ -57,6 +49,6 @@
 *   核心文本内容 (`Forma`)，描述 `Uncertainty` 管理过程。
 *   内容的语义分类
 
-## 7. 总结
+## 6. 总结
 
 Textual Arena 的认知轨迹协议是其 `Forma`-`Constraint`-`Uncertainty` 核心模型的关键体现。它要求 `Cognitor` 将其内在的、应用 `Forma` 约束来管理 `Uncertainty` 的认知过程，通过生成作为 `Forma` 的 `Cognitive Trace` 消息来进行外化，从而在纯文本交互环境中实现过程透明性和认知协作。NPL 中的 `Log` 对象是实现这一目标的操作接口。
