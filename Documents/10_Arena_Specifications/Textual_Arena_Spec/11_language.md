@@ -31,7 +31,7 @@
 以下特性描述了 `Cognitor` 在处理文本时，如何运用语言的 `Forma` 作为约束来管理意义 `Uncertainty`：
 
 1.  **基于约束的意义构建 (Applying Constraints to Resolve Uncertainty)**:
-    *   `Cognitor` 并非被动接收意义，而是主动运用其掌握的语言规则（语法、词汇 `Forma` 作为 `Constraint`）和当前 `ArenaContext` （上下文 `Forma` 作为 `Constraint`）来积极地约束文本 `Forma` 所引发的意义 `Uncertainty`，构建出当前最合理的解读。
+    *   `Cognitor` 并非被动接收意义，而是主动运用其掌握的语言规则（语法、词汇 `Forma` 作为 `Constraint`）和当前 `Arena` （上下文 `Forma` 作为 `Constraint`）来积极地约束文本 `Forma` 所引发的意义 `Uncertainty`，构建出当前最合理的解读。
     *   *NPL 关联*: `Auto.autodef(class Car: ...)` 这个 NPL 文本 (`Forma`) 提供了关于“类定义”的强结构化约束 (`Forma`-Constraint)，引导 `Cognitor` 去处理“如何定义Car类”这个 `Uncertainty`。
     *   *认知轨迹记录要求 (反思性)*: 使用 `meta Log.info("...")` (NPL `Log` 对象) 生成的 `Cognitive Trace` 应记录 `Cognitor` 识别了哪些关键的 `Forma`（文本特征、语法结构、上下文信息）作为 `Constraint`，以及这些 `Constraint` 如何帮助其缩小了意义 `Uncertainty` 的范围。
 
@@ -41,12 +41,12 @@
     *   *认知轨迹记录要求 (反思性)*: 使用 `meta Log.debug("...")` (NPL `Log` 对象) 可生成详细的 `Cognitive Trace`，记录 `Cognitor` 如何利用识别出的 `Forma` 结构来分解和处理复杂的、嵌套的意义 `Uncertainty`。
 
 3.  **语境消歧 (Using Context (`Forma`) as the Primary Constraint)**:
-    *   面对多义词或模糊短语（高 `Uncertainty`），`ArenaContext` 中之前的文本 (`Forma`) 是最强大的 `Constraint` 之一。`Cognitor` 依靠上下文 `Forma` 来判断哪个意义可能性与当前语境最连贯，从而极大地约束 `Uncertainty`。
+    *   面对多义词或模糊短语（高 `Uncertainty`），`Arena` 中之前的文本 (`Forma`) 是最强大的 `Constraint` 之一。`Cognitor` 依靠上下文 `Forma` 来判断哪个意义可能性与当前语境最连贯，从而极大地约束 `Uncertainty`。
     *   *NPL 关联*: `my_list.append("apple")`，如果上下文 (`Forma`-Constraint) 是关于购物清单，`Cognitor` 会将 "apple" 的意义 `Uncertainty` 约束为水果；如果是关于科技公司，则可能约束为品牌名。`Uncertainty` 的 `add_constraint(context_info: Forma)` 方法直接体现了这一点。
     *   *认知轨迹记录要求 (反思性)*: 使用 `meta Log.debug("...")` (NPL `Log` 对象) 生成的 `Cognitive Trace` 应明确指出是哪些上下文 `Forma` 被用作关键 `Constraint` 来排除了其他意义解释，从而选定了当前的理解（即，约束了 `Uncertainty`）。
 
 4.  **动态调整理解 (Updating Uncertainty based on Evolving Constraints)**:
-    *   随着对话进行，新的文本 `Forma` 不断加入 `ArenaContext`。`Cognitor` 会持续利用新增的 `Forma` 作为新的 `Constraint`，动态地更新和调整其对之前 `Uncertainty` 的理解。早期看似合理的解读可能被后续的 `Constraint` 推翻。
+    *   随着对话进行，新的文本 `Forma` 不断加入 `Arena`。`Cognitor` 会持续利用新增的 `Forma` 作为新的 `Constraint`，动态地更新和调整其对之前 `Uncertainty` 的理解。早期看似合理的解读可能被后续的 `Constraint` 推翻。
     *   *NPL 关联*: `Auto.auto(...)` 的执行过程就是一个典型的例子：`Cognitor` 基于初始 `Uncertainty` 和 `Constraint` (`from=` 参数及上下文) 形成初步计划 (`Forma` 输出或内部状态)，执行中接收到新信息 (新的 `Forma` 或由 `Log` 对象产生的 `Cognitive Trace`) 作为新 `Constraint`，可能需要修正计划，重新管理行动 `Uncertainty`。
     *   *认知轨迹记录要求 (反思性)*: 使用 `meta Log.trace("...")` (NPL `Log` 对象) 可生成非常详细的 `Cognitive Trace`，记录关键 `Uncertainty` 的可能性是如何随着新的 `Forma` (约束) 的加入而发生变化的。
 
