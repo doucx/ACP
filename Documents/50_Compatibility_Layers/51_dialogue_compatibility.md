@@ -20,21 +20,21 @@
 User：
 <ArenaSection role="User">
 
-123 // User 生成的 完整内容
+123 // User 创建的 完整内容
 
  </ArenaSection>
  
 Agent: 
  <ArenaSection role="Agent">
  
-abc // Agent 生成的 完整内容
+abc // Agent 创建的 完整内容
 
  </ArenaSection>
 
 Arena 就是：
 
-123 // User 生成的 完整内容
-abc // Agent 生成的 完整内容
+123 // User 创建的 完整内容
+abc // Agent 创建的 完整内容
 
 ### 关键属性  
 | 属性     | 取值               | 强制要求 | 说明       |

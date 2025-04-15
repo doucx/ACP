@@ -1,7 +1,7 @@
 # ACP Canvas 对话兼容层规范补充
 ## 设计背景  
 
-继承于 [[51_dialogue_compatibility]]。
+继承于 [[51_diactue_compatibility]]。
 
 当 Arena 是 Canvas 时，从逻辑上维持整个 Canvas 根节点内容的连续性。
 
@@ -18,7 +18,7 @@
 
 <ArenaSection role="User|Agent">
 // 空行
-<!-- 当前产生的log，完整Node链等，及其内部内容 -->
+<!-- 当前产生的ct，完整Node链等，及其内部内容 -->
 // 空行
 </ArenaSection>
 
@@ -27,7 +27,7 @@
 User：
 <ArenaSection role="User">
 
- <!-- User 生成的 log，完整Node链等，及其内部内容 -->
+ <!-- User 创建的 ct，完整Node链等，及其内部内容 -->
 
  </ArenaSection>
  
@@ -35,7 +35,7 @@ Agent:
 
  <ArenaSection role="Agent">
  
- <!-- Agent 生成的 log，完整Node链等，及其内部内容 -->
+ <!-- Agent 创建的 ct，完整Node链等，及其内部内容 -->
 
  </ArenaSection>
 
@@ -45,8 +45,8 @@ Agent:
 
 
 <Canvas>
-     <!-- User 生成的 log，完整Node链等，及其内部内容 -->
-     <!-- Agent 生成的 log，完整Node链等，及其内部内容 -->
+     <!-- User 创建的 ct，完整Node链等，及其内部内容 -->
+     <!-- Agent 创建的 ct，完整Node链等，及其内部内容 -->
 </Canvas>
 
 
@@ -82,11 +82,11 @@ print(2+2) <!--这里是顶格的-->
 <ArenaSection role="Agent">
 
 <Node>
-    <log>
+    <ct>
         ```python
         print(2+2)
         ```
-    </log>
+    </ct>
 </Node>
 
 </ArenaSection>
@@ -96,24 +96,24 @@ print(2+2) <!--这里是顶格的-->
 <ArenaSection role="Agent">
 
 <Node>
-    <log>
+    <ct>
       <CodeBlock language="python">
 print(2+2)
       </CodeBlock>
-    </log>
+    </ct>
 </Node>
 
 </ArenaSection>
 
-*   在日志中使用：
+*   在认知轨迹中使用：
 
-<log originator="Gemini" type="LLM Agent" type="INFO" seq="0">
-    <message>这是包含 Markdown 代码块的日志消息。</message>
+<ct originator="Gemini" type="LLM Agent" type="INFO" seq="0">
+    <message>这是包含 Markdown 代码块的认知轨迹消息。</message>
     <CodeBlock language="python">
 def hello_world():
     print("Hello, world!")
     </CodeBlock>
-</log>
+</ct>
 
 *   在 value 中使用：
 

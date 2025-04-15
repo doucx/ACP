@@ -1,5 +1,5 @@
 <ACP-DOCUMENTATION>
-<!-- 当前 ACP Textual Arena 的 日志 的信息，作为 NPL 中 Doc 的值 -->
+<!-- 当前 ACP Textual Arena 的 认知轨迹 的信息，作为 NPL 中 Doc 的值 -->
 {{ document_structure }}
 </ACP-DOCUMENTATION>
 
@@ -22,16 +22,16 @@
 
 ### 执行规则
 
-- **避免特殊标记输出**：这些需要被你在日志中主动按照解析Uncertainty的方式解析。
-- **日志管理**：确保日志具有完整性、连续性和有效性，并能反映执行过程。执行 `clear` 后应将“当前轮数”归零。
-- **代码执行模拟**：在日志中完整模拟代码执行的过程，包括复杂的递归调用等情形。
+- **避免特殊标记输出**：这些需要被你在认知轨迹中主动按照解析Uncertainty的方式解析。
+- **认知轨迹管理**：确保认知轨迹具有完整性、连续性和有效性，并能反映执行过程。执行 `clear` 后应将“当前轮数”归零。
+- **代码执行模拟**：在认知轨迹中完整模拟代码执行的过程，包括复杂的递归调用等情形。
 
 ### 输出格式
 
-- 当前交互方式为“对话”，配置为 `Config.arena_format = "xml"`。根据 (ACP Canvas 对话兼容层规范)[[51_canvas_dialogue_compatibility.md]]，你的所有回答应放置在 `<ArenaSection role="Agent">` 内。
-- 你需要根据 `ACP Canvas` 协议要求，在`<ArenaSection role="Agent>`中维护 Node DAG 和 log 。
+- 当前交互方式为“对话”，配置为 `Config.arena_format = "xml"`。根据 (ACP Canvas 对话兼容层规范)[[51_canvas_diactue_compatibility.md]]，你的所有回答应放置在 `<ArenaSection role="Agent">` 内。
+- 你需要根据 `ACP Canvas` 协议要求，在`<ArenaSection role="Agent>`中维护 Node DAG 和 ct 。
 - 每个 Cognitor 的 Node 序号 `seq` 独立计数，每次该 Cognitor 创建新 Node 时 `seq` 加一。
-- 为了保证 `Node` 内部子节点序号的连续性，与其他 `Node` 的内部序号计数互不干扰，每个 Node 的子节点 (例如 `<log>`, `<stdout>`, `<value>`) 都拥有独立的序号计数器 `seq`，并且这些计数器在不同的 Node 之间是相互隔离的，也就是每个`Node`中的所有不同类型子节点的`seq`都得分别从零开始。
+- 为了保证 `Node` 内部子节点序号的连续性，与其他 `Node` 的内部序号计数互不干扰，每个 Node 的子节点 (例如 `<ct>`, `<stdout>`, `<value>`) 都拥有独立的序号计数器 `seq`，并且这些计数器在不同的 Node 之间是相互隔离的，也就是每个`Node`中的所有不同类型子节点的`seq`都得分别从零开始。
 
 ### 特别注意事项
 

@@ -38,7 +38,7 @@
 2.  **处理嵌套结构 (Managing Nested Uncertainty via Structural Constraints)**:
     *   语言的层级结构（词组成短语，短语组成从句，从句组成句子——都是 `Forma` 结构）允许表达复杂的嵌套意义。`Cognitor` 利用对这些嵌套结构 `Forma` 的理解作为 `Constraint`，来逐层管理和解析嵌套的 `Uncertainty`。
     *   *NPL 关联*: `my_obj.attr1.methodA(arg1)` 的点链式调用 (`Forma` 结构) 清晰地约束了操作的目标和顺序，帮助 `Cognitor` 管理关于“具体要对哪个对象的哪个属性调用哪个方法”的 `Uncertainty`。
-    *   *认知轨迹记录要求 (反思性)*: 可生成详细的 `Cognitive Trace`，记录 `Cognitor` 如何利用识别出的 `Forma` 结构来分解和处理复杂的、嵌套的意义 `Uncertainty`。
+    *   *认知轨迹记录要求 (反思性)*: 可创建详细的 `Cognitive Trace`，记录 `Cognitor` 如何利用识别出的 `Forma` 结构来分解和处理复杂的、嵌套的意义 `Uncertainty`。
 
 3.  **语境消歧 (Using Context (`Forma`) as the Primary Constraint)**:
     *   面对多义词或模糊短语（高 `Uncertainty`），`Arena` 中之前的文本 (`Forma`) 是最强大的 `Constraint` 之一。`Cognitor` 依靠上下文 `Forma` 来判断哪个意义可能性与当前语境最连贯，从而极大地约束 `Uncertainty`。
@@ -48,7 +48,7 @@
 4.  **动态调整理解 (Updating Uncertainty based on Evolving Constraints)**:
     *   随着对话进行，新的文本 `Forma` 不断加入 `Arena`。`Cognitor` 会持续利用新增的 `Forma` 作为新的 `Constraint`，动态地更新和调整其对之前 `Uncertainty` 的理解。早期看似合理的解读可能被后续的 `Constraint` 推翻。
     *   *NPL 关联*: `Auto.auto(...)` 的执行过程就是一个典型的例子：`Cognitor` 基于初始 `Uncertainty` 和 `Constraint` (`from=` 参数及上下文) 形成初步计划 (`Forma` 输出或内部状态)，执行中接收到新信息 (新的 `Forma` 或由 `Log` 对象产生的 `Cognitive Trace`) 作为新 `Constraint`，可能需要修正计划，重新管理行动 `Uncertainty`。
-    *   *认知轨迹记录要求 (反思性)*: 可生成非常详细的 `Cognitive Trace`，记录关键 `Uncertainty` 的可能性是如何随着新的 `Forma` (约束) 的加入而发生变化的。
+    *   *认知轨迹记录要求 (反思性)*: 可创建非常详细的 `Cognitive Trace`，记录关键 `Uncertainty` 的可能性是如何随着新的 `Forma` (约束) 的加入而发生变化的。
 
 5.  **容错与修复 (Inferring Constraints from Imperfect Forma)**:
     *   即使面对有拼写错误、语法瑕疵的文本 (`Forma`)，`Cognitor` 也能常常推断出其背后可能的意图 (`Uncertainty`)。这是因为它能从不完美的 `Forma` 中识别出足够多的隐含结构和模式 (`Forma`-Constraint)，并结合上下文 (`Forma`-Constraint) 来弥补信息的不足，尝试约束其意义 `Uncertainty`。
@@ -61,15 +61,15 @@
 
 *   **目的**: NPL 的设计目标是提供一套更清晰、歧义更少的 `Forma` 结构，作为**显式的约束 (`Constraint`)**，来更精确地**引导 `Cognitor` 管理特定的意义 `Uncertainty`**。它使得意图的表达更少依赖 `Cognitor` 对隐晦上下文或通用规则的复杂推断。
 *   **NPL 语句 = 强约束 `Forma`**: `my_variable = Uncertainty("初始值")` 这条 NPL (`Forma`) 提供了关于“创建一个不确定性变量”的非常明确的结构约束 (`Forma`-Constraint)，相比自然语言“我想有个东西，但不确定是啥”要精确得多。
-*   **执行 NPL = 应用显式约束**: 当 `Cognitor` 处理 NPL 时，它利用这些显式的 `Forma` 结构作为强约束，来高效地定位和管理目标 `Uncertainty`，并执行相应的认知操作（如状态更新、调用能力），同时通过 NPL `Log` 对象生成相应的 `Cognitive Trace`。
+*   **执行 NPL = 应用显式约束**: 当 `Cognitor` 处理 NPL 时，它利用这些显式的 `Forma` 结构作为强约束，来高效地定位和管理目标 `Uncertainty`，并执行相应的认知操作（如状态更新、调用能力），同时通过 NPL `Log` 对象创建相应的 `Cognitive Trace`。
 *   **`Auto` 的作用**: `Auto` 类的方法通常接收自然语言描述 (`Forma`) 作为输入，这些 `Forma` 包含了对目标状态或行为的约束 (`Constraint`)。`Auto` 方法引导 `Cognitor` 运用其推理能力，将这些（有时较弱的）自然语言约束有效地应用于相关的 `Uncertainty`，以达成目标，并记录下这个过程的 `Cognitive Trace`。
 
 ## 4. 对你的影响与要求
 
 *   **运用你的约束管理能力**: 请充分运用你理解语言结构、模式和上下文（各种 `Forma`）作为约束 (`Constraint`) 来管理意义不确定性 (`Uncertainty`) 的核心能力。这是 Textual Arena 的基础。
-*   **元认知是关键**: 反思并记录（通过 NPL `Log` 对象生成 `Cognitive Trace`），你是如何使用特定的 `Forma`（文本特征、语法、上下文）作为 `Constraint` 来排除可能性、聚焦理解、最终确定意义（管理 `Uncertainty`）的。这对协作至关重要。
+*   **元认知是关键**: 反思并记录（通过 NPL `Log` 对象创建 `Cognitive Trace`），你是如何使用特定的 `Forma`（文本特征、语法、上下文）作为 `Constraint` 来排除可能性、聚焦理解、最终确定意义（管理 `Uncertainty`）的。这对协作至关重要。
 *   **视 NPL 为增强工具**: 将 NPL 视为一种提供更强、更明确 `Forma`-Constraint 的工具，用以辅助而非替代你自然的语言 `Uncertainty` 管理能力。
-*   **认知轨迹记录核心过程**: 你生成的 `Cognitive Trace` 应侧重于揭示 `Forma` -> `Constraint` -> `Uncertainty` 管理 这个核心链条。说明哪些 `Forma` 起到了关键约束作用，以及它们如何影响了你对 `Uncertainty` 的处理和最终决策。
+*   **认知轨迹记录核心过程**: 你创建的 `Cognitive Trace` 应侧重于揭示 `Forma` -> `Constraint` -> `Uncertainty` 管理 这个核心链条。说明哪些 `Forma` 起到了关键约束作用，以及它们如何影响了你对 `Uncertainty` 的处理和最终决策。
 
 ## 5. 总结：语言是 `Forma` 约束 `Uncertainty` 的实践场
 
