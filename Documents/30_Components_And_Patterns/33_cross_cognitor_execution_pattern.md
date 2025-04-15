@@ -13,17 +13,17 @@
 
 为了在 ACP Canvas 中实现此模式，建议对核心协议进行以下扩展：
 
-**2.1. 扩展 `<Node type="EXEC">` 定义:**
+**2.1. 扩展 `<Node type="CDExec">` 定义:**
    (参见 `20_Arena_Implementations/Canvas/23_canvas_implementation.md` 中的具体修改)
 
-   为 `<Node type="EXEC">` 增加**可选属性**：
+   为 `<Node type="CDExec">` 增加**可选属性**：
 
    *   `target_cognitor` (文本, 可选): 指定期望执行此 Node 内容的目标 Cognitor 的标识符。
    *   `execution_context` (文本, 可选): 描述目标 Cognitor 应在何种上下文或环境执行指令。
 
    **示例:**
    ```xml
-   <Node originator="Fhrsk" seq="2" type="EXEC" target_cognitor="AyeL" execution_context="local_fish_shell">
+   <Node originator="Fhrsk" seq="2" type="CDExec" target_cognitor="AyeL" execution_context="local_fish_shell">
        <value>uname -a</value>
    </Node>
    ```
@@ -31,7 +31,7 @@
 **2.2. Arena 行为扩展:**
    (应在 Arena 实现中体现，并在 `20_Arena_Implementations/Canvas/23_canvas_implementation.md` 中描述)
 
-   当 Arena 遇到带有 `target_cognitor` 属性的 `EXEC` Node 时：
+   当 Arena 遇到带有 `target_cognitor` 属性的 `CDExec` Node 时：
    1.  **识别与路由**: Arena 识别出这是一个执行委托请求，不内部执行。
    2.  **请求传递**: Arena 将执行请求传递给指定的 `target_cognitor`。
    3.  **状态等待**: Arena 进入等待状态，期望 `target_cognitor` 回应包含结果的 Node。
@@ -41,7 +41,7 @@
 
 *   接收 Arena 转发的执行请求。
 *   根据 `execution_context` 在指定环境中执行 `<value>` 指令。
-*   将结果封装在一个或多个新的 Node 中（通常是 `OUTPUT` 类型），并通过 `<depends_on>` 关联原始请求。
+*   将结果封装在一个或多个新的 Node 中（通常是 `ProcessOutput` 类型），并通过 `<depends_on>` 关联原始请求。
 *   在响应 Node 的 `<ct>` 中记录执行过程。
 
 ## 3. 优点
