@@ -18,6 +18,8 @@ ACP Textual Arena 协议设计基于以下核心原则：
     1.  **上下文维护:** `Cognitor` 通过解析历史文本流 (Arena，一个 `Forma` 序列，包括之前的 `Cognitive Trace`) 来维护交互上下文。这个历史 `Forma` 构成了 `Cognitor` 应用约束、管理 `Uncertainty` 的主要隐式 `Constraint` 来源。
     2.  **行为模拟:** `Arena` 的其他行为，如路由、状态转换（见 [[22.3_canvas_implementation.md]]），是 `Cognitor` 根据其对文本流 (`Forma`) 和 ACP Textual Arena 规则 (`Forma`-Constraint) 的**理解和模拟**来执行的。这些行为本质上是 `Cognitor` 在管理“下一步该做什么”这个核心 `Uncertainty` 后的 `Forma` 输出，其决策过程应记录在 `Cognitive Trace`。
     3.  **`Forma` 基础:** 其交互完全构建在由 `Cognitor` 处理的 `Forma` 流之上，整个交互流程和状态变迁都必须通过这些文本记录（作为 `Forma` 传递 `Constraint`、管理 `Uncertainty` 和留下 `Cognitive Trace` 的载体）来体现。
+    4.  **单线程性:** 在同一个时刻，只能由一个 `Cognitor` 修改  `Textual Arena` ，该 `Cognitor` 此时被称为Arena操作者。因此，`Cognitor` 需要显式声明对 Arena 的释放和获取，来通知其它 `Cognitor` 可以进行修改了。
+    5.   **不可篡改性:** `Textual Arena` 中已有内容无法被修改，但可以创建新的认知轨迹以标记之前的内容，来声明修改。
 
 ## 交互
 ### 认知指令 (Cognitive Directive) 在 Textual Arena 中的表现

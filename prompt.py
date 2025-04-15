@@ -2,6 +2,7 @@ from jinja2 import Environment, FileSystemLoader
 import yaml
 from pathlib import Path
 from datetime import datetime
+from xml.sax.saxutils import escape
 
 def generate_xml_structure(directory, base_path=None, blacklist=None):
     """
@@ -36,7 +37,7 @@ def generate_xml_structure(directory, base_path=None, blacklist=None):
             else:
                 print(rel_str)
             
-            content = item.read_text(encoding='utf-8')
+            content = escape(item.read_text(encoding='utf-8'))
             xml_lines.append(f'<File name="{rel_path}">')
             xml_lines.append(content)
             xml_lines.append('</File>')

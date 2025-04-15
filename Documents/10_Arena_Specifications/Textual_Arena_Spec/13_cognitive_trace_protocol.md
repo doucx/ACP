@@ -37,7 +37,7 @@
 
 ## 5. 认知轨迹条目结构
 
-虽然 Textual Arena 本身是纯文本流，但在概念上，其 `Cognitive Trace` 条目应包含与 ACP Canvas 实现中类似的元数据信息，以方便理解和潜在的结构化处理。一个典型的认知轨迹条目（即使在纯文本中表现为一段话）应隐含或可以推断出以下信息（具体格式见 [[14.4_npl_cognitive_trace_reference]] 的设计理念，Textual Arena 实现时会简化其表示）：
+虽然 Textual Arena 本身是纯文本流，但在概念上，其 `Cognitive Trace` 条目应包含一些元数据信息，以方便理解和潜在的结构化处理。一个典型的认知轨迹条目（即使在纯文本中表现为一段话）应隐含或可以推断出以下信息（具体格式见 [[14.4_npl_cognitive_trace_reference]]）：
 
 *   创建该轨迹的 Cognitor。
 *   信息的类型。
