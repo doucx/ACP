@@ -11,7 +11,7 @@
 格式：
 需要将 ArenaSection 放在六个反引号内，以避免代码块层级冲突。
 ``````xml
-<ArenaSection role="User|Agent">
+<ArenaSection>
 // Arena 切片
 </ArenaSection>
 ``````
@@ -21,26 +21,21 @@
 如 ：
 User：
 ``````xml
-<ArenaSection role="User">
+<ArenaSection>
 123 // User 创建的 完整内容
 </ArenaSection>
 ``````
  
-Agent: 
+LLM Agent: 
 ``````xml
-<ArenaSection role="Agent">
+<ArenaSection>
 abc // Agent 创建的 完整内容
 </ArenaSection>
 ``````
 
-Arena 就是：
+Arena 内容就是：
 
 ``````txt
 123 // User 创建的 完整内容
 abc // Agent 创建的 完整内容
 ``````
-
-### 关键属性  
-| 属性     | 取值               | 强制要求 | 说明       |
-| ------ | ---------------- | ---- | -------- |
-| `role` | `User` / `Agent` | 双方必需 | 声明交互主体类型 |

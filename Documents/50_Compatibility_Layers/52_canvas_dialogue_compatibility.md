@@ -17,7 +17,7 @@
 格式：
 
 ``````xml
-<ArenaSection role="User|Agent">
+<ArenaSection>
 <!-- 当前产生的ct，完整Node链等，及其内部内容 -->
 </ArenaSection>
 ``````
@@ -27,7 +27,7 @@
 User：
 
 ``````xml
-<ArenaSection role="User">
+<ArenaSection>
 <!-- User 创建的 ct，完整Node链等，及其内部内容 -->
 </ArenaSection>
 ``````
@@ -35,7 +35,7 @@ User：
 Agent: 
 
 ``````xml
-<ArenaSection role="Agent">
+<ArenaSection>
 <!-- Agent 创建的 ct，完整Node链等，及其内部内容 -->
 </ArenaSection>
 ``````
