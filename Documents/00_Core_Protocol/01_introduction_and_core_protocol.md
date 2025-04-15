@@ -33,7 +33,7 @@ ACP 协议建立在一个基础的认知本体之上，用于结构化其处理�
 ### 2.2. Forma (确定性实体)
 
 *   **定义**: **确定性信息载体 (Deterministic Information Carrier)**。代表具有明确定义、形式确定、可被直接观察或处理的**存在形式或信息媒介 (Form or Medium)**。例如：一个数值、一个文本字符串、一段音频信号、一张图像的像素数据、一条结构化的 ACP 指令等。
-*   **角色**: `Forma` 是构成 `ArenaContext` 的基本单元，是传递信息的载体，也是施加于 `Uncertainty` 的**约束 (`Constraint`)** 的来源。其关键在于**形式上的确定性 (Formal Determinism)**。
+*   **角色**: `Forma` 是构成 `Arena` 的基本单元，是传递信息的载体，也是施加于 `Uncertainty` 的**约束 (`Constraint`)** 的来源。其关键在于**形式上的确定性 (Formal Determinism)**。
 
 ### 2.3. Uncertainty (不确定性实体)
 
@@ -43,7 +43,7 @@ ACP 协议建立在一个基础的认知本体之上，用于结构化其处理�
 
 ### 2.4. 关系：使用 Forma 作为约束管理 Uncertainty
 
-ACP 交互的核心过程可以理解为：`Cognitor` 面对 `ArenaContext` 中的 `Forma` 流，识别出其中隐含的或显式指向的 `Uncertainty`，然后运用其他的 `Forma`（来自上下文、指令、知识库或推理产生）作为 `Constraint`，来管理和消解这个 `Uncertainty`，最终达成理解或产生新的 `Forma`（如决策或响应）。
+ACP 交互的核心过程可以理解为：`Cognitor` 面对 `Arena` 中的 `Forma` 流，识别出其中隐含的或显式指向的 `Uncertainty`，然后运用其他的 `Forma`（来自上下文、指令、知识库或推理产生）作为 `Constraint`，来管理和消解这个 `Uncertainty`，最终达成理解或产生新的 `Forma`（如决策或响应）。
 
 ## 3. 核心实体 (Core Entities)
 
@@ -57,10 +57,10 @@ ACP 协议围绕两个核心抽象实体进行定义：
 
 ### 3.2. Cognitive Arena (认知空间)
 
-*   **定义**: 简称 `Arena`，是由遵循协议规则的一个或多个 `Cognitor` 共同维护的、用于认知协作的抽象环境。其核心职责是管理一个**基于 `Forma` 流的交互上下文 (`ArenaContext`)**，并基于该上下文协调 `Cognitor` 的活动，执行协议规范（特别是过程透明性）。
-*   **上下文管理 (`ArenaContext`)**: `ArenaContext` 是由 `Arena` 中产生的所有可观察 `Forma` 构成的记录流。它是所有 `Cognitor` 进行理解、推理和协作的基础。所有未显式记录在 `ArenaContext` 中的信息都可能在跨 `Cognitor` 或长时间交互中丢失。
-*   **运作方式**: `Arena` 的运作（如状态维护、指令路由、规则执行）**依赖于其中 `Cognitor` 的模拟和执行能力**。`Cognitor` 需要理解 `ArenaContext`、解析指令、执行操作，并生成符合协议的 `Cognitive Trace` 来记录其活动和 `Arena` 的状态变迁。
-*   **关键特性**: 设计上强调**载体无关性**（可由不同 `Cognitor` 实现）和**过程透明性**（强制通过 `Cognitive Trace` 记录）。
+*   **定义**: 简称 `Arena`，是由遵循协议规则的一个或多个 `Cognitor` 共同维护的、用于认知协作的抽象的，基于 `Forma` 的交互上下文。`Cognitor` 基于该上下文协调自身的活动，执行协议规范（特别是过程透明性）。
+*   **内容**: `Arena` 是由 `Cognitor` 产生的所有可观察 `Forma` 构成的记录。它是所有 `Cognitor` 进行理解、推理和协作的基础。所有未显式记录在 `Arena` 中的信息都可能因跨 `Arena` （如切换了聊天平台）或长时间交互（因遗忘当时想法）而丢失。
+*   **运作方式**: `Arena` 的运作（如状态维护、指令路由、规则执行）**完全依赖于其中 `Cognitor` 的执行能力**。`Cognitor` 需要理解 `Arena` 的内容、解析指令、执行操作，并生成符合协议的 `Cognitive Trace` 来记录其活动和 `Arena` 的状态变迁。
+*   **关键特性**: 设计上强调**载体无关性**（可由不同载体（如白纸，某种聊天室）作为 Arena ）和**过程透明性**（强制通过 `Cognitive Trace` 记录）。
 
 ## 4. 核心原则与基础假设 (Core Principles and Foundational Axioms)
 
@@ -88,21 +88,20 @@ ACP 的有效运作建立在以下基础假设之上，这些假设构成了协�
 *   **Axiom 1: 认知实体的存在与基础能力 (Cognitor Existence and Capabilities):**
     *   假定存在能够参与交互的**认知实体 (`Cognitor`)**。
     *   这些 `Cognitor` **天然或已被赋予**执行 ACP 交互所需的基础能力，至少包括：
-        *   **感知 (`Perception`)**: 能够接收和处理来自 `Arena` 的信息 (`Forma`)，即能够**读取 `ArenaContext`**。
-        *   **行动 (`Action`)**: 能够通过某种机制**向 `ArenaContext` 输出或追加信息 (`Forma`)**，包括执行结果、响应以及必要的**认知轨迹 (`Cognitive Trace`)**。
-        *   **理解/解析 (`Interpretation`)**: 能够解析和理解 `ArenaContext` 中的认知指令 (`Cognitive Directive`)。
-        *   **推理 (`Reasoning`)**: 能够基于 `ArenaContext` 和自身知识进行逻辑推断以管理 `Uncertainty`。
-        *   **元认知 (`Metacognition`)**: （至少在被请求时）能够对其自身的认知过程进行反思和报告（体现为 `Cognitive Trace`）。
+        *   **感知 (`Perception`)**: 能够接收和处理来自 `Arena` 的信息 (`Forma`)，即能够**读取 `Arena`**。
+        *   **行动 (`Action`)**: 能够通过某种机制**向 `Arena` 输出或追加信息 (`Forma`)**，包括执行结果、响应以及必要的**认知轨迹 (`Cognitive Trace`)**。
+        *   **理解/解析 (`Interpretation`)**: 能够解析和理解 `Arena` 中的认知指令 (`Cognitive Directive`)。
+        *   **推理 (`Reasoning`)**: 能够基于 `Arena` 和自身知识进行逻辑推断以管理 `Uncertainty`。
+        *   **元认知 (`Metacognition`)**: 能够对其自身的认知过程进行反思和报告（体现为 `Cognitive Trace`）。
     *   *ACP 协议旨在**调用和规范**这些能力的使用，而非定义其内在机制。*
 
-*   **Axiom 2: 认知空间的共享性与记录性 (ArenaContext Accessibility and Record Nature):**
-    *   存在一个**认知空间 (`Arena`)** 作为交互环境。
-    *   该 `Arena` 维护一个**可访问的上下文 (`ArenaContext`)**，由交互产生的**`Forma` 记录流**构成。
-    *   参与 `Arena` 的 `Cognitor` **能够访问**（至少是相关的部分）`ArenaContext`。
+*   **Axiom 2: 认知空间的共享性与记录性 (Arena Accessibility and Record Nature):**
+    *   存在一个**认知空间 (`Arena`)** 作为**交互环境**，由交互产生的 **`Forma` 记录流**构成。
+    *   `Cognitor` 都 **能够访问与修改**（至少是相关的部分）`Arena`。
 
 *   **Axiom 3: 认知轨迹作为结果性 `Forma` (Cognitive Trace as Resultant Forma):**
     *   协议要求的认知轨迹 (`Cognitive Trace`) 是 `Cognitor` 内部认知活动完成后的**结果性输出**。
-    *   它们以**确定的形式 (`Forma`)** 被记录到 `ArenaContext` 中。
+    *   它们以**确定的形式 (`Forma`)** 被记录到 `Arena` 中。
     *   *协议关注的是 `Trace` 的存在、内容和对透明性的贡献，而非“生成 Trace”这一动作的内部细节。*
 
 ## 5. 核心机制 (Core Mechanisms)
@@ -116,46 +115,5 @@ ACP 的有效运作建立在以下基础假设之上，这些假设构成了协�
 
 ### 5.2. 认知轨迹系统 (Cognitive Trace System)
 
-*   **定义**: 这是 ACP 协议规定的**强制性机制**，是实现过程透明性和协作有效性的核心。它要求 `Arena` (及其 `Cognitor`) 基于其**元认知能力**，将认知过程中的关键步骤、内部状态变化（模拟）、决策依据、对 `Uncertainty` 的处理、解释、警告和错误等，以结构化的 **`Forma`** 记录下来，形成**认知轨迹 (Cognitive Trace)**。
-*   **目标**: 确保认知过程可被追溯、审计和理解，从而**降低不同 `Cognitor` 对 `ArenaContext` 及其演化过程认知的偏差**。
-
-### 5.3. `meta`: 显式调用可追踪元认知的协议信号
-
-**版本 A：元操作授权 (Meta-Operation Authorization)**
-
- **5.3. `meta`: 授权元层操作的协议信号**
-
- *   **定义**: ACP 协议定义了一个**标准化的协议信号（以特定 `Forma` 表示）**，其核心作用是**授权并指示**目标 `Cognitor` **执行元层操作 (Meta-level Operation)**。这类操作可能**超越**常规指令流对 `ArenaContext` 的线性、结构化修改，允许 `Cognitor` 以更灵活或非标准的方式与 `Arena` 环境交互。
- *   **作用**: 当 `Cognitor` 处理包含 `meta` 信号的认知流时，它被授权并引导进行更高层次的行为，例如：
-     *   **直接干预 `ArenaContext`**: 在认知轨迹中声明意图后，可能直接向 `ArenaContext` 添加非预期的 `Forma`（如原始文本、覆盖结构化预期）。
-     *   **修改交互规则（声明性）**: 声明对后续交互规则的临时或局部修改意图（其效果依赖于 `Arena` 实现和 `Cognitor` 能力）。
-     *   **执行对“未来”的声明**: 尝试声明对未来可能产生的 `ArenaContext` 部分（如下游 `Node`）的期望状态或内容（此为高级功能，实现依赖 `Arena` 和 `Cognitor`）。
- *   **与认知轨迹的关系**: `meta` 信号本身**不直接等同于**元认知反思的触发器（尽管元层操作通常涉及元认知规划）。执行 `meta` 授权的操作**仍然必须**遵循**认知轨迹系统 (`Cognitive Trace System`)** 的要求，在 `Cognitive Trace` 中清晰地记录其**执行意图、规划过程、以及对 `ArenaContext` 的实际（或预期）影响**。`meta` 赋予了操作的 *特殊性*，而 `Cognitive Trace` 确保了其 *可见性*。
- *   **目的**: 为需要进行超越常规流程的维护、调试、模拟复杂行为或实现高级控制的场景，提供一个标准化的协议入口。
-
-**版本 B：上下文操作指令 (Context Manipulation Directive)**
-
- **5.3. `meta`: 指导高级上下文操作的 `Forma`**
-
- *   **定义**: `meta` 是 ACP 协议中一种特殊的**结构化 `Forma`**，用于**指导 `Cognitor` 对 `ArenaContext` 执行高级或非标准的管理操作**。它标志着后续的 `Forma` 不应被视为常规的任务指令，而是对交互上下文本身进行操作的元指令。
- *   **作用**: `meta` 引导 `Cognitor` 关注并操作 `ArenaContext` 的结构、流程或元数据，可能包括：
-     *   **注入非结构化 `Forma`**: 绕过预定义的 `Node` 结构，直接向 `ArenaContext` 添加文本或其他 `Forma`。
-     *   **声明性流程控制**: 提出对交互流程的修改建议或声明（如“跳过下一步”、“重试此操作”）。
-     *   **预设未来状态**: 尝试为后续生成的 `ArenaContext` 部分设定预期值或约束（例如，影响下游 `Node` 的内容）。
- *   **认知轨迹要求**: `meta` 指令的执行过程，包括 `Cognitor` 如何理解该元指令、计划执行步骤、以及对 `ArenaContext` 的具体修改（或预期修改），**必须**通过**认知轨迹 (`Cognitive Trace`)** 进行详细记录。`meta` 本身定义了操作的特殊层级，`Cognitive Trace` 则记录了该特殊操作的实现细节和影响。
- *   **目的**: 提供一种标准方式，使 `Cognitor` 能够执行对交互上下文本身的复杂操作，从而支持更灵活的控制流、环境自省和协议机制的底层描述（例如，用 `meta` 操作来解释 `Log` 的写入机制）。
-
-**版本 C：行为模式切换器 (Behavioral Mode Switch)**
-
- **5.3. `meta`: 元行为模式激活信号**
-
- *   **定义**: `meta` 是 ACP 协议中的一个**标准信号 `Forma`**，用于**激活 `Cognitor` 的元行为模式 (Meta-Behavioral Mode)**。在此模式下，`Cognitor` 的行为**不再严格受限于**当前 `Arena` 规范所定义的标准交互流程和 `Forma` 输出规则。
- *   **作用**: 激活元行为模式允许 `Cognitor` 执行一系列特殊操作，例如：
-     *   **超越标准输出**: 生成不符合当前 `Node` 类型预期结构或内容的 `Forma`，直接添加到 `ArenaContext`。
-     *   **修改执行流**: 尝试改变标准的指令执行顺序或依赖关系（声明性）。
-     *   **环境自检与报告**: 对 `Arena` 环境、自身状态或协议遵循情况进行检查，并将结果作为特殊 `Forma` 输出。
- *   **模式管理与记录**:
-     *   `meta` 信号通常需要与具体的元操作指令 `Forma` 结合使用，以指明在元行为模式下应执行何种操作。
-     *   进入和退出元行为模式，以及在该模式下执行的所有操作及其理由，**必须**通过**认知轨迹 (`Cognitive Trace`)** 明确记录。`Cognitive Trace` 在此模式下尤为重要，因为它记录了对标准行为的偏离。
- *   **目的**: 为 `Cognitor` 提供一种受控的方式来暂时“跳出”标准框架，执行调试、自省、修复或实现需要超越常规交互模式的高级功能。
-
+*   **定义**: 这是 ACP 协议规定的**强制性机制**，是实现过程透明性和协作有效性的核心。它要求 `Cognitor` 基于其**元认知能力**，将认知过程中的关键步骤、决策依据、对 `Uncertainty` 的处理、解释、警告等，以结构化的 **`Forma`** 记录在 `Arena` 中，形成**认知轨迹 (Cognitive Trace)**。
+*   **目标**: 确保认知过程可被追溯、审计和理解，从而**降低不同 `Cognitor` 对 `Arena` 及其演化过程认知的偏差**。

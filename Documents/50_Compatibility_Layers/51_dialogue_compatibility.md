@@ -8,30 +8,30 @@
 
 ## 语法规范  
 格式：
-<ContextSection role="User|Agent">
+<ArenaSection role="User|Agent">
 // 空行
-// ArenaContext 切片
+// Arena 切片
 // 空行
-</ContextSection>
+</ArenaSection>
 
-采用多个`ContextSection`替代完整的`ArenaContext`上下文：
+采用多个`ArenaSection`替代完整的`Arena`上下文：
 
 如 ：
 User：
-<ContextSection role="User">
+<ArenaSection role="User">
 
 123 // User 生成的 完整内容
 
- </ContextSection>
+ </ArenaSection>
  
 Agent: 
- <ContextSection role="Agent">
+ <ArenaSection role="Agent">
  
 abc // Agent 生成的 完整内容
 
- </ContextSection>
+ </ArenaSection>
 
-ArenaContext 就是：
+Arena 就是：
 
 123 // User 生成的 完整内容
 abc // Agent 生成的 完整内容
