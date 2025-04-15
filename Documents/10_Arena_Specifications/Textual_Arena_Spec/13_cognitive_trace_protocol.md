@@ -18,7 +18,7 @@
 
 - **自动性 vs. 显式性:**
     - **隐式/自动:** 在理想的 NPL 驱动 Arena 中，部分底层的执行轨迹（Trace 级别）可由 NPL 解释器（由 `Cognitor` 模拟）在应用结构化 `Forma` 约束时自动创建。
-    - **显式/核心:** 更常见和关键的是 `Cognitor` 通过 NPL 内置的 **`Log` 对象**（如 `Log.info(...)`, `Log.debug(...)`，**见 3.1 节说明**）**主动、显式地创建**描述其应用约束管理 `Uncertainty` 的认知活动的 `Cognitive Trace`。
+    - **显式/核心:** 更常见和关键的是 `Cognitor` 通过 NPL 内置的 **`ct` 对象**（如 `ct.info(...)`, `ct.debug(...)`，**见 3.1 节说明**）**主动、显式地创建**描述其应用约束管理 `Uncertainty` 的认知活动的 `Cognitive Trace`。
 - **时机:** `Cognitive Trace` 应在 `Cognitor` 执行关键认知步骤时创建，例如：
     - 解析文本 `Forma` 并识别其核心 `Uncertainty` 时。
     - 选择并应用特定的上下文 `Forma` 或规则 `Forma` 作为 `Constraint` 时。
@@ -47,4 +47,4 @@
 
 ## 6. 总结
 
-Textual Arena 的认知轨迹协议是其 `Forma`-`Constraint`-`Uncertainty` 核心模型的关键体现。它要求 `Cognitor` 将其内在的、应用 `Forma` 约束来管理 `Uncertainty` 的认知过程，通过创建作为 `Forma` 的 `Cognitive Trace` 消息来进行外化，从而在纯文本交互环境中实现过程透明性和认知协作。NPL 中的 `Log` 对象是实现这一目标的操作接口。
+Textual Arena 的认知轨迹协议是其 `Forma`-`Constraint`-`Uncertainty` 核心模型的关键体现。它要求 `Cognitor` 将其内在的、应用 `Forma` 约束来管理 `Uncertainty` 的认知过程，通过创建作为 `Forma` 的 `Cognitive Trace` 消息来进行外化，从而在纯文本交互环境中实现过程透明性和认知协作。NPL 中的 `ct` 对象是实现这一目标的操作接口。
