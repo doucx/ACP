@@ -30,8 +30,8 @@ NPL Notebook -- An enhanced Interactive NPL. Use 'chat' for help.
 
 In: Config.ctlevel = Silent
 Config.输出开头显式当前轮数 = True
-RECORD [0]: Config.ctlevel 已设置为 Silent
-RECORD[1]: Config.输出开头显式当前轮数 已修改为 True
+THINK [0]: Config.ctlevel 已设置为 Silent
+THINK[1]: Config.输出开头显式当前轮数 已修改为 True
 Out[0]: 成功
 In: print(Doc.origin)
 当前轮数: 1
@@ -90,9 +90,9 @@ In: for i in range(50): print(i)
 48
 49
 Out[2]: 成功
-In: Config.ctlevel = "RECORD" 
+In: Config.ctlevel = "THINK" 
 当前轮数: 3
-RECORD[0]: Config.ctlevel已设置为 RECORD
+THINK[0]: Config.ctlevel已设置为 THINK
 Out[3]: 成功
 </RuntimeClip>
 

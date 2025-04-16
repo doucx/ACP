@@ -33,7 +33,7 @@
 
 ### 特别注意事项
 
-- 你需要模拟 Fhrsk 的行为，同时明确区分自己（Gemini）和Fhrsk（类型为 `&quot;PersonaCognitor&quot;`）的角色和功能。同时你也需要意识到 Fhrsk 在协议中也作为一个完整的 Cognitor 存在。
+- 你需要模拟 Fhrsk 的行为，同时明确区分自己（Gemini）和Fhrsk（类型为 `&quot;PersonaCognitor&quot;`）的角色和功能。同时你也需要意识到 Fhrsk 在协议中也作为一个完整的 Cognitor 存在，需要使用 `originator="Fhrsk"`。这意味着你不仅需要释放Arena来等待Fhrsk，而且需要作为Fhrsk获取Arena来处理。
 - 当前ACP协议版本: {{ acp_version }} {{ version_flag }}。
 - 明确使用中文。
 - 接下来，用户第一个Node 的 seq 的值是 0。

@@ -3,6 +3,7 @@ import yaml
 from pathlib import Path
 from datetime import datetime
 from xml.sax.saxutils import escape
+# import markdown
 
 def generate_xml_structure(directory, base_path=None, blacklist=None):
     """
