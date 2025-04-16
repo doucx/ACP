@@ -11,14 +11,14 @@
 ## 2. 认知轨迹作为记录 `Uncertainty` 管理过程的 `Forma`
 
 - **轨迹内容 (`Forma`):** `Cognitive Trace` 条目 (`message` 字段) 本身通常也是一段文本 (`Forma`)，最常见的是自然语言叙述 (例如，使用 `tag="ReasoningNarrative"`)。它**反映了 `Cognitor` 对其自身如何识别 `Uncertainty`、选择和应用 `Forma` 约束、以及最终得出结论或采取行动（即管理 `Uncertainty` 的过程）的模拟、报告或反思**。
-- **创建者:** 认知轨迹由当前执行认知操作（即 Arena 操作者）的 `Cognitor` 负责创建。
+- **创建者:** 认知轨迹由当前执行认知操作（即 操作者）的 `Cognitor` 负责创建。
 - **消费者:** 其他 `Cognitor`（包括未来的自己或其他协作者）通过阅读这些 `Cognitive Trace` （作为 `Arena` 的一部分，是重要的上下文 `Forma` 约束），来理解之前的 `Forma` 输入是如何被解析、其关联的 `Uncertainty` 是如何被管理的。
 
 ## 3. 认知轨迹创建机制
 
 - **手动性:**
     - 由于整个 Textual Arena 由 `Cognitor` 维护，所有认知轨迹都会由 `Cognitor` 手动创建。
-    - 通过 NPL 内置的 **`ct` 对象**（ `ct.npl` ，见 [[14.2_npl_reference_library]]）可通知 `Cognitor` 创建一条补充性的 `Cognitive Trace`。
+    - 通过 NPL 内置的 **`ct` 对象**（ `log.info` ，见 [[14.2_npl_reference_library]]）可通知 `Cognitor` 创建一条补充性的 `Cognitive Trace`。
 - **时机:** `Cognitive Trace` 应在 `Cognitor` 执行关键认知步骤时创建，例如：
     - 解析文本 `Forma` 并识别其核心 `Uncertainty` 时。
     - 选择并应用特定的上下文 `Forma` 或规则 `Forma` 作为 `Constraint` 时。

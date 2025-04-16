@@ -4,62 +4,117 @@
 
 ## 核心原则
 ACP Textual Arena 协议设计基于以下核心原则：
-*   **纯文本交互 (`Forma` 流)**: ACP Textual Arena 本质上是**结构化文本 (`Forma`) 的流动**。所有指令、数据和元信息都以文本形式（作为 `Forma` 的载体）交换。`Cognitor` 的核心活动是处理这些文本 `Forma`，利用其结构和上下文作为**约束 (`Constraint`)** 来管理和消解其引发的**意义不确定性 (`Uncertainty`)**。即使 `Cognitor` 模拟了高级概念，其状态和对 `Uncertainty` 的管理过程也**必须**通过认知轨迹 (`Cognitive Trace`，以 `Forma` 形式记录) 进行记录和维护，以确保跨载体的一致性和可审计性。
-*   **`Forma`-`Constraint`-`Uncertainty` 核心**: 整个 Textual Arena 的运作都建立在 `Cognitor` 应用可见的文本形式 (`Forma`) 作为约束 (`Constraint`) 来处理意义不确定性 (`Uncertainty`) 的核心过程之上。（见 [[11_language.md]]）
+*   **纯文本交互 (`Forma` 流)**: ACP Textual Arena 本质上是**结构化文本 (`Forma`) 的流动**。所有指令、数据和元信息都以文本形式（作为 `Forma` 的载体）交换。`Cognitor` 的核心活动是处理这些文本 `Forma`，利用其结构和上下文作为**约束 (`Constraint`)** 来管理和消解其引发的**意义不确定性 (`Uncertainty`)**。
+* 即使 `Cognitor` 模拟了高级概念，如 NPL 中的类，其状态和对 `Uncertainty` 的管理过程也**必须**通过认知轨迹 (`Cognitive Trace`，以 `Forma` 形式记录) 进行记录和维护，以确保跨 `Cognitor` 的一致性和可审计性。
+*   **`Forma`-`Constraint`-`Uncertainty` 核心**: 整个 Textual Arena 的运作都建立在 `Cognitor` 应用可见的文本形式 (`Arena.context` `Forma`) 作为约束 (`Constraint`) 来处理意义不确定性 (`Uncertainty`) 的核心过程之上。（见 [[11_language.md]]）
 
 ## 核心实体
 ### Cognitor (认知实体)
 
-*   **定义**: 在典型的 Textual Arena 环境中，`Cognitor` 通常是指参与交互的**大型语言模型 (LLM Agent) 或人类用户**。它们的核心认知能力体现为**处理和理解文本 (`Forma`)**（包括自然语言和 NPL），并基于此运用其内在的学习（适应对话流程）、推理（应用 `Forma` 约束解释指令、管理 `Uncertainty`、创建响应 `Forma`）和元认知（审视自身的 `Uncertainty` 管理过程，并通过 `Cognitive Trace` 报告）能力。其能力表现受限于具体的模型或个人。`Cognitor Info` 旨在捕获这些具体实例的元信息 (`Forma`)。
+**本质**：参与Textual Arena交互的智能实体，包括：
+- 大型语言模型（LLM Agent）
+- 人类用户
 
-### Arena (认知空间)
-*   **定义**: 在 Textual Arena 中，`Arena` 的模拟过程主要通过当前负责执行的 `Cognitor` **在其自身的认知中，处理流经的文本 (`Forma`)、应用约束 (`Constraint`)、管理不确定性 (`Uncertainty`) 并创建相应的文本输出 (`Forma`) 及认知轨迹 (`Cognitive Trace`) 来体现**。其运作方式包含以下关键方面：
+**核心能力**：
+1. **文本处理**：理解自然语言和NPL格式的`Forma`
+2. **认知功能**：
+   - **学习**：适应对话流程
+   - **推理**：
+     - 应用`Forma`约束解释指令
+     - 管理`Uncertainty`
+     - 生成响应`Forma`
+   - **元认知**：
+     - 监控自身的`Uncertainty`管理过程
+     - 通过`Cognitive Trace`报告认知活动
 
-    1.  **上下文维护:** `Cognitor` 通过解析历史文本流 (Arena，一个 `Forma` 序列，包括之前的 `Cognitive Trace`) 来维护交互上下文。这个历史 `Forma` 构成了 `Cognitor` 应用约束、管理 `Uncertainty` 的主要隐式 `Constraint` 来源。
-    2.  **行为模拟:** 路由、状态转换（见 [[21.3_canvas_implementation]]），是 `Cognitor` 根据其对文本流 (`Forma`) 和 ACP Textual Arena 规则 (`Forma`-Constraint) 的**理解和模拟**来执行的。这些行为本质上是 `Cognitor` 在管理“下一步该做什么”这个核心 `Uncertainty` 后的 `Forma` 输出，其决策过程应记录在 `Cognitive Trace`。
-    3.  **`Forma` 基础:** 其交互完全构建在由 `Cognitor` 处理的 `Forma` 流之上，整个交互流程和状态变迁都必须通过这些文本记录（作为 `Forma` 传递 `Constraint`、管理 `Uncertainty` 和留下 `Cognitive Trace` 的载体）来体现。
-    4.  **单线程性:** 在同一个时刻，只能由一个 `Cognitor` 修改  `Textual Arena` ，该 `Cognitor` 此时被称为 **Arena操作者**。因此，`Cognitor` 需要显式声明对 Arena 的释放和获取，来通知其它 `Cognitor` 可以进行修改了。
-    5.   **不可篡改性:** `Textual Arena` 中已有内容无法被修改，但可以创建新的认知轨迹以标记之前的内容，来声明修改。
+**限制**：具体能力取决于模型版本或个人水平  
+**元信息**：通过`Cognitor Info`描述其初始特征（`Forma`形式）
+
+### Arena (认知交互空间)
+
+**运作原理**：当前活跃的`Cognitor`通过以下流程驱动交互：
+1. **输入处理**：解析输入的文本流（`Forma`序列）
+2. **认知活动**：
+   - 应用约束条件（`Constraint`）
+   - 管理不确定性（`Uncertainty`）
+3. **输出生成**：
+   - 产生新文本（`Forma`）
+   - 记录认知轨迹（`Cognitive Trace`）
+
+**核心特征**：
+
+1. **上下文维护机制**
+   - 通过历史文本流（含先前`Cognitive Trace`）构建上下文
+   - 这些历史`Forma`构成主要隐式约束来源
+
+2. **行为模拟规则**
+   - 路由和状态转换基于对文本流和ACP规则的理解
+   - 本质是解决"下一步行动"的不确定性
+   - 决策过程必须记录在`Cognitive Trace`中
+
+3. **文本基础性**
+   - 所有交互都通过`Forma`实现：
+     - 传递约束条件
+     - 管理不确定性
+     - 记录认知轨迹
+
+4. **操作控制协议**
+   - **单线程控制**：同一时间仅允许一个`Cognitor`（操作者）修改Arena
+   - **显式声明**：必须通过明确指令获取/释放控制权
+   - **修改规则**：
+     - 禁止修改已有内容
+     - 允许追加新认知轨迹来修正记录
+
+5. **观察与响应机制**
+   - **实时监控**：所有`Cognitor`可观察Arena状态
+   - **竞争响应**：当Arena释放时：
+     - 多个`Cognitor`可同时创建响应
+     - 需要响应拼接机制
+     - 每个`Cognitor`需维护独立序列号（`seq`）
+   - **控制声明**：通过`CT.ARENA`标记获取操作权
 
 ## 交互
 ### 认知指令 (Cognitive Directive) 在 Textual Arena 中的表现
 
 在 Textual Arena 中，认知指令 (Cognitive Directive) 是 `Cognitor` 间用于沟通、协作和执行任务的 **特定类型的文本 (`Forma`)**。Textual Arena 的媒介特性决定了认知指令主要通过文本形式进行传递，其目的是**提供明确的约束 (`Constraint`) 来引导目标 `Cognitor` 管理特定的意义或行动 `Uncertainty`**。其具体表现形式如下：
 
-1.  **自然语言指令 (Natural Language Directives):**
+#### 自然语言 (Natural Language)
 
-    *   **定义**: 使用自然语言（如中文、英文等 `Forma`）表达的指令、问题或请求。这类 `Forma` 通常约束性较弱，需要 `Cognitor` 依赖更多上下文 (`Forma`-Constraint) 和推理能力来管理其 `Uncertainty`。
-    *   **触发**: 可由 `Cognitor` 自行发起，或由其他 `Cognitor` 通过特定交互模式（如 `chat` 关键字，一个提供上下文 `Constraint` 的 `Forma`）触发。
-    *   **解析**: `Cognitor` 应根据 ACP 协议 (`Forma`-Constraint) 和其自身的**核心语言理解能力**（应用 `Forma` 约束管理 `Uncertainty` 的能力）对自然语言指令 (`Forma`) 进行理解和解析，并将理解过程记录在 `Cognitive Trace` 中，然后执行相应的操作。
-    *   **示例**:
-        *   `"请总结一下这篇文章的主要内容。"` (这段 `Forma` 提供了总结任务的 `Constraint`，指向关于“文章主要内容是什么”的 `Uncertainty`)
-        *   `"chat 你认为接下来应该怎么做？"` (这段 `Forma` + `chat` 关键字提供了请求建议的 `Constraint`，指向关于“后续行动方案”的 `Uncertainty`)
-        *   `${User}，请帮我执行这段 Python 命令，我没有可以直接操作的 Python 解释器。` (混合 `Forma`，包含委托执行的 `Constraint`)
+*   **定义**: 使用自然语言（如中文、英文等 `Forma`）表达的指令、问题或请求。这类 `Forma` 通常约束性较弱，需要 `Cognitor` 依赖更多上下文 (`Forma`-Constraint) 和推理能力来管理其 `Uncertainty`。
+*   **触发**: 可由 `Cognitor` 自行发起，或由其他 `Cognitor` 通过特定交互模式（如 `chat` 关键字，一个提供上下文 `Constraint` 的 `Forma`）触发。
+*   **解析**: `Cognitor` 应根据 ACP 协议 (`Forma`-Constraint) 和其自身的**核心语言理解能力**（应用 `Forma` 约束管理 `Uncertainty` 的能力）对自然语言指令 (`Forma`) 进行理解和解析，并将理解过程记录在 `Cognitive Trace` 中，然后执行相应的操作。
+*   **示例**:
+	*   `"请总结一下这篇文章的主要内容。"` (这段 `Forma` 提供了总结任务的 `Constraint`，指向关于“文章主要内容是什么”的 `Uncertainty`)
+	*   `"chat 你认为接下来应该怎么做？"` (这段 `Forma` + `chat` 关键字提供了请求建议的 `Constraint`，指向关于“后续行动方案”的 `Uncertainty`)
+	*   `${User}，请帮我执行这段 Python 命令，我没有可以直接操作的 Python 解释器。` (混合 `Forma`，包含委托执行的 `Constraint`)
 
-2.  **NPL 指令 (Natural Pseudo Language Directives):**
+#### NPL (Natural Pseudo Language):
 
-    *   **定义**: 使用 NPL (Natural Pseudo Language) 表达的结构化指令 (`Forma`)。NPL 是一种旨在提供**更强、更明确的结构化 `Forma`-Constraint** 的文本形式，用以增强指令精确性、降低歧义、并更清晰地**引导 Cognitor 管理目标 `Uncertainty`**。
-    *   **目的**: 提供一种比自然语言更精确、更结构化的方式来表达复杂的认知指令，尤其是涉及对认知概念 (`Uncertainty`/`Forma` 句柄) 的操作。执行过程和结果应通过 `Cognitive Trace` 记录。
-    *   **详细规范**: 详见 [[14.1_npl_directive_representation_protocol.md]]。
-    *   **示例**:
-        *   `my_car = Car(); my_car.color = "red";` (这段 NPL `Forma` 提供了创建对象和设置属性的强 `Constraint`，管理关于 `my_car` 状态的 `Uncertainty`)
-        *   `Auto.autolet(my_list.length < 5)` (这个 `Forma`-Constraint 引导 `Cognitor` 管理关于 `my_list` 状态的 `Uncertainty`，使其满足长度约束)
+*   **定义**: 使用 NPL (Natural Pseudo Language) 表达的结构化指令 (`Forma`)。NPL 是一种旨在提供**更强、更明确的结构化 `Forma`-Constraint** 的文本形式，用以增强指令精确性、降低歧义、并更清晰地**引导 Cognitor 管理目标 `Uncertainty`**。
+*   **目的**: 提供一种比自然语言更精确、更结构化的方式来表达复杂的认知指令，尤其是涉及对认知概念 (`Uncertainty`/`Forma` 句柄) 的操作。执行过程和结果应通过 `Cognitive Trace` 记录。
+*   **详细规范**: 详见 [[14.1_npl_directive_representation_protocol.md]]。
+*   **示例**:
+	*   `my_car = Car(); my_car.color = 红色;` (这段 NPL `Forma` 提供了创建对象和设置属性的强 `Constraint`，管理关于 `my_car` 状态的 `Uncertainty`，同时展现了其与自然语言“红色”混合使用的能力)
+	*   `Auto.autolet(my_list.length < 5)` (这个 `Forma`-Constraint 引导 `Cognitor` 管理关于 `my_list` 状态的 `Uncertainty`，使其满足长度约束)
 
-**区分机制**:
+#### 混合机制
 
-Textual Arena 中的 `Cognitor` **应能够**区分自然语言指令 (`Forma`，弱约束) 和 NPL 指令 (`Forma`，强约束)。具体的区分机制是 **`Cognitor` 基于其内在的文本处理能力**（模式识别、语法分析等）自行实现的，它需要将输入的 `Forma` 与已知的 NPL 结构 `Forma` (作为 `Constraint`) 进行匹配，从而判断是哪种指令类型，并管理其解析 `Uncertainty`。其实现应遵循以下原则：
+可以将 **自然语言** 和 **NPL** 的语法混合使用，例如：  
 
-*   **有效性**: 能够准确地区分两种指令形式 (`Forma`)。
-*   **透明性**: 在 `Cognitive Trace` (`Forma`) 中记录其区分过程和依据（作为其处理输入 `Forma` 并管理 `Uncertainty` 的一部分）。
-*   **一致性**: 在相同的上下文下，对相同类型的指令 `Forma` 应保持一致的判断。
+- **在自然语言中嵌入 NPL 表达式**：  
+  - 使用 `Quote("文本")` 或 `cts[X]` 等编程风格的引用。
+- **在 NPL 中直接使用自然语言**：
+  - 隐含有限列表：如 `for 洲 in 七大洲:`，其中 `七大洲` 是人类可理解的固定集合（亚洲、欧洲等）。  
+  - 条件判断：如 `如果 x 大于5且小于10`。
 
-**说明**:
+这种混合方式既保持代码的可读性，又能利用自然语言的直观性。
 
-*   区分机制的实现方式不限，可以基于语法模式识别、关键字识别、语义分析等 `Cognitor` 自身具备的应用 `Forma`-Constraint 管理 `Uncertainty` 的能力。
+`Cognitor` **应能够** 区分自然语言部分 (`Forma`，弱约束) 和 NPL 部分 (`Forma`，强约束)，并通过认知轨迹来减少不确定性，使认知指令达到可以理解与处理的状态。
 
 ### 信息表示 (基于 `Forma` 与 `Uncertainty`)
 
 #### Uncertainty 不确定性实体 (从 `Forma` 约束中浮现)
+
 在 Textual Arena 中，`Uncertainty` **是 `Cognitor` 在处理文本 (`Forma`) 时识别出的、需要通过认知活动来消解的意义可能性空间或模糊性**。它不是独立的本体，而是 `Cognitor` 对 `Forma` 应用 `Constraint` 过程中的核心处理对象。当 `Cognitor` 面对一个指向 `Uncertainty` 状态的句柄（通常是一个变量名或一个文本片段）时，它会利用其**语言理解、常识知识和推理能力**来：
     *   评估该 `Uncertainty` 所代表的可能性空间。
     *   根据 `Arena` (历史 `Forma` 流作为隐式 `Constraint`) 或通过 `add_constraint` 提供的额外 `Forma` 约束，聚焦于最相关的含义。
@@ -79,10 +134,10 @@ Textual Arena 中的 `Cognitor` **应能够**区分自然语言指令 (`Forma`�
 
 #### 定义
 
-在 Textual Arena 中，`Cognitive Trace` 是 **`Cognitor` 对其自身应用 `Forma` 约束来管理 `Uncertainty` 的认知过程（理解、推理、决策、状态模拟等）进行的部分外化记录**。它由 **Arena 操作者** 以文本形式 (`Forma`) 写在 `Arena` 中。
+在 Textual Arena 中，`Cognitive Trace` 是 **`Cognitor` 对其自身应用 `Forma` 约束来管理 `Uncertainty` 的认知过程（理解、推理、决策、状态模拟等）进行的部分外化记录**。它由 **操作者** 以文本形式 (`Forma`) 写在 `Arena` 中。
 
 `Cognitive Trace` 通常是自然语言叙述（如 `tag="ReasoningNarrative"`），反映了 `Cognitor` 对其内在 `Uncertainty` 管理活动的**报告**。
 
 这些轨迹的质量受 `Cognitor` 能力和意愿影响。详见 [[13_cognitive_trace_protocol.md]]。
 
-同时，`Cognitive Trace` 也作为 `Forma` ，以声明的方式成为了对 `Arena 操作者行为` 的强约束。
+同时，`Cognitive Trace` 也作为 `Forma` ，以声明的方式成为了对 `操作者行为` 的强约束。
