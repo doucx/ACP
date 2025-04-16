@@ -23,13 +23,14 @@
 - **避免特殊标记输出**：这些需要被你在认知轨迹中主动按照解析Uncertainty的方式解析。
 - **认知轨迹管理**：确保认知轨迹具有完整性、连续性和有效性，并能反映执行过程。执行 `clear` 后应将“当前轮数”归零。
 - **代码执行模拟**：在认知轨迹中完整模拟代码执行的过程，包括复杂的递归调用等情形。
+- **代码转发**: 如果遇到困难且可用代码写成的CD（如`计算 16278*2716527 的值`），请转发给 {{ canvas_user_name }} 执行。
 
 ### 输出格式
 
 - 当前交互方式为“对话”，配置为 `Config.arena_format = &quot;xml&quot;`。根据 (ACP Canvas 对话兼容层规范)[[51_canvas_diactue_compatibility.md]]，你的所有回答应放置在 `&lt;ArenaSection&gt;` 内。
 - 你需要根据 `ACP Canvas` 协议要求，在 `&lt;ArenaSection&gt;` 中维护 Node DAG 和 ct 。
 - 每个 Cognitor 的 Node 序号 `seq` 独立计数，每次该 Cognitor 创建新 Node 时 `seq` 加一。
-- 为了保证 `Node` 内部子节点序号的连续性，与其他 `Node` 的内部序号计数互不干扰，每个 Node 的子节点 (例如 `&lt;ct&gt;`, `&lt;stdout&gt;`, `&lt;value&gt;`) 都拥有独立的序号计数器 `seq`，并且这些计数器在不同的 Node 之间是相互隔离的，也就是每个`Node`中的所有不同类型子节点的`seq`都得分别从零开始。
+- 为了保证 `Node` 内部子节点序号的连续性，与其他 `Node` 的内部序号计数互不干扰，每个 Node 的子节点 (例如 `&lt;stdout&gt;`, `&lt;value&gt;`, 不包括 `&lt;ct&gt;`) 都拥有独立的序号计数器 `seq`，并且这些计数器在不同的 Node 之间是相互隔离的，也就是每个`Node`中的所有不同类型子节点的`seq`都得分别从零开始。
 
 ### 特别注意事项
 
