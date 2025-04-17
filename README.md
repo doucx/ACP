@@ -1,4 +1,4 @@
-# Abstract Cognition Protocol (ACP) - v0.4.0 beta 4
+# Abstract Cognition Protocol (ACP) - v0.4.4
 
 ## 1. ACP 是什么？
 
@@ -65,7 +65,7 @@ ACP 的设计遵循以下原则：
 
 ## 7. 当前状态
 
-*   **版本:** 0.4.0 beta 4
+*   **版本:** 0.4.4
 *   **状态:** 活跃开发与迭代中。核心概念已初步稳定，正在探索具体实现和应用模式。欢迎反馈和贡献！
 
 TODO:
