@@ -71,4 +71,5 @@ ACP 的设计遵循以下原则：
 TODO:
 
 - [ ] 完善 NPL
-- [ ] 基于 NPL 创建 ACP Tracer
+- [ ] 完善 Forma - Uncertainty 递归循环 （重要）
+- [ ] 基于该协议创建不需要关心协议内容的具体实现
