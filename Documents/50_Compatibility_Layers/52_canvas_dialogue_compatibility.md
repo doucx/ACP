@@ -3,10 +3,10 @@
 
 继承于 [[51_diactue_compatibility]]。
 
-当 Arena 是 Canvas 时，从逻辑上维持整个 Canvas 根节点内容的连续性。
+当 Commonspace 是 Canvas 时，从逻辑上维持整个 Canvas 根节点内容的连续性。
 
 确保：
-1. **行为一致性** - 强制Agent遵守Arena状态机逻辑
+1. **行为一致性** - 强制Agent遵守Commonspace状态机逻辑
 2. **错误预防** - 解决传统对话模式导致的三大问题： 
    - 格式违规（如缺失关键属性）  
    - 响应不完整（如忽略多轮交互需求）  
@@ -17,27 +17,27 @@
 格式：
 
 ``````xml
-<ArenaSection>
+<CommonspaceSection>
 <!-- 当前产生的ct，完整Node链等，及其内部内容 -->
-</ArenaSection>
+</CommonspaceSection>
 ``````
 
-采用多个`ArenaSection`替代完整的`Canvas`上下文：
+采用多个`CommonspaceSection`替代完整的`Canvas`上下文：
 如 ：
 User：
 
 ``````xml
-<ArenaSection>
+<CommonspaceSection>
 <!-- User 创建的 ct，完整Node链等，及其内部内容 -->
-</ArenaSection>
+</CommonspaceSection>
 ``````
  
 Agent: 
 
 ``````xml
-<ArenaSection>
+<CommonspaceSection>
 <!-- Agent 创建的 ct，完整Node链等，及其内部内容 -->
-</ArenaSection>
+</CommonspaceSection>
 ``````
 
 等价于：
