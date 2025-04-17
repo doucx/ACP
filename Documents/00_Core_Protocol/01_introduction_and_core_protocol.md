@@ -32,7 +32,7 @@ ACP (Abstract Cognition Protocol) 的核心交互模型建立在查尔斯·桑�
 
 *   **定义**: `Sign` 是 ACP 交互的基本单元，它是一个三元关系结构，包含了 Representamen、与其关联的潜在 Referent，以及由 Cognitor 产生的 Interpretant。ACP 的全部交互可以视为 Sign 的流动与转化过程。
 
-## 2.2. Representamen (代表项)
+## 2.2. Representamen (再现体)
 
 *   **定义**: **任何可被感知的、具体的存在形式 (Form or Medium)**，它在符号关系中充当“符号本身”的角色，用于引发认知过程。它必须是形式上确定的、可直接观察或处理的。
 *   **性质**:
@@ -81,7 +81,7 @@ ACP 协议围绕两个核心抽象实体进行定义：
 *   **协议要求**: ACP 的有效运行**依赖于** `Cognitor` 能够发挥其内在的**认知能力**（如感知、行动、理解、推理、元认知等）来处理 `Representamen`、管理 `Referent` 并创建 `Cognitive Trace`。协议本身不提供这些基础能力。
 *   **识别机制**: 协议推荐包含 `CognitorInfo` 机制（作为 `Representamen`），用于存储和传达参与交互的具体 `Cognitor` 实例的元信息（如名称、类型、能力简介等）。
 
-### 3.2. Cognitive Commonspace (认知空间)
+### 3.2. Cognitive Commonspace (认知协作空间)
 
 *   **定义**: 简称 `Commonspace`，是由遵循协议规则的一个或多个 `Cognitor` 共同维护的、用于认知协作的抽象的，基于 `Representamen` 的交互上下文。`Cognitor` 基于该上下文协调自身的活动，执行协议规范（特别是过程透明性）。
 *   **内容**: `Commonspace` 是由 `Cognitor` 产生的所有可观察 `Representamen` 构成的记录。它是所有 `Cognitor` 进行理解、推理和协作的基础。所有未显式记录在 `Commonspace` 中的信息（ `Referent` 与 `Interoretant` ）都可能因跨 `Commonspace` （如切换了聊天平台）或长时间交互（因遗忘当时想法）而丢失。
