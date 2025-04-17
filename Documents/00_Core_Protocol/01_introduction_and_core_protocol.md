@@ -10,7 +10,7 @@
 
 ACP 试图从根本上解决以下问题：
 
-**“当两个或多个认知实体对同一信息 (`Forma`) 的内在理解 (`Uncertainty`) 可能存在偏差时，如何通过协议设计来确保它们能够收敛到协作所需的语义共识，并使协作过程本身可被理解和信任？”**
+**“当两个或多个认知实体对同一信息 (`Representamen`) 的内在理解 (`Referent`) 可能存在偏差时，如何通过协议设计来确保它们能够收敛到协作所需的语义共识，并使协作过程本身可被理解和信任？”**
 
 为了解决这个问题，ACP 协议必须深入到认知实体的交互过程中，规范其行为并确保过程的透明性。
 
@@ -19,7 +19,7 @@ ACP 试图从根本上解决以下问题：
 需要强调的是，ACP 本质上不是一个规定数据格式或网络传输的技术协议。理解这一点至关重要：
 
 *   **认知层优先**: ACP 直接作用于认知活动的抽象层面。它预设了参与者 (`Cognitor`) 具备基础的感知、信息处理和行动能力，无论这些能力是如何实现的。协议本身是调用和协调这些认知能力的接口。
-*   **反技术中立性 (关于过程)**: 虽然 ACP 对 `Cognitor` 的具体实现保持中立，但它**并非完全的技术中立**。协议**强制要求**认知过程的关键方面必须通过 **`Cognitive Trace`** 机制以 `Forma` 的形式显式记录下来，确保过程透明性是协议的核心约束。
+*   **反技术中立性 (关于过程)**: 虽然 ACP 对 `Cognitor` 的具体实现保持中立，但它**并非完全的技术中立**。协议**强制要求**认知过程的关键方面必须通过 **`Cognitive Trace`** 机制以 `Representamen` 的形式显式记录下来，确保过程透明性是协议的核心约束。
 *   **人类兼容性**: 人类可以天然地作为 `Cognitor` 参与 ACP 交互，无需“适配器”——只需遵循协议所倡导的认知协作原则（例如，在讨论中明确标注假设和推理步骤，即产生相应的 `Cognitive Trace`）。
 
 由于这些特性，在 ACP 协议中，难以也不需要考虑安全性。具体的安全措施将全部由 `Cognitor` 自行协商决定。
@@ -32,20 +32,20 @@ ACP 协议建立在一个基础的认知本体之上，用于结构化其处理�
 
 *   **定义**: `Existent` 是 ACP 认知本体中的最高层级抽象，是所有其他概念的基础预设。它代表**任何可以被 `Cognitor` 思考、感知、指代或讨论的事物**的最基本逻辑形式。
 
-### 2.2. Forma (确定性实体)
+### 2.2. Representamen (确定性实体)
 
 *   **定义**: **确定性信息载体 (Deterministic Information Carrier)**。代表具有明确定义、形式确定、可被直接观察或处理的**存在形式或信息媒介 (Form or Medium)**。例如：一个数值、一个文本字符串、一段音频信号、一张图像的像素数据、一条结构化的 ACP 指令等。
-*   **角色**: `Forma` 是构成 `Arena` 的基本单元，是传递信息的载体，也是施加于 `Uncertainty` 的**约束 (`Constraint`)** 的来源。其关键在于**形式上的确定性 (Formal Determinism)**。
+*   **角色**: `Representamen` 是构成 `Arena` 的基本单元，是传递信息的载体，也是施加于 `Referent` 的**约束 (`Constraint`)** 的来源。其关键在于**形式上的确定性 (Representamenl Determinism)**。
 
-### 2.3. Uncertainty (不确定性实体)
+### 2.3. Referent (不确定性实体)
 
 *   **定义**: 代表 ACP 认知本体中一个**可被管理且带有约束的不确定状态 (Managed Unresolved State with Constraints)**。它标记了信息流中的一个节点，其具体指代、价值、含义或后续发展尚未完全确定，需要通过 `Cognitor` 的认知过程（推理、学习、交互）来逐步明晰。
-*   **约束 (`Constraint`)**: `Uncertainty` 的核心在于其可以通过施加**约束 (`Constraint`)** 来管理。任何类型的 `Forma`（例如，一个规则文本、一个数值范围、一个上下文片段）都可以作为约束，用于**限制该 `Uncertainty` 的抽象的可能性空间**。需要注意的是，无论约束多强，`Uncertainty` 始终不会直接变为 `Forma`。
-*   **交互与管理**: `Cognitor` 与 `Uncertainty` 的交互，本质上就是不断识别、引入和应用 `Forma` 作为 `Constraint` 来缩小其可能性范围的过程。这个过程需要通过 `Cognitive Trace` 记录。
+*   **约束 (`Constraint`)**: `Referent` 的核心在于其可以通过施加**约束 (`Constraint`)** 来管理。任何类型的 `Representamen`（例如，一个规则文本、一个数值范围、一个上下文片段）都可以作为约束，用于**限制该 `Referent` 的抽象的可能性空间**。需要注意的是，无论约束多强，`Referent` 始终不会直接变为 `Representamen`。
+*   **交互与管理**: `Cognitor` 与 `Referent` 的交互，本质上就是不断识别、引入和应用 `Representamen` 作为 `Constraint` 来缩小其可能性范围的过程。这个过程需要通过 `Cognitive Trace` 记录。
 
-### 2.4. 关系：使用 Forma 作为约束管理 Uncertainty
+### 2.4. 关系：使用 Representamen 作为约束管理 Referent
 
-ACP 交互的核心过程可以理解为：`Cognitor` 面对 `Arena` 中的 `Forma` 流，识别出其中隐含的或显式指向的 `Uncertainty`，然后运用其他的 `Forma`（来自上下文、指令、知识库或推理产生）作为 `Constraint`，来管理和消解这个 `Uncertainty`，最终达成理解或产生新的 `Forma`（如决策或响应）。
+ACP 交互的核心过程可以理解为：`Cognitor` 面对 `Arena` 中的 `Representamen` 流，识别出其中隐含的或显式指向的 `Referent`，然后运用其他的 `Representamen`（来自上下文、指令、知识库或推理产生）作为 `Constraint`，来管理和消解这个 `Referent`，最终达成理解或产生新的 `Representamen`（如决策或响应）。
 
 ## 3. 核心实体 (Core Entities)
 
@@ -54,13 +54,13 @@ ACP 协议围绕两个核心抽象实体进行定义：
 ### 3.1. Cognitor (认知实体)
 
 *   **定义**: 指任何满足协议基础假设（见 4.6 节）、能够参与 ACP 交互的执行实体。它是认知指令的最终理解者和认知能力的来源。其具体形态（如 AI Agent、人类个体/团队、或其他智慧形式）对协议而言是透明的。
-*   **协议要求**: ACP 的有效运行**依赖于** `Cognitor` 能够发挥其内在的**认知能力**（如感知、行动、理解、推理、元认知等）来处理 `Forma`、管理 `Uncertainty` 并创建 `Cognitive Trace`。协议本身不提供这些基础能力。
-*   **识别机制**: 协议推荐包含 `CognitorInfo` 机制（作为 `Forma`），用于存储和传达参与交互的具体 `Cognitor` 实例的元信息（如名称、类型、能力简介等）。
+*   **协议要求**: ACP 的有效运行**依赖于** `Cognitor` 能够发挥其内在的**认知能力**（如感知、行动、理解、推理、元认知等）来处理 `Representamen`、管理 `Referent` 并创建 `Cognitive Trace`。协议本身不提供这些基础能力。
+*   **识别机制**: 协议推荐包含 `CognitorInfo` 机制（作为 `Representamen`），用于存储和传达参与交互的具体 `Cognitor` 实例的元信息（如名称、类型、能力简介等）。
 
 ### 3.2. Cognitive Arena (认知空间)
 
-*   **定义**: 简称 `Arena`，是由遵循协议规则的一个或多个 `Cognitor` 共同维护的、用于认知协作的抽象的，基于 `Forma` 的交互上下文。`Cognitor` 基于该上下文协调自身的活动，执行协议规范（特别是过程透明性）。
-*   **内容**: `Arena` 是由 `Cognitor` 产生的所有可观察 `Forma` 构成的记录。它是所有 `Cognitor` 进行理解、推理和协作的基础。所有未显式记录在 `Arena` 中的信息都可能因跨 `Arena` （如切换了聊天平台）或长时间交互（因遗忘当时想法）而丢失。
+*   **定义**: 简称 `Arena`，是由遵循协议规则的一个或多个 `Cognitor` 共同维护的、用于认知协作的抽象的，基于 `Representamen` 的交互上下文。`Cognitor` 基于该上下文协调自身的活动，执行协议规范（特别是过程透明性）。
+*   **内容**: `Arena` 是由 `Cognitor` 产生的所有可观察 `Representamen` 构成的记录。它是所有 `Cognitor` 进行理解、推理和协作的基础。所有未显式记录在 `Arena` 中的信息都可能因跨 `Arena` （如切换了聊天平台）或长时间交互（因遗忘当时想法）而丢失。
 *   **运作方式**: `Arena` 的运作（如状态维护、指令路由、规则执行）**完全依赖于其中 `Cognitor` 的执行能力**。`Cognitor` 需要理解 `Arena` 的内容、解析指令、执行操作，并创建符合协议的 `Cognitive Trace` 来记录其活动和 `Arena` 的状态变迁。
 *   **关键特性**: 设计上强调**载体无关性**（可由不同载体（如白纸，某种聊天室）作为 Arena ）和**过程透明性**（强制通过 `Cognitive Trace` 记录）。
 
@@ -90,20 +90,20 @@ ACP 的有效运作建立在以下基础假设之上，这些假设构成了协�
 *   **Axiom 1: 认知实体的存在与基础能力 (Cognitor Existence and Capabilities):**
     *   假定存在能够参与交互的**认知实体 (`Cognitor`)**。
     *   这些 `Cognitor` **天然或已被赋予**执行 ACP 交互所需的基础能力，至少包括：
-        *   **感知 (`Perception`)**: 能够接收和处理来自 `Arena` 的信息 (`Forma`)，即能够**读取 `Arena`**。
-        *   **行动 (`Action`)**: 能够通过某种机制**向 `Arena` 输出或追加信息 (`Forma`)**，包括执行结果、响应以及必要的**认知轨迹 (`Cognitive Trace`)**。
+        *   **感知 (`Perception`)**: 能够接收和处理来自 `Arena` 的信息 (`Representamen`)，即能够**读取 `Arena`**。
+        *   **行动 (`Action`)**: 能够通过某种机制**向 `Arena` 输出或追加信息 (`Representamen`)**，包括执行结果、响应以及必要的**认知轨迹 (`Cognitive Trace`)**。
         *   **理解/解析 (`Interpretation`)**: 能够解析和理解 `Arena` 中的认知指令 (`Cognitive Directive`)。
-        *   **推理 (`Reasoning`)**: 能够基于 `Arena` 和自身知识进行逻辑推断以管理 `Uncertainty`。
+        *   **推理 (`Reasoning`)**: 能够基于 `Arena` 和自身知识进行逻辑推断以管理 `Referent`。
         *   **元认知 (`Metacognition`)**: 能够对其自身的认知过程进行反思和报告（体现为 `Cognitive Trace`）。
     *   *ACP 协议旨在**调用和规范**这些能力的使用，而非定义其内在机制。*
 
 *   **Axiom 2: 认知空间的共享性与记录性 (Arena Accessibility and Record Nature):**
-    *   存在一个**认知空间 (`Arena`)** 作为**交互环境**，由交互产生的 **`Forma` 记录流**构成。
+    *   存在一个**认知空间 (`Arena`)** 作为**交互环境**，由交互产生的 **`Representamen` 记录流**构成。
     *   `Cognitor` 都 **能够访问与修改**（至少是相关的部分）`Arena`。
 
-*   **Axiom 3: 认知轨迹作为结果性 `Forma` (Cognitive Trace as Resultant Forma):**
+*   **Axiom 3: 认知轨迹作为结果性 `Representamen` (Cognitive Trace as Resultant Representamen):**
     *   协议要求的认知轨迹 (`Cognitive Trace`) 是 `Cognitor` 内部认知活动完成后的**结果性输出**。
-    *   它们以**确定的形式 (`Forma`)** 被记录到 `Arena` 中。
+    *   它们以**确定的形式 (`Representamen`)** 被记录到 `Arena` 中。
     *   *协议关注的是 `Trace` 的存在、内容和对透明性的贡献，而非“创建 Trace”这一动作的内部细节。*
 
 ## 5. 核心机制 (Core Mechanisms)
@@ -112,10 +112,10 @@ ACP 的有效运作建立在以下基础假设之上，这些假设构成了协�
 
 ### 5.1. 认知指令 (Cognitive Directive)
 
-*   **定义**: 指任何旨在向目标 `Cognitor` 传达指令、数据或查询的**特定 `Forma`**。协议不强制规定指令的严格语法结构，但强调其对于目标 `Cognitor` 必须具有足够的**清晰度和可理解性**。简称为 `CD`。
-*   **目的与效果**: 认知指令的核心目的是提供**约束 (`Constraint`)**，以**引导目标 `Cognitor` 的认知过程**（理解、推理、管理 `Uncertainty`、执行等）。无论是结构化的 NPL 语句还是自然语言描述，只要其意图是引导认知活动，都可视为认知指令。其有效性最终由接收方 `Cognitor` 的理解和处理能力界定。
+*   **定义**: 指任何旨在向目标 `Cognitor` 传达指令、数据或查询的**特定 `Representamen`**。协议不强制规定指令的严格语法结构，但强调其对于目标 `Cognitor` 必须具有足够的**清晰度和可理解性**。简称为 `CD`。
+*   **目的与效果**: 认知指令的核心目的是提供**约束 (`Constraint`)**，以**引导目标 `Cognitor` 的认知过程**（理解、推理、管理 `Referent`、执行等）。无论是结构化的 NPL 语句还是自然语言描述，只要其意图是引导认知活动，都可视为认知指令。其有效性最终由接收方 `Cognitor` 的理解和处理能力界定。
 
 ### 5.2. 认知轨迹系统 (Cognitive Trace System)
 
-*   **定义**: 这是 ACP 协议规定的**强制性机制**，是实现过程透明性和协作有效性的核心。它要求 `Cognitor` 基于其**元认知能力**，将认知过程中的关键步骤、决策依据、对 `Uncertainty` 的处理、解释、警告等，以结构化的 **`Forma`** 记录在 `Arena` 中，形成**认知轨迹 (Cognitive Trace)**。简称为 `CT`。
+*   **定义**: 这是 ACP 协议规定的**强制性机制**，是实现过程透明性和协作有效性的核心。它要求 `Cognitor` 基于其**元认知能力**，将认知过程中的关键步骤、决策依据、对 `Referent` 的处理、解释、警告等，以结构化的 **`Representamen`** 记录在 `Arena` 中，形成**认知轨迹 (Cognitive Trace)**。简称为 `CT`。
 *   **目标**: 确保认知过程可被追溯、审计和理解，从而**降低不同 `Cognitor` 对 `Arena` 及其演化过程认知的偏差**。
