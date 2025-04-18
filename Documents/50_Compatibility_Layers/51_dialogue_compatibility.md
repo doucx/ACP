@@ -1,39 +1,94 @@
-# ACP Textual Commonspace 对话兼容层规范  
+# ACP Textual Space 对话兼容层规范  
 ## 设计背景  
 当`User`与`LLM Agent`仅能通过某种对话界面以对话形式交互时，本规范确保：  
-1. **上下文完整性** - 在非结构化对话中，从逻辑上维持整个 Textual Commonspace Context 完整性
-2. **行为一致性** - 强制 Agent 遵守 Commonspace 逻辑
-3. **渲染正确性** - 由于聊天界面通常采用 markdown 渲染器，且有的 markdown 渲染器不支持 html 渲染，使用此规范可以规避渲染的错误
+1. **上下文完整性** - 在聊天界面对话中，从逻辑上维持整个 Textual Space Context 的完整性。也就是说，双方等价于作为 Cognitor 在操作整个 Space。
+2. **渲染正确性** - 由于聊天界面通常采用 markdown 渲染器，且有的 markdown 渲染器不支持 html 渲染，使用此规范可以规避渲染的错误，以便于观察。
 
 ## 语法规范  
-格式：
-需要将 CommonspaceSection 放在六个反引号内，以避免代码块层级冲突。
-``````xml
-<CommonspaceSection>
-// Commonspace 切片
-</CommonspaceSection>
-``````
+格式：使用 `<SpaceSection></SpaceSection>` 将 Space 的分段内容放在其中。
 
-采用多个`CommonspaceSection`替代完整的`Commonspace`上下文：
+双方需要将 `<SpaceSection>` 放在六个反引号内，以避免代码块层级冲突。
+
+示例：
+`````````
+``````
+<SpaceSection>
+// Space 切片
+</SpaceSection>
+``````
+`````````
+
+## 上下文拼接
+多个`SpaceSection`与完整的`Space`上下文等价。
 
 如 ：
 User：
-``````xml
-<CommonspaceSection>
-123 // User 创建的 完整内容
-</CommonspaceSection>
+`````````
 ``````
+<SpaceSection>
+123 // User 创建的 完整内容示例
+</SpaceSection>
+``````
+`````````
  
 LLM Agent: 
-``````xml
-<CommonspaceSection>
-abc // Agent 创建的 完整内容
-</CommonspaceSection>
+`````````
 ``````
+<SpaceSection>
+abc // Agent 创建的 完整内容示例
+</SpaceSection>
+``````
+`````````
 
-Commonspace 内容就是：
+Space 内容就是：
 
-``````txt
+`````````
 123 // User 创建的 完整内容
 abc // Agent 创建的 完整内容
+`````````
+
+## 截断处理
+
+使用 `[C]` 或 `[继续]` 来指示对方输出被截断，应当从之前的地方继续。
+
+继续被截断的内容前，应先输入六个反引号。
+
+如 ：
+User：
+`````````
 ``````
+<SpaceSection>
+abc
+</SpaceSection>
+``````
+`````````
+
+LLM Agent: 
+
+`````````
+``````
+<SpaceSection>
+1, 2, 3 [这里被截断了]
+`````````
+
+User：
+
+`````````
+[C]
+`````````
+
+LLM Agent: 
+
+`````````
+``````
+4, 5, 6
+</SpaceSection>
+``````
+`````````
+
+Space 内容就是：
+
+`````````
+abc
+1, 2, 3, 4, 5, 6
+`````````

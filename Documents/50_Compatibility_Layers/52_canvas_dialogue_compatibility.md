@@ -1,50 +1,99 @@
-# ACP Canvas 对话兼容层规范补充
-## 设计背景  
+# ACP Canvas 对话兼容层规范
 
-继承于 [[51_diactue_compatibility]]。
-
-当 Commonspace 是 Canvas 时，从逻辑上维持整个 Canvas 根节点内容的连续性。
-
-确保：
-1. **行为一致性** - 强制Agent遵守Commonspace状态机逻辑
-2. **错误预防** - 解决传统对话模式导致的三大问题： 
-   - 格式违规（如缺失关键属性）  
-   - 响应不完整（如忽略多轮交互需求）  
-   - 单单元谬误（违反Canvas的Node链式处理原则）  
+继承于 [[51_diatestue_compatibility]]。
 
 ## 语法规范  
 
+使用 “``````xml” 而不是 “``````” 。
+
 格式：
 
+`````````
 ``````xml
-<CommonspaceSection>
-<!-- 当前产生的ct，完整Node链等，及其内部内容 -->
-</CommonspaceSection>
+<SpaceSetestion>
+<!-- 双方创建的 CT ，Nodes 等 -->
+</SpaceSetestion>
 ``````
+`````````
 
-采用多个`CommonspaceSection`替代完整的`Canvas`上下文：
+采用多个`SpaceSetestion`替代完整的`Canvas`上下文：
 如 ：
 User：
-
+`````````
 ``````xml
-<CommonspaceSection>
-<!-- User 创建的 ct，完整Node链等，及其内部内容 -->
-</CommonspaceSection>
+<SpaceSetestion>
+	<test originator="User">abc</test>
+</SpaceSetestion>
 ``````
+`````````
  
 Agent: 
-
+`````````
 ``````xml
-<CommonspaceSection>
-<!-- Agent 创建的 ct，完整Node链等，及其内部内容 -->
-</CommonspaceSection>
+<SpaceSetestion>
+	<test originator="ChatGPT">123</test>a
+</SpaceSetestion>
 ``````
+`````````
+
 
 等价于：
-
+`````````
 ```xml
 <Canvas>
-     <!-- User 创建的 ct，完整Node链等，及其内部内容 -->
-     <!-- Agent 创建的 ct，完整Node链等，及其内部内容 -->
+	<test originator="User">abc</test>
+	<test originator="ChatGPT">123</test>
 </Canvas>
 ```
+`````````
+
+## 截断处理
+
+使用 `[C]` 或 `[继续]` 来指示对方输出被截断，应当从之前的地方继续。不会重新创建节点。
+
+继续前应先输出六个反引号+xml。
+
+### 创建内容时截断
+
+### 创建节点时截断
+如 ：
+User：
+`````````
+``````xml
+<SpaceSetestion>
+	<test originator="User">abc</test>
+</SpaceSetestion>
+``````
+`````````
+
+LLM Agent: 
+
+`````````
+``````
+<SpaceSetestion>
+<test originator= [在这里被截断了]
+`````````
+
+User：
+
+`````````
+[C]
+`````````
+
+LLM Agent: 
+
+`````````
+``````xml
+"ChatGPT">123</test>
+</SpaceSetestion>
+``````
+`````````
+
+Space 内容就是：
+
+`````````
+<Canvas>
+	<test originator="User"></test>
+	<test originator="Agent"></test>
+<Canvas>
+`````````

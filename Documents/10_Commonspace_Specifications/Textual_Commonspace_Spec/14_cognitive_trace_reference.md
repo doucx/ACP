@@ -1,6 +1,6 @@
 # NPL 认知轨迹条目格式参考
 
-本规范定义了 NPL 中 认知轨迹 (`Cognitive Trace`) 的 `ct` 实现 的条目的推荐结构，这些条目是核心协议中 `Cognitive Trace System` 在 `NPL` 中的具体体现。
+本规范定义了 Textual Space 中 `Cognitive Trace` 条目的推荐结构。
 
 ## 认知轨迹条目结构
 
@@ -36,15 +36,14 @@
         *   `Annotation`: 对其他认知轨迹条目添加的元注释。
     *   SPACE :
         *   `MetaDataChange`: 记录配置变更等元数据事件。
-        *   `CommonspaceRelease`: 声明释放 Commonspace。
-        *   `CommonspaceAcquire`: 声明获取 Commonspace。
-        *   `SystemEvent`: Commonspace 内部事件。
+        *   `SpaceRelease`: 声明释放 Space。
+        *   `SpaceAcquire`: 声明获取 Space。
+        *   `SystemEvent`: Space 内部事件。
         *   `Declare`: 普通的声明。
-	* NPL 和 TRACE 类型认知轨迹条目不需要 `tag`
 
 ## 设计考量与应用
 
 *   **拥抱自然语言:** `message` 字段优先考虑容纳 Human 和 LLM 自然产生的语言表达。这也是认知轨迹最重要的部分。
-*   **区分来源与意图:** `originator` 区分了是谁此时在修改 Commonspace，`tag` 帮助理解他/它想表达什么。
+*   **区分来源与意图:** `originator` 区分了是谁此时在修改 Space，`tag` 帮助理解他/它想表达什么。
 *   **处理不确定性与风险:** `flags` 字段提供了一个机制来标记和管理认知轨迹信息的不确定性，特别是针对 LLM 的潜在幻觉问题。
 *   **灵活性:** 该格式旨在提供一个通用框架，具体的 `tag` 可以根据应用场景进行扩展。

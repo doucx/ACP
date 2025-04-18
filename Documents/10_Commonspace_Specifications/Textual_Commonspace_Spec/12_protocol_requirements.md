@@ -1,17 +1,17 @@
-#  ACP Textual Commonspace 协议扩展
+#  ACP Textual Space 协议扩展
 ## 基本介绍
-**ACP Textual Commonspace** 中基于 **ACP 核心协议** 的扩展规范。
+**ACP Textual Space** 中基于 **ACP 核心协议** 的扩展规范。
 
 ## 核心原则
-ACP Textual Commonspace 协议设计基于以下核心原则：
-*   **纯文本交互 (`Representamen` 流)**: ACP Textual Commonspace 本质上是**结构化文本 (`Representamen`) 的流动**。所有指令、数据和元信息都以文本形式（作为 `Representamen` 的载体）交换。`Cognitor` 的核心活动是处理这些文本 `Representamen`，利用其结构和上下文作为**约束 (`Constraint`)** 来管理和消解其引发的**意义不确定性 (`Referent`)**。
+ACP Textual Space 协议设计基于以下核心原则：
+*   **纯文本交互 (`Representamen` 流)**: ACP Textual Space 本质上是**结构化文本 (`Representamen`) 的流动**。所有指令、数据和元信息都以文本形式（作为 `Representamen` 的载体）交换。`Cognitor` 的核心活动是处理这些文本 `Representamen`，利用其结构和上下文作为**约束 (`Constraint`)** 来管理和消解其引发的**意义不确定性 (`Referent`)**。
 * 即使 `Cognitor` 模拟了高级概念，如 NPL 中的类，其状态和对 `Referent` 的管理过程也**必须**通过认知轨迹 (`Cognitive Trace`，以 `Representamen` 形式记录) 进行记录和维护，以确保跨 `Cognitor` 的一致性和可审计性。
-*   **`Representamen`-`Constraint`-`Referent` 核心**: 整个 Textual Commonspace 的运作都建立在 `Cognitor` 应用可见的文本形式 (`Commonspace.context` `Representamen`) 作为约束 (`Constraint`) 来处理意义不确定性 (`Referent`) 的核心过程之上。（见 [[11_language.md]]）
+*   **`Representamen`-`Constraint`-`Referent` 核心**: 整个 Textual Space 的运作都建立在 `Cognitor` 应用可见的文本形式 (`Space.context` `Representamen`) 作为约束 (`Constraint`) 来处理意义不确定性 (`Referent`) 的核心过程之上。（见 [[11_language.md]]）
 
 ## 核心实体
 ### Cognitor (认知实体)
 
-**本质**：参与Textual Commonspace交互的智能实体，包括：
+**本质**：参与Textual Space交互的智能实体，包括：
 - 大型语言模型（LLM Agent）
 - 人类用户
 
@@ -30,7 +30,7 @@ ACP Textual Commonspace 协议设计基于以下核心原则：
 **限制**：具体能力取决于模型版本或个人水平  
 **元信息**：通过`Cognitor Info`描述其初始特征（`Representamen`形式）
 
-### Commonspace (认知交互空间)
+### Space (认知交互空间)
 
 **运作原理**：当前活跃的`Cognitor`通过以下流程驱动交互：
 1. **输入处理**：解析输入的文本流（`Representamen`序列）
@@ -59,24 +59,24 @@ ACP Textual Commonspace 协议设计基于以下核心原则：
      - 记录认知轨迹
 
 4. **操作控制协议**
-   - **单线程控制**：同一时间仅允许一个`Cognitor`（操作者）修改Commonspace
+   - **单线程控制**：同一时间仅允许一个`Cognitor`（操作者）修改Space
    - **显式声明**：必须通过明确指令获取/释放控制权
    - **修改规则**：
      - 禁止修改已有内容
      - 允许追加新认知轨迹来修正记录
 
 5. **观察与响应机制**
-   - **实时监控**：所有`Cognitor`可观察Commonspace状态
-   - **竞争响应**：当Commonspace释放时：
+   - **实时监控**：所有`Cognitor`可观察Space状态
+   - **竞争响应**：当Space释放时：
      - 多个`Cognitor`可同时创建响应
      - 需要响应拼接机制
      - 每个`Cognitor`需维护独立序列号（`seq`）
    - **控制声明**：通过`CT.SPACE`标记获取操作权
 
 ## 交互
-### 认知指令 (Cognitive Directive) 在 Textual Commonspace 中的表现
+### 认知指令 (Cognitive Directive) 在 Textual Space 中的表现
 
-在 Textual Commonspace 中，认知指令 (Cognitive Directive) 是 `Cognitor` 间用于沟通、协作和执行任务的 **特定类型的文本 (`Representamen`)**。Textual Commonspace 的媒介特性决定了认知指令主要通过文本形式进行传递，其目的是**提供明确的约束 (`Constraint`) 来引导目标 `Cognitor` 管理特定的意义或行动 `Referent`**。其具体表现形式如下：
+在 Textual Space 中，认知指令 (Cognitive Directive) 是 `Cognitor` 间用于沟通、协作和执行任务的 **特定类型的文本 (`Representamen`)**。Textual Space 的媒介特性决定了认知指令主要通过文本形式进行传递，其目的是**提供明确的约束 (`Constraint`) 来引导目标 `Cognitor` 管理特定的意义或行动 `Referent`**。其具体表现形式如下：
 
 #### 自然语言 (Natural Language)
 
@@ -115,17 +115,17 @@ ACP Textual Commonspace 协议设计基于以下核心原则：
 
 #### Referent 不确定性实体 (从 `Representamen` 约束中浮现)
 
-在 Textual Commonspace 中，`Referent` **是 `Cognitor` 在处理文本 (`Representamen`) 时识别出的、需要通过认知活动来消解的意义可能性空间或模糊性**。它不是独立的本体，而是 `Cognitor` 对 `Representamen` 应用 `Constraint` 过程中的核心处理对象。当 `Cognitor` 面对一个指向 `Referent` 状态的句柄（通常是一个变量名或一个文本片段）时，它会利用其**语言理解、常识知识和推理能力**来：
+在 Textual Space 中，`Referent` **是 `Cognitor` 在处理文本 (`Representamen`) 时识别出的、需要通过认知活动来消解的意义可能性空间或模糊性**。它不是独立的本体，而是 `Cognitor` 对 `Representamen` 应用 `Constraint` 过程中的核心处理对象。当 `Cognitor` 面对一个指向 `Referent` 状态的句柄（通常是一个变量名或一个文本片段）时，它会利用其**语言理解、常识知识和推理能力**来：
     *   评估该 `Referent` 所代表的可能性空间。
-    *   根据 `Commonspace` (历史 `Representamen` 流作为隐式 `Constraint`) 或通过 `add_constraint` 提供的额外 `Representamen` 约束，聚焦于最相关的含义。
+    *   根据 `Space` (历史 `Representamen` 流作为隐式 `Constraint`) 或通过 `add_constraint` 提供的额外 `Representamen` 约束，聚焦于最相关的含义。
     *   运用认知能力（推理、补全）来填充缺失的信息或细节（处理 `Referent` 的模糊性）。
     *   创建一个当前看来最合理、最连贯的理解，并通过 `pick`, `to_module` 等方法将其（定性地）表达出来（通常产生新的 `Representamen`）。
     *   整个评估、约束应用和精化过程都应通过 **`Cognitive Trace`** 进行记录。
-    *   因此，在 Textual Commonspace 中，`Referent` 的管理本质上是**引导 `Cognitor` 对特定的文本 `Representamen` 应用各种 `Representamen`-Constraint 进行深度解读、消歧和固化的过程**。其有效性高度依赖于 `Cognitor` 的**语境理解和应用约束创建合理推测**的能力。
+    *   因此，在 Textual Space 中，`Referent` 的管理本质上是**引导 `Cognitor` 对特定的文本 `Representamen` 应用各种 `Representamen`-Constraint 进行深度解读、消歧和固化的过程**。其有效性高度依赖于 `Cognitor` 的**语境理解和应用约束创建合理推测**的能力。
 
 #### Representamen 确定性实体 (作为 `Constraint` 或 `Referent` 处理结果)
-在 ACP Textual Commonspace 中，`Representamen` 扮演双重角色：
-1.  **约束 (`Constraint`)**: 文本字符串本身、语言的结构、语法规则、NPL 语句、上下文历史 (`Commonspace` 中的 `Representamen`，包括过去的 `Cognitive Trace`) 等，都是形式确定的 `Representamen`，被 `Cognitor` 用来**约束和管理 `Referent`**。
+在 ACP Textual Space 中，`Representamen` 扮演双重角色：
+1.  **约束 (`Constraint`)**: 文本字符串本身、语言的结构、语法规则、NPL 语句、上下文历史 (`Space` 中的 `Representamen`，包括过去的 `Cognitive Trace`) 等，都是形式确定的 `Representamen`，被 `Cognitor` 用来**约束和管理 `Referent`**。
 2.  **结果 (`Referent` 处理产物)**: 当 `Cognitor` 成功处理一段文本（管理了其 `Referent`）后，**提取或创建的、形式上确定、意义在此刻被固化的信息片段**也是 `Representamen`。例如，从一段描述中解析出的数值、执行 NPL 代码后返回的特定结构数据、或者 `Cognitor` 创建的明确答复文本，以及记录这个过程的 `Cognitive Trace` 条目本身。它是 `Referent` 管理过程后的**结果快照或需要进一步处理的确定性输入**。
 
 ## 关键协议机制
@@ -134,7 +134,7 @@ ACP Textual Commonspace 协议设计基于以下核心原则：
 
 #### 定义
 
-在 Textual Commonspace 中，`Cognitive Trace` 是 **`Cognitor` 对其自身应用 `Representamen` 约束来管理 `Referent` 的认知过程（理解、推理、决策、状态模拟等）进行的部分外化记录**。它由 **操作者** 以文本形式 (`Representamen`) 写在 `Commonspace` 中。
+在 Textual Space 中，`Cognitive Trace` 是 **`Cognitor` 对其自身应用 `Representamen` 约束来管理 `Referent` 的认知过程（理解、推理、决策、状态模拟等）进行的部分外化记录**。它由 **操作者** 以文本形式 (`Representamen`) 写在 `Space` 中。
 
 `Cognitive Trace` 通常是自然语言叙述（如 `tag="ReasoningNarrative"`），反映了 `Cognitor` 对其内在 `Referent` 管理活动的**报告**。
 
