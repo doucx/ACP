@@ -6,13 +6,13 @@
 
 **ACP (Abstract Cognition Protocol)** 是一种旨在实现跨载体、跨形态智能体之间进行有效**认知协作 (Cognitive Collaboration)** 的抽象协议。它不关注物理或符号传输的具体方式，而是定义了一套在认知层面上进行交互的规范。其目标是让任何具备基础认知能力的实体——无论是人类、人工智能系统（AI）、还是未来可能出现的其他智慧形式——能够通过语义等效的指令和透明的过程记录进行协作。
 
-### 1.2 ACP 试图解决的核心问题
+### 1.2 ACP 试图缓解的核心问题
 
-ACP 试图从根本上解决以下问题：
+ACP 试图缓解以下问题：
 
 **“当两个或多个认知实体 (`Cognitor`) 对同一代表项 (`Representamen`) 所指向的潜在参照物 (`Referent`) 进行解释并产生解释项 (`Interpretant`) 时，这些解释项可能存在偏差。协议应如何设计，以确保它们的解释过程能逐步产生协作所需的共识，并使这个解释过程 (Semiosis) 本身（通过认知轨迹 `Cognitive Trace` 外化）可被理解和信任？”**
 
-为了解决这个问题，ACP 协议必须规范 `Cognitor` 在处理 `Representamen`、管理 `Referent` 可能性以及外化 `Interpretant` 形成过程中的交互行为，并通过强制的认知轨迹来确保过程透明性。
+为了缓解这个问题，ACP 协议必须规范 `Cognitor` 在处理 `Representamen`、管理 `Referent` 可能性以及外化 `Interpretant` 形成过程中的交互行为，并通过强制的认知轨迹来确保过程透明性。
 
 ### 1.3 ACP 不是传统意义上的软件协议
 
@@ -147,5 +147,8 @@ ACP 的有效运作建立在以下基础假设之上，这些假设构成了协�
 
 ### 5.2. 认知轨迹系统 (Cognitive Trace System)
 
-*   **定义**: 这是 ACP 协议规定的**强制性机制**，是实现符号过程 (Semiosis) 透明性和协作有效性的核心。它要求 `Cognitor` 基于其**元认知能力**，将解释项 (`Interpretant`) 形成过程中的关键步骤、决策依据、对潜在参照物 (`Referent`) 的处理、解释选择、警告等，以结构化的**代表项 (`Representamen`)** 的形式记录在 `Space` 中，形成**认知轨迹 (Cognitive Trace)**。简称为 `CT`。
-*   **目标**: 确保符号过程可被追溯、审计和理解，从而**降低不同 `Cognitor` 对 `Space`（即 `Representamen` 流及其关联的 `Referent` 状态）以及解释过程 (`Interpretant` 形成过程) 的认知偏差**。`Cognitive Trace` 使不可见的 `Interpretant` 变得部分可见。
+*   **定义**: 这是 ACP 协议规定的**强制性机制**，是实现符号过程 (Semiosis) 透明性和协作有效性的核心。它要求 `Cognitor` 基于其**元认知能力**，将解释项 (`Interpretant`) 形成过程中的关键步骤、决策依据、对潜在参照物 (`Referent`) 的处理、解释选择、警告等，用可回溯的**代表项 (`Representamen`)** 记录在 `Space` 中，形成**认知轨迹 (Cognitive Trace)**。简称为 `CT`。
+*   **目标**: 
+	1. 确保符号过程可被 `Cognitor` **自身** 追溯、审计和理解。
+	2. 确保符号过程可被 **其它** `Cognitor` 追溯、审计和理解，从而**降低不同 `Cognitor` 对 `Space`（即 `Representamen` 流及其关联的 `Referent` 状态）以及解释过程 (`Interpretant` 形成过程) 的认知偏差**。`Cognitive Trace` 使不可见的 `Interpretant` 变得部分可见。
+*  **关键澄清**: 协议不规定认知轨迹必须是结构化的，也不规定其可理解性。认知轨迹系统的目的是记录 `Cognitor` 自身的认知轨迹。
