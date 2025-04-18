@@ -10,7 +10,7 @@
 
 ACP 试图缓解以下问题：
 
-**“当两个或多个认知实体 (`Cognitor`) 对同一代表项 (`Representamen`) 所指向的潜在参照物 (`Referent`) 进行解释并产生解释项 (`Interpretant`) 时，这些解释项可能存在偏差。协议应如何设计，以确保它们的解释过程能逐步产生协作所需的共识，并使这个解释过程 (Semiosis) 本身（通过认知轨迹 `Cognitive Trace` 外化）可被理解和信任？”**
+**“当两个或多个认知实体 (`Cognitor`) 对同一再现体 (`Representamen`) 所指向的潜在参照物 (`Referent`) 进行解释并产生解释项 (`Interpretant`) 时，这些解释项可能存在偏差。协议应如何设计，以确保它们的解释过程能逐步产生协作所需的共识，并使这个解释过程 (Semiosis) 本身（通过认知轨迹 `Cognitive Trace` 外化）可被理解和信任？”**
 
 为了缓解这个问题，ACP 协议必须规范 `Cognitor` 在处理 `Representamen`、管理 `Referent` 可能性以及外化 `Interpretant` 形成过程中的交互行为，并通过强制的认知轨迹来确保过程透明性。
 
@@ -18,7 +18,7 @@ ACP 试图缓解以下问题：
 
 需要强调的是，ACP 本质上不是一个规定数据格式或网络传输的技术协议。理解这一点至关重要：
 
-*   **认知层优先**: ACP 直接作用于符号过程 (Semiosis) 的抽象层面。它预设了参与者 (`Cognitor`) 具备基础的感知、解释和行动能力，无论这些能力是如何实现的。协议本身是调用和协调这些认知能力的接口，用于处理代表项 (`Representamen`)、探索潜在参照物 (`Referent`) 并生成解释项 (`Interpretant`)。
+*   **认知层优先**: ACP 直接作用于符号过程 (Semiosis) 的抽象层面。它预设了参与者 (`Cognitor`) 具备基础的感知、解释和行动能力，无论这些能力是如何实现的。协议本身是调用和协调这些认知能力的接口，用于处理再现体 (`Representamen`)、探索潜在参照物 (`Referent`) 并生成解释项 (`Interpretant`)。
 *   **反技术中立性 (关于过程)**: 虽然 ACP 对 `Cognitor` 的具体实现保持中立，但它**并非完全的技术中立**。协议**强制要求**解释项 (`Interpretant`) 形成过程中的关键方面必须通过 **`Cognitive Trace`** 机制（其本身也是一种 `Representamen`) 显式记录下来，使符号过程透明化。这是协议的核心约束。
 *   **人类兼容性**: 人类可以天然地作为 `Cognitor` 参与 ACP 交互，无需“适配器”——只需遵循协议所倡导的认知协作原则（例如，在讨论中明确标注假设和推理步骤，即产生相应的 `Cognitive Trace` 作为其 `Interpretant` 的外化）。
 
@@ -26,7 +26,7 @@ ACP 试图缓解以下问题：
 
 # 2. ACP 核心本体：基于三元符号学
 
-ACP (Abstract Cognition Protocol) 的核心交互模型建立在查尔斯·桑德斯·皮尔士 (Charles Sanders Peirce) 的三元符号学理论基础上。它将认知协作理解为一个持续的符号过程 (Semiosis)，其中包含三个不可分割的要素：代表项 (Representamen)、参照物 (Referent / Potential Object) 和解释项 (Interpretant)。
+ACP (Abstract Cognition Protocol) 的核心交互模型建立在查尔斯·桑德斯·皮尔士 (Charles Sanders Peirce) 的三元符号学理论基础上。它将认知协作理解为一个持续的符号过程 (Semiosis)，其中包含三个不可分割的要素：再现体 (Representamen)、参照物 (Referent / Potential Object) 和解释项 (Interpretant)。
 
 ### 2.1. Sign (符号) - 核心交互单元
 
@@ -34,17 +34,33 @@ ACP (Abstract Cognition Protocol) 的核心交互模型建立在查尔斯·桑�
 
 ### 2.2. Representamen (再现体)
 
-*   **定义**: **任何可被感知的、具体的存在形式 (Form or Medium)**，它在符号关系中充当“符号本身”的角色，用于引发认知过程。它必须是形式上确定的、可直接观察或处理的。
-*   **性质**:
-    *   **可感知性 (Perceivability)**: 必须能被 `Cognitor` 通过某种方式感知（阅读文本、看到图像、听到声音等）。
-    *   **形式确定性 (Formal Determinism)**: 其物理或结构形式在特定时刻是明确的（例如，一个特定的字符串、一组像素数据、一个结构化的 NPL 语句）。
-    *   **替代性 (Stands For)**: `Representamen` 的核心功能是指向或代表某个（尚未完全确定的）`Referent`。
-*   **示例**: 文本字符串 (`"运行"`, `my_var = 5`)、图像像素数据、音频信号、一个 NPL 指令节点 (`<node type="CDInput">...`)。
-*   **在 ACP 中的角色**:
-    *   构成 `Space` 的基本可观察元素。
-    *   是传递信息的直接载体。
-    *   是引发 `Cognitor` 产生 `Interpretant` 的**起点**。
-    *   可以作为**约束 (Constraint)** 作用于对 `Referent` 的解释过程 (即 `Interpretant` 的形成)。
+- **核心概念**: `Representamen` 是符号关系中的“符号本身”，是任何可被感知、具有形式确定性，并用于引发认知过程的形式或媒介。它必须能够指向或代表某个（尚未完全确定的）`Referent`。
+    
+- **类型**: 在 ACP 框架下，为了更精确地描述认知过程，我们将 `Representamen` 区分为两种类型：
+    
+    - **内化再现体 (Internalized Representamen)**
+        
+        - **定义**: 指存在于 `Cognitor` 内部认知过程中、尚未向外部 `Common Space` 外显的 `Representamen` 形式。它们是 `Cognitor` 在接收到**外显再现体**或其他刺激后，进行内部处理、思考、规划、构建中间推理或内部表征时产生的符号形式。
+        - **性质**:
+            - **内部存在性**: 仅存在于生成它的 `Cognitor` 内部。
+            - **私有性**: 默认情况下不被其他 `Cognitor` 直接感知或访问。
+            - **形式多样性**: 其内部形式可能高度依赖于 `Cognitor` 的具体实现（例如，神经网络的激活模式、内部数据结构、逻辑表达式等）。
+            - **可内省性**: 产生它的 `Cognitor` 可以对其进行“感知”和进一步处理（即元认知）。
+        - **在 ACP 中的角色**: 驱动 `Cognitor` 内部的符号过程 (`Interpretant` 形成)；作为内部推理和理解的原材料；作为最终将被**外显**到 `Space` 中的信息（如认知轨迹、响应、新的指令）的前身。
+    - **外显再现体 (Externalized Representamen)**
+        
+        - **定义**: 指存在于 `Common Space` 中、可以被**一个或多个** `Cognitor` 感知的 `Representamen` 形式。它们是 `Cognitor` 将其内部产物（如 `Interpretant` 的外化、对内化再现体处理的结果）通过某种机制向 `Space` 提交后形成的、所有相关 `Cognitor` 共享的符号形式。
+        - **性质**:
+            - **共享性**: 存在于 `Common Space` 中，理论上可被所有参与该 `Space` 的 `Cognitor` 感知。
+            - **可感知性**: 必须能被 `Cognitor` 通过其感知能力从 `Space` 中获取和处理（例如，阅读文本、解析数据结构）。
+            - **形式确定性**: 其在 `Space` 中的形式是明确的（例如，一个特定的字符串、一个结构化的消息格式）。
+        - **示例**: `Space` 中的一段文本消息 ("运行")、一个共享的数据结构 (`my_var = 5`)、一个图像文件、一个记录的 `Cognitive Trace`、一个认知指令 (`CD`) 节点。
+        - **在 ACP 中的角色**:
+            - 构成 `Space` 的基本可观察元素和交互历史。
+            - 是传递信息、指令 (`CD`) 和过程记录 (`CT`) 的直接载体。
+            - 是引发**其他** `Cognitor` 产生 `Interpretant`（通过**内化**该外显再现体）的**起点**。
+            - 可以作为**约束 (Constraint)** 作用于其他 `Representamen` 所指向的 `Referent` 的解释过程 (`Interpretant` 的形成)。
+- **关系与整体角色**: `Representamen` 是 ACP 交互和符号过程的核心驱动力。**外显再现体**构成共享的 `Common Space`，为 `Cognitor` 提供可感知的输入。`Cognitor` **内化**这些外显再现体，并在其内部进行处理，产生**内化再现体**和**解释项 (`Interpretant`)**。处理的结果（包括作为 `Interpretant` 部分外化的 `Cognitive Trace`）又通过 `Cognitor` 的行动以新的**外显再现体**的形式被追加到 `Space` 中，从而形成符号过程的持续循环。`Representamen` 在此循环中既是信息的载体，也是引导和约束意义形成过程的关键要素。
 
 ### 2.3. Referent (参照物 / 潜在对象)
 
@@ -82,12 +98,12 @@ ACP 协议围绕两个核心抽象实体进行定义：
 ### H3 3.1. Cognitor (认知实体)
 
 *   **定义**: 指任何满足协议基础假设（见 4.6 节）、能够参与 ACP 交互（即进行符号过程 Semiosis）的执行实体。它是符号解释过程 (`Interpretant` 形成) 的主体和认知能力的来源。其具体形态（如 AI Agent、人类个体/团队、或其他智慧形式）对协议而言是透明的。
-*   **协议要求**: ACP 的有效运行**依赖于** `Cognitor` 能够发挥其内在的**认知能力**（如感知、行动、解释/理解、推理、元认知等）来处理代表项 (`Representamen`)、探索潜在参照物 (`Referent`)、产生解释项 (`Interpretant`) 并通过创建认知轨迹 (`Cognitive Trace`) 来外化解释过程。协议本身不提供这些基础能力。
+*   **协议要求**: ACP 的有效运行**依赖于** `Cognitor` 能够发挥其内在的**认知能力**（如感知、行动、解释/理解、推理、元认知等）来处理再现体 (`Representamen`)、探索潜在参照物 (`Referent`)、产生解释项 (`Interpretant`) 并通过创建认知轨迹 (`Cognitive Trace`) 来外化解释过程。协议本身不提供这些基础能力。
 *   **识别机制**: 协议推荐包含 `CognitorInfo` 机制（作为 `Representamen`），用于存储和传达参与交互的具体 `Cognitor` 实例的元信息（如名称、类型、能力简介等）。
 
 ### 3.2. Common Space (协作空间)
 
-*   **定义**: 简称 `Space`，是由遵循协议规则的一个或多个 `Cognitor` 共同维护的、用于认知协作（符号过程 Semiosis）的抽象交互上下文。它由构成交互历史的、可观察的代表项 (`Representamen`) 流组成。`Cognitor` 基于 `Space` 中已有的 `Representamen`（作为约束和上下文）进行解释，协调自身的活动，并执行协议规范（特别是通过 `Cognitive Trace` 实现过程透明性）。
+*   **定义**: 简称 `Space`，是由遵循协议规则的一个或多个 `Cognitor` 共同维护的、用于认知协作（符号过程 Semiosis）的抽象交互上下文。它由构成交互历史的、可观察的再现体 (`Representamen`) 流组成。`Cognitor` 基于 `Space` 中已有的 `Representamen`（作为约束和上下文）进行解释，协调自身的活动，并执行协议规范（特别是通过 `Cognitive Trace` 实现过程透明性）。
 *   **内容**: `Space` 是由 `Cognitor` 产生的所有可观察 `Representamen`（包括认知指令、数据输出、以及认知轨迹 `Cognitive Trace` 本身）构成的记录。它是所有 `Cognitor` 进行解释、推理和协作的基础。所有未显式记录在 `Space` 中的信息都可能因跨 `Space` （如切换了聊天平台）或长时间交互（因遗忘当时想法）而丢失。
 *   **运作方式**: `Space` 的运作（如状态维护、指令路由、规则执行）**完全依赖于其中 `Cognitor` 的解释和行动能力**。`Cognitor` 需要感知 `Space` 中的 `Representamen`、解析作为认知指令的 `Representamen`、执行相应的认知操作（这个过程涉及内部 `Interpretant` 的形成），并创建符合协议的 `Cognitive Trace` (作为 `Representamen`) 来记录其活动和 `Space` 中 `Representamen` 状态的变迁。
 *   **关键特性**: 设计上强调**载体无关性**（可由不同载体（如白纸，某种聊天室）作为 `Space` ）和**符号过程透明性**（强制通过 `Cognitive Trace` 记录 `Interpretant` 的形成过程）。
@@ -119,20 +135,20 @@ ACP 的有效运作建立在以下基础假设之上，这些假设构成了协�
 *   **Axiom 1: 认知实体的存在与基础符号过程能力 (Cognitor Existence and Semiotic Capabilities):**
     *   假定存在能够参与交互（进行符号过程 Semiosis）的**认知实体 (`Cognitor`)**。
     *   这些 `Cognitor` **天然或已被赋予**执行 ACP 交互所需的基础能力，至少包括：
-        *   **感知 (`Perception`)**: 能够接收和处理来自 `Space` 的代表项 (`Representamen`)，即能够感知 `Space` 内容。
-        *   **行动 (`Action`)**: 能够通过某种机制**向 `Space` 输出或追加代表项 (`Representamen`)**，包括执行结果、响应以及必要的认知轨迹 (`Cognitive Trace`)。
+        *   **感知 (`Perception`)**: 能够接收和处理来自 `Space` 的再现体 (`Representamen`)，即能够感知 `Space` 内容。
+        *   **行动 (`Action`)**: 能够通过某种机制**向 `Space` 输出或追加再现体 (`Representamen`)**，包括执行结果、响应以及必要的认知轨迹 (`Cognitive Trace`)。
         *   **解释/理解 (`Interpretation`)**: 能够处理 `Representamen`（特别是作为认知指令的 `Representamen`），将其与潜在的参照物 (`Referent`) 相关联，并形成内部的解释项 (`Interpretant`)。
         *   **推理 (`Reasoning`)**: 能够基于 `Space` 中的 `Representamen` 和自身知识进行逻辑推断，以引导 `Interpretant` 的形成（特别是处理 `Referent` 的多种可能性）。
         *   **元认知 (`Metacognition`)**: 能够对其自身的解释过程 (`Interpretant` 的形成) 进行反思和报告（通过 `Cognitive Trace` 外化）。
     *   *ACP 协议旨在**调用和规范**这些能力在符号过程中的使用，而非定义其内在机制。*
 
 *   **Axiom 2: 认知空间的共享性与记录性 (Space Accessibility and Record Nature):**
-    *   存在一个**认知空间 (`Space`)** 作为**交互环境**，由交互产生的**代表项 (`Representamen`) 记录流**构成。
+    *   存在一个**认知空间 (`Space`)** 作为**交互环境**，由交互产生的**再现体 (`Representamen`) 记录流**构成。
     *   所有参与的 `Cognitor` 都**能够访问**（感知）`Space` 中的 `Representamen`，并通过行动**向 `Space` 追加**新的 `Representamen`。
 
 *   **Axiom 3: 认知轨迹作为可观察的解释项踪迹 (Cognitive Trace as Observable Interpretant Trace):**
     *   协议要求的认知轨迹 (`Cognitive Trace`) 是 `Cognitor` 对其内部解释过程 (`Interpretant` 的形成) 的**部分外化结果**。
-    *   它们以确定的**代表项 (`Representamen`)** 的形式被记录到 `Space` 中。
+    *   它们以确定的**再现体 (`Representamen`)** 的形式被记录到 `Space` 中。
     *   *协议关注的是 `Cognitive Trace`（作为 `Representamen`）的存在、内容及其对符号过程透明性的贡献，而非其内部产生机制。它使得其他 `Cognitor` 可以观察到解释过程的踪迹。*
 
 
@@ -142,13 +158,13 @@ ACP 的有效运作建立在以下基础假设之上，这些假设构成了协�
 
 ### 5.1. 认知指令 (Cognitive Directive)
 
-*   **定义**: 指任何旨在向目标 `Cognitor` 传达指令、数据或查询的**特定代表项 (`Representamen`)**。协议不强制规定指令的严格语法结构，但强调其对于目标 `Cognitor` 必须具有足够的可解释性，以便能够生成有效的解释项 (`Interpretant`)。简称为 `CD`。
+*   **定义**: 指任何旨在向目标 `Cognitor` 传达指令、数据或查询的**特定再现体 (`Representamen`)**。协议不强制规定指令的严格语法结构，但强调其对于目标 `Cognitor` 必须具有足够的可解释性，以便能够生成有效的解释项 (`Interpretant`)。简称为 `CD`。
 *   **目的与效果**: 认知指令 (作为 `Representamen`) 的核心目的是提供**约束 (`Constraint`)**，以**引导目标 `Cognitor` 解释项 (`Interpretant`) 的形成过程**（即理解、推理、确定参照物 (`Referent`)、执行等）。无论是结构化的 NPL 语句还是自然语言描述 (都是 `Representamen`)，只要其意图是引导认知活动，都可视为认知指令。其有效性最终由接收方 `Cognitor` 能否成功生成符合预期的 `Interpretant` 来界定。
 
 ### 5.2. 认知轨迹系统 (Cognitive Trace System)
 
-*   **定义**: 这是 ACP 协议规定的**强制性机制**，是实现符号过程 (Semiosis) 透明性和协作有效性的核心。它要求 `Cognitor` 基于其**元认知能力**，将解释项 (`Interpretant`) 形成过程中的关键步骤、决策依据、对潜在参照物 (`Referent`) 的处理、解释选择、警告等，用可回溯的**代表项 (`Representamen`)** 记录在 `Space` 中，形成**认知轨迹 (Cognitive Trace)**。简称为 `CT`。
-*   **目标**: 
-	1. 确保符号过程可被 `Cognitor` **自身** 追溯、审计和理解。
-	2. 确保符号过程可被 **其它** `Cognitor` 追溯、审计和理解，从而**降低不同 `Cognitor` 对 `Space`（即 `Representamen` 流及其关联的 `Referent` 状态）以及解释过程 (`Interpretant` 形成过程) 的认知偏差**。`Cognitive Trace` 使不可见的 `Interpretant` 变得部分可见。
-*  **关键澄清**: 协议不规定认知轨迹必须是结构化的，也不规定其可理解性。认知轨迹系统的目的是记录 `Cognitor` 自身的认知轨迹。
+- **定义**: 这是 ACP 协议规定的**强制性机制**，是实现符号过程 (Semiosis) 透明性和协作有效性的核心。它要求 `Cognitor` 基于其**元认知能力**，将解释项 (`Interpretant`) 形成过程中的关键步骤、决策依据、对潜在参照物 (`Referent`) 的处理、解释选择、警告等，用可追溯的**再现体 (`Representamen`)** 记录在 `Space` 中，形成**认知轨迹 (Cognitive Trace)**。简称为 `CT`。
+- **目标**: 认知轨迹系统的设计旨在服务于双重目标：
+    1. **对内 (For Self)**: 确保 `Cognitor` **自身**能够回溯、审计和理解其解释项 (`Interpretant`) 的形成过程。这有助于 `Cognitor` 自我修正、学习和优化其认知活动。
+    2. **对外 (For Others)**: 通过将内部的解释过程**外化**为可观察的 `Representamen`，使得**其他** `Cognitor` 能够追溯和理解生成该解释项 (`Interpretant`) 的过程。这有助于**降低不同 `Cognitor` 对 `Space`（即 `Representamen` 流及其关联的 `Referent` 状态）以及解释过程 (`Interpretant` 形成过程) 的认知偏差**，增强协作的可信度和效率。`Cognitive Trace` 是不可见的 `Interpretant` 在 `Space` 中留下的部分可见的“踪迹”。
+- **关键澄清**: 协议不规定认知轨迹必须是结构化的，也不保证其对**所有**其他 `Cognitor` 的可理解性。认知轨迹系统的强制性在于要求 `Cognitor` **生成并记录**这些轨迹 (`Representamen`)。至于这些轨迹对于其他 `Cognitor` 在多大程度上是可理解的，取决于接收方 `Cognitor` 对这些特定 `Representamen` 的解释能力。协议确保的是**记录行为**，使得解释过程的踪迹存在于 `Space` 中，从而为后续的审计和跨 `Cognitor` 理解提供了**可能性和基础**。
