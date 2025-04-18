@@ -4,7 +4,7 @@
 
 在 ACP Textual Space 中，认知轨迹 (`Cognitive Trace`) 的核心目的并非传统意义上的运行时事件记录，而是作为一种由核心协议 ([[`01_introduction_and_core_protocol.md`]] 规定的**强制性机制**，用于**部分地外化和记录 `Cognitor` 在面对 `Space` 并管理其引发的意义不确定性 (`Referent`) 时，其内在的认知过程**。
 
-根据 [[11_language.md]] 的定义，Textual Space 的交互本质是 `Cognitor` 运用文本自身的**形式和结构 (`Representamen`)** 作为**约束 (`Constraint`)**，来管理和消解**意义不确定性 (`Referent`)** 的核心实践。由于 `Cognitor` (特别是 LLM Agent 或 Human) 的核心认知过程——即如何应用约束来管理 `Referent`——通常是内部的、不透明的，**认知轨迹系统 (`Cognitive Trace System`)** 成为了理解其“思考”轨迹、决策依据、以及 `Referent` 是如何被逐步消解或固化为 `Representamen` 的关键窗口。
+根据 [[12_language]] 的定义，Textual Space 的交互本质是 `Cognitor` 运用文本自身的**形式和结构 (`Representamen`)** 作为**约束 (`Constraint`)**，来管理和消解**意义不确定性 (`Referent`)** 的核心实践。由于 `Cognitor` (特别是 LLM Agent 或 Human) 的核心认知过程——即如何应用约束来管理 `Referent`——通常是内部的、不透明的，**认知轨迹系统 (`Cognitive Trace System`)** 成为了理解其“思考”轨迹、决策依据、以及 `Referent` 是如何被逐步消解或固化为 `Representamen` 的关键窗口。
 
 **认知轨迹的目标是降低不同 `Cognitor` 对 `Space` (Representamen 流及其关联的 Referent 状态) 认知状态的偏差，提升协作的透明度和可审计性。**
 
