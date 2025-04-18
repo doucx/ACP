@@ -18,7 +18,7 @@
 
 - **手动性:**
     - 由于整个 Textual Space 由 `Cognitor` 维护，所有认知轨迹都会由 `Cognitor` 手动创建。
-    - 通过 NPL 内置的 **`ct` 对象**（ `log.info` ，见 [[14.2_npl_reference_library]]）可通知 `Cognitor` 创建一条补充性的 `Cognitive Trace`。
+    - 通过 NPL 内置的 **`ct` 对象**（ `log.info` ，见 [[14.2_core_concepts]]）可通知 `Cognitor` 创建一条补充性的 `Cognitive Trace`。
 - **时机:** `Cognitive Trace` 应在 `Cognitor` 执行关键认知步骤时创建，例如：
     - 解析文本 `Representamen` 并识别其核心 `Referent` 时。
     - 选择并应用特定的上下文 `Representamen` 或规则 `Representamen` 作为 `Constraint` 时。

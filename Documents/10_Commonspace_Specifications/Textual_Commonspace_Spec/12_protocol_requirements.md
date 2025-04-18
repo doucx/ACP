@@ -92,7 +92,7 @@ ACP Textual Space 协议设计基于以下核心原则：
 
 *   **定义**: 使用 NPL (Natural Pseudo Language) 表达的结构化指令 (`Representamen`)。NPL 是一种旨在提供**更强、更明确的结构化 `Representamen`-Constraint** 的文本形式，用以增强指令精确性、降低歧义、并更清晰地**引导 Cognitor 管理目标 `Referent`**。
 *   **目的**: 提供一种比自然语言更精确、更结构化的方式来表达复杂的认知指令，尤其是涉及对认知概念 (`Referent`/`Representamen` 句柄) 的操作。执行过程和结果应通过 `Cognitive Trace` 记录。
-*   **详细规范**: 详见 [[14.1_npl_directive_representation_protocol.md]]。
+*   **详细规范**: 详见 [[14.1_directive_representation_protocol]]。
 *   **示例**:
 	*   `my_car = Car(); my_car.color = 红色;` (这段 NPL `Representamen` 提供了创建对象和设置属性的强 `Constraint`，管理关于 `my_car` 状态的 `Referent`，同时展现了其与自然语言“红色”混合使用的能力)
 	*   `Auto.autolet(my_list.length < 5)` (这个 `Representamen`-Constraint 引导 `Cognitor` 管理关于 `my_list` 状态的 `Referent`，使其满足长度约束)

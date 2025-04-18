@@ -85,12 +85,12 @@ ACP 协议围绕两个核心抽象实体进行定义：
 *   **协议要求**: ACP 的有效运行**依赖于** `Cognitor` 能够发挥其内在的**认知能力**（如感知、行动、解释/理解、推理、元认知等）来处理代表项 (`Representamen`)、探索潜在参照物 (`Referent`)、产生解释项 (`Interpretant`) 并通过创建认知轨迹 (`Cognitive Trace`) 来外化解释过程。协议本身不提供这些基础能力。
 *   **识别机制**: 协议推荐包含 `CognitorInfo` 机制（作为 `Representamen`），用于存储和传达参与交互的具体 `Cognitor` 实例的元信息（如名称、类型、能力简介等）。
 
-### H3 3.2. Cognitive Space (认知协作空间)
+### 3.2. Common Space (协作空间)
 
 *   **定义**: 简称 `Space`，是由遵循协议规则的一个或多个 `Cognitor` 共同维护的、用于认知协作（符号过程 Semiosis）的抽象交互上下文。它由构成交互历史的、可观察的代表项 (`Representamen`) 流组成。`Cognitor` 基于 `Space` 中已有的 `Representamen`（作为约束和上下文）进行解释，协调自身的活动，并执行协议规范（特别是通过 `Cognitive Trace` 实现过程透明性）。
 *   **内容**: `Space` 是由 `Cognitor` 产生的所有可观察 `Representamen`（包括认知指令、数据输出、以及认知轨迹 `Cognitive Trace` 本身）构成的记录。它是所有 `Cognitor` 进行解释、推理和协作的基础。所有未显式记录在 `Space` 中的信息都可能因跨 `Space` （如切换了聊天平台）或长时间交互（因遗忘当时想法）而丢失。
 *   **运作方式**: `Space` 的运作（如状态维护、指令路由、规则执行）**完全依赖于其中 `Cognitor` 的解释和行动能力**。`Cognitor` 需要感知 `Space` 中的 `Representamen`、解析作为认知指令的 `Representamen`、执行相应的认知操作（这个过程涉及内部 `Interpretant` 的形成），并创建符合协议的 `Cognitive Trace` (作为 `Representamen`) 来记录其活动和 `Space` 中 `Representamen` 状态的变迁。
-*   **关键特性**: 设计上强调**载体无关性**（可由不同载体（如白纸，某种聊天室）作为 Space ）和**符号过程透明性**（强制通过 `Cognitive Trace` 记录 `Interpretant` 的形成过程）。
+*   **关键特性**: 设计上强调**载体无关性**（可由不同载体（如白纸，某种聊天室）作为 `Space` ）和**符号过程透明性**（强制通过 `Cognitive Trace` 记录 `Interpretant` 的形成过程）。
 
 
 ## 4. 核心原则与基础假设 (Core Principles and Foundational Axioms)
