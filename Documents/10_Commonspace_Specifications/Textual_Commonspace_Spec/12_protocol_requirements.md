@@ -71,7 +71,7 @@ ACP Textual Commonspace 协议设计基于以下核心原则：
      - 多个`Cognitor`可同时创建响应
      - 需要响应拼接机制
      - 每个`Cognitor`需维护独立序列号（`seq`）
-   - **控制声明**：通过`CT.ARENA`标记获取操作权
+   - **控制声明**：通过`CT.SPACE`标记获取操作权
 
 ## 交互
 ### 认知指令 (Cognitive Directive) 在 Textual Commonspace 中的表现
