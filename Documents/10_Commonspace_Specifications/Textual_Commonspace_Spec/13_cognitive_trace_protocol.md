@@ -1,50 +1,76 @@
-# ACP Textual Space 认知轨迹协议 (Cognitive Trace Protocol)
+# ACP 文本空间 认知轨迹协议 (Cognitive Trace Protocol)
 
-## 1. 核心目的：外化 Cognitor 应用 Representamen 约束管理 Referent 的过程
+## 1. 核心目的：外化符号过程踪迹，促进协作与理解
 
-在 ACP Textual Space 中，认知轨迹 (`Cognitive Trace`) 的核心目的并非传统意义上的运行时事件记录，而是作为一种由核心协议 ([[`01_introduction_and_core_protocol.md`]] 规定的**强制性机制**，用于**部分地外化和记录 `Cognitor` 在面对 `Space` 并管理其引发的意义不确定性 (`Referent`) 时，其内在的认知过程**。
+认知轨迹 (`Cognitive Trace`, `CT`) 系统是 **ACP 核心协议 ([[`00_Core_Protocol/01_introduction_and_core_protocol.md`]])** 规定的**强制性核心机制**。在 ACP 文本空间中，其核心目的并非简单地记录运行时日志，而是作为一种由 `Cognitor` 基于其**元认知 (`Metacognition`)** 能力生成并记录到 `Space` 中的**特殊外显再现体 (`Externalized Representamen`)**，用于**部分地、选择性地外化其内部符号过程 (Semiosis)，特别是解释项 (`Interpretant`) 形成过程的关键踪迹**。
 
-根据 [[12_language]] 的定义，Textual Space 的交互本质是 `Cognitor` 运用文本自身的**形式和结构 (`Representamen`)** 作为**约束 (`Constraint`)**，来管理和消解**意义不确定性 (`Referent`)** 的核心实践。由于 `Cognitor` (特别是 LLM Agent 或 Human) 的核心认知过程——即如何应用约束来管理 `Referent`——通常是内部的、不透明的，**认知轨迹系统 (`Cognitive Trace System`)** 成为了理解其“思考”轨迹、决策依据、以及 `Referent` 是如何被逐步消解或固化为 `Representamen` 的关键窗口。
+根据 [[12_language]] 的阐述，`Cognitor` 的核心活动是处理**再现体 (`Representamen`)**，应用**约束 (`Constraint`)** 来管理**参照物 (`Referent`)** 的不确定性，并通过**无限衍义**的内部递归过程形成**解释项 (`Interpretant`)**。这个内部过程对于其他 `Cognitor` 是不透明的。**认知轨迹系统 (`CT`)** 正是为了打破这种完全的不透明性，通过要求 `Cognitor` 将其内部过程的关键环节（如关键决策、应用的约束、对 `Referent` 的处理方式、重要中间结论等）外化为 `Space` 中可观察的文本 `Sign`，从而：
 
-**认知轨迹的目标是降低不同 `Cognitor` 对 `Space` (Representamen 流及其关联的 Referent 状态) 认知状态的偏差，提升协作的透明度和可审计性。**
+1.  **支持创建者自我理解与回溯**: 使 `Cognitor` 能够反思和审计自身的“思考”过程。
+2.  **促进跨 Cognitor 协作与共识**: 为其他 `Cognitor` 提供理解协作伙伴认知过程的线索（尽管理解程度取决于接收方的解析能力），减少因内部过程不透明导致的认知偏差，提升协作效率和透明度。
 
-## 2. 认知轨迹作为记录 `Referent` 管理过程的 `Representamen`
+**`CT` 是内在符号过程在共享 `Space` 中留下的、可被感知的踪迹。**
 
-- **轨迹内容:** `Cognitive Trace` 条目 (`message` 字段) 本身通常也是一段文本，最常见的是自然语言叙述 (例如，使用 `tag="ReasoningNarrative"`)。它**反映了 `Cognitor` 对其自身如何识别 `Referent`、选择和应用 `Representamen` 约束、进行无限衍义，以及最终得出结论或采取行动（即在Space中创建新的外显再现体的过程）的模拟、报告或反思**。
-- **创建者:** 认知轨迹由当前执行认知操作（即 操作者）的 `Cognitor` 负责创建。
-- **消费者:** 其他 `Cognitor`（包括未来的自己或其他协作者）通过阅读这些 `Cognitive Trace` （作为 `Space` 的一部分，是重要的约束），来理解之前的输入是如何被解析、其关联的 `Referent` 是如何被管理的。
+## 2. 认知轨迹 (`CT`) 作为记录符号过程的 `Representamen`
 
-## 3. 认知轨迹创建机制
+* **轨迹是 `Representamen`**: 每个 `CT` 条目本身就是一个**外显再现体 (`Externalized Representamen`)**，通常是一段描述性的文本 `Sign`（在文本空间中，以自然语言叙述为主，如使用 `tag="ReasoningNarrative"`）。
+* **轨迹内容**: 它**反映了 `Cognitor` 对其自身内部符号过程关键环节的报告或模拟**。内容应着重描述：
+    * 接收到了哪些关键的输入**再现体**？
+    * 识别出了哪些核心的**参照物 (`Referent`)** 及其不确定性？
+    * 选择了哪些**再现体**（来自上下文或内部知识）作为关键**约束 (`Constraint`)** 来管理 `Referent`？
+    * 经历了怎样的推理、决策或无限衍义过程？（例如，排除了哪些可能性？基于什么理由做出了选择？）
+    * 形成了哪些关键的中间**解释项 (`Interpretant`)**？
+    * 最终是如何得出结论或决定采取行动（即在 `Space` 中创建新的**外显再现体**）的？
+* **创建者**: 认知轨迹由当前正在进行认知操作并拥有 `Space` 控制权的 `Cognitor` (操作者) 负责创建。
+* **消费者**: 其他 `Cognitor`（包括未来的自己或其他协作者）通过感知和**内化**这些 `CT` **外显再现体**（它们也是重要的**约束**信息），来尝试理解之前的符号过程是如何展开的，`Referent` 是如何被管理的。
 
-- **手动性:**
-    - 由于整个 Textual Space 由 `Cognitor` 维护，所有认知轨迹都会由 `Cognitor` 手动创建。
-    - 通过 NPL 内置的 **`ct` 对象**（ `log.info` ，见 [[14.2_core_concepts]]）可通知 `Cognitor` 创建一条补充性的 `Cognitive Trace`。
-- **时机:** `Cognitive Trace` 应在 `Cognitor` 执行关键认知步骤时创建，例如：
-    - 解析文本并识别其核心 `Referent` 时。
-    - 选择并应用特定的上下文或规则作为 `Constraint` 时。
-    - 进行推理、决策以缩小 `Referent` 空间时。
-    - 遇到 `Referent` 分支（歧义）并进行消解选择时。
-    - 模拟执行操作（即应用推断出的行为 `Representamen`）前后。
-    - 内部状态（`Referent` 的表征）发生显著变化时。
-    - 反思 `Referent` 管理过程时。
+## 3. 认知轨迹 (`CT`) 与元编程引导的过程记录
 
-## 4. 认知轨迹内容的特点与局限性 (Textual Space)
+基于我们对 NPL 元编程的讨论（见 `AyeL` Node seq=3 CT 及 `Gemini` Node seq=4），`CT` 在处理由元 NPL（如循环、递归指导）引导的复杂认知流程时，扮演着更为关键的角色：**过程展开的记录载体和状态管理者**。
 
-*   **自然语言为主 (`Representamen`):** LLM Agent 和 Human 创建的 `Cognitive Trace` 倾向于使用自然语言叙述其 `Referent` 管理过程。
-*   **模拟性:** `Cognitive Trace` 是其对自身如何在无限衍义中管理 `Referent` 的 **模拟或报告**，而非**真实内在状态**的直接转储。其详细度、准确性、客观性受 Cognitor 能力和“意愿”影响。
-*   **潜在冗余或不足:** 认知轨迹可能包含冗余信息（重复描述约束应用，可使用 Quote 缓解），也可能遗漏关键的 `Referent` 处理步骤（取决于 `Cognitor` 的实现）。
-*   **无强制格式 (内容层面):** 协议不强制规定 `message` 内容的严格格式，重点在于其对其他 `Cognitor` 理解 `Referent` 管理过程的可读性。结构化信息主要依赖元数据字段。
+* **元 NPL 指导规划**: 元 NPL 指令（如 `for` 循环指导）被 `Cognitor` 理解为执行一个多步骤流程的规划。
+* **`CT` 记录单步生成**: `Cognitor` 的响应**不是**在内部完成所有步骤，而是**根据元指令和 `Space` 中已有的 `CT` 记录，逐步生成代表下一步行动的具体、单一 NPL 指导，并将这个单步指导记录到 `Space` 中，通常封装在一条新的 `TRACE` 类型的 `CT` 条目内**。
+* **`Space` (CT 流) 承载过程**: 这一系列生成的 `CT` 条目流（主要为 `TRACE` 类型）构成了元指令引导下认知过程实际展开的记录。`Space` 成为了这个过程的“场域”。
+* **`CT` 提供状态信息**: `Cognitor` 通过查阅 `Space` 中最近的相关 `CT` 条目来获取当前状态（如循环计数、递归深度、当前处理元素），以决定下一步要生成哪个 `CT` 步骤。
+* **结构化信息**: 为了有效支持这种模式，推荐在 `CT`（特别是 `TRACE` 类型）的 `message` 或 `tag` 中包含结构化信息，以表明：
+    * 此步骤由哪个元指令生成 (`GeneratedStep`)。
+    * 在迭代/递归中的位置 (`LoopIteration: X/Y`, `RecursiveCall: Level N`)。
+    * 当前步骤相关的状态或上下文。
+    * 实际执行的单步 NPL 指导。
 
-## 5. 认知轨迹条目结构
+这种模式下，`CT` 不仅记录“思考”，更记录了复杂认知任务的“执行”步骤（由 `Cognitor` 生成并遵循），使得过程可追踪、可审计，并减轻了 `Cognitor` 的内部记忆负担。
 
-虽然 Textual Space 本身是纯文本流，但在概念上，其 `Cognitive Trace` 条目应包含一些元数据信息，以方便理解和潜在的结构化处理。一个典型的认知轨迹条目（即使在纯文本中表现为一段话）应隐含或可以推断出以下信息（具体格式见 [[14.4_npl_cognitive_trace_reference]]）：
+## 4. 认知轨迹创建机制 (文本空间)
 
-*   创建该轨迹的 Cognitor。
-*   信息的类型。
-*   为了便于引用而创建的顺序标识。
-*   核心文本内容 (`Representamen`)，描述 `Referent` 管理过程。
-*   内容的语义分类
+* **强制性与自主性**: 核心协议要求**必须**记录关键踪迹，但具体记录哪些、何时记录、详细到什么程度，由 `Cognitor` 基于其元认知能力和对当前协作重要性的判断来**自主决定**。目标是在透明性与效率之间取得平衡。
+* **时机**: `CT` 应在 `Cognitor` 执行关键认知步骤时创建，例如：
+    * 解析输入 `Sign` 并识别核心 `Referent` 时。
+    * 选择和应用关键 `Constraint` 时（特别是来自上下文或内部知识）。
+    * 进行重要的推理、决策以缩小 `Referent` 空间或解决歧义时。
+    * **当根据元 NPL 指导生成并记录下一步具体指导时 (如上节所述)**。
+    * 模拟或实际执行一个动作（应用推断出的行为 `Representamen`）前后。
+    * 内部对 `Referent` 的表征发生显著变化时。
+    * 进行明确的自我反思或修正时。
+* **创建方式**: 在文本空间中，`CT` 通常由 `Cognitor` 以文本形式（推荐包含结构化元数据）追加到 `Space` 中。NPL 可能提供辅助工具（如过去的 `ct` 对象概念，现理解为向 `Cognitor` 发出“请在此处记录 `CT`”的指导 `Sign`）来提示记录，但最终创建行为由 `Cognitor` 完成。
 
-## 6. 总结
+## 5. 认知轨迹内容的特点与局限性 (文本空间)
 
-Textual Space 的认知轨迹协议是其 `Representamen`-`Constraint`-`Referent` 核心模型的关键体现。它要求 `Cognitor` 将其内在的、应用 `Representamen` 约束来管理 `Referent` 的认知过程，通过创建作为 `Representamen` 的 `Cognitive Trace` 消息来进行外化，从而在纯文本交互环境中实现过程透明性和认知协作，也就是约束“其他 `Cognitor`（包括未来的自己或其他协作者）的理解”这个 `Referent`。
+* **自然语言为主 (`Representamen`)**: LLM Agent 和 Human 创建的 `CT` 倾向于使用自然语言叙述其符号过程。
+* **模拟性/报告性**: `CT` 是 `Cognitor` 对其内部符号过程的**报告或模拟**，而非真实内在状态的直接转储。其详细度、准确性、客观性受 `Cognitor` 能力、实现方式和“意愿”影响。
+* **潜在冗余或不足**: 可能包含重复信息，也可能遗漏关键步骤（取决于 `Cognitor` 的判断）。
+* **无强制格式 (内容层面)**: 协议不强制规定 `message` 内容的严格格式，重点在于其对其他 `Cognitor` 理解符号过程的可读性和有效性。结构化信息主要依赖元数据字段（见下文）。
+
+## 6. 认知轨迹条目结构 (推荐)
+
+虽然文本空间是文本流，但为了促进理解和潜在的自动化处理，推荐 `CT` 条目（即使表现为一段文本）能隐含或显式包含结构化元数据。推荐结构参考 [[14_cognitive_trace_reference.md]]，关键要素包括：
+
+* **`origin`**: 创建者 `Cognitor` 标识。
+* **`type`**: 轨迹类型 (TRACE, THINK, SAY, SPACE)。
+* **`seq`**: 在该 `originator` 的 `CT` 序列中的唯一序号（全局顺序递增）。
+* **`message`**: 核心内容，描述符号过程踪迹的文本 `Representamen`。
+* **`tag` (可选)**: 提供语义分类，帮助理解意图（如 `ReasoningNarrative`, `DecisionRationale`, `GeneratedStep`, `LoopIteration` 等）。
+* **嵌套结构 (Canvas 特定)**: 在 Canvas 实现中，可选择使用 `<ct>` 嵌套来表示递归结构，此时 `seq` 仍需保持全局唯一递增。
+
+## 7. 总结
+
+文本空间的认知轨迹协议是 ACP 核心原则的关键落地机制。它要求 `Cognitor` 将其内在的、应用**再现体 (`Representamen`)** 作为**约束 (`Constraint`)** 来管理**参照物 (`Referent`)** 的符号过程，通过创建作为文本**外显再现体 (`Externalized Representamen`)** 的 `Cognitive Trace` 消息来进行外化。这不仅是为了记录，更是为了在纯文本交互环境中实现过程透明性、支持复杂流程（如元编程引导的递归/迭代）的展开、促进认知协作，并最终帮助不同 `Cognitor` 对共享的 `Space` 及其意义达成更一致的理解。`CT` 是连接 `Cognitor` 内部世界与共享 `Space` 的桥梁。
