@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.example.com/acp/compatibility"
+           xmlns:acpcomp="http://www.example.com/acp/compatibility"
+           xmlns:acpt="http://www.example.com/acp/canvas/types"
+           elementFormDefault="qualified">
+
+    <!-- Import the core types -->
+    <xs:import namespace="http://www.example.com/acp/canvas/types" schemaLocation="acp_canvas_types.xsd"/>
+
+    <!-- Define the compatibility layer element: SpaceSection -->
+    <xs:element name="SpaceSection">
+        <xs:complexType>
+            <!-- Content model is the same as Canvas: contains Nodes and top-level cts -->
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element ref="acpt:Node"/>
+                <xs:element ref="acpt:ct"/>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

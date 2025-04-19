@@ -40,6 +40,16 @@
         *   `SpaceAcquire`: 声明获取 Space。
         *   `SystemEvent`: Space 内部事件。
         *   `Declare`: 普通的声明。
+	*   TRACE :
+	    *   `RecursiveUp`: 表示递归调用的“向上返回”过程，记录结果返回给上一层级。
+	    *   `RecursiveDown`: 表示递归调用的“向下分解”过程，记录问题分解为子问题。
+	    *   `RecursiveDepth_{int}`: 表示递归调用的深度级别，标记当前递归层级。
+	    *   `BaseCase`: 表示递归的基例（终止条件），记录直接返回的结果。
+	    *   `CombineResults`: 表示递归调用中合并子问题结果的过程。
+	    *   `PartialResult`: 表示递归调用中某个子问题的中间结果。
+	    *   `Breakdown`: 表示递归调用中问题分解的具体步骤。
+	    *   `TraceError`: 表示递归调用中发生的错误或异常。
+	*   注意，TRACE，THINK 等仅是基于简单分类的一种推荐。在 TRACE 中使用 `Observation` 等也是可以的。
 
 ## 设计考量与应用
 

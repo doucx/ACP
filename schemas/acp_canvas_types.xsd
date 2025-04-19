@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.example.com/acp/canvas/types"
+           xmlns:acpt="http://www.example.com/acp/canvas/types"
+           elementFormDefault="qualified">
+
+    <!-- Enumeration for Node type -->
+    <xs:simpleType name="NodeTypeEnum">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="CDInput"/>
+            <xs:enumeration value="ProcessOutput"/>
+            <xs:enumeration value="StrInput"/>
+            <!-- Add other custom types here if needed -->
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Enumeration for CT type -->
+    <xs:simpleType name="CTTypeEnum">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="TRACE"/>
+            <xs:enumeration value="THINK"/>
+            <xs:enumeration value="SAY"/>
+            <xs:enumeration value="SPACE"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Complex Type for <node> reference inside <depends_on> -->
+    <xs:complexType name="NodeRefType">
+        <xs:attribute name="originator" type="xs:string" use="required"/>
+        <xs:attribute name="seq" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <!-- Element <depends_on> Definition -->
+    <xs:element name="depends_on">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="node" type="acpt:NodeRefType" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Element <value> Definition -->
+    <xs:element name="value">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="type" type="xs:string" use="optional"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Element <message> Definition (inside ct) -->
+    <xs:element name="message" type="xs:string"/>
+
+    <!-- Element <tag> Definition (inside ct) -->
+    <xs:element name="tag">
+        <xs:complexType>
+            <xs:attribute name="value" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Element <stdout> Definition -->
+    <xs:element name="stdout">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="seq" type="xs:string" use="required"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Element <flag> Definition -->
+    <xs:element name="flag">
+        <xs:complexType>
+            <xs:attribute name="value" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Element <ct> Definition (Cognitive Trace) - Recursive -->
+    <xs:element name="ct">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="acpt:message"/>
+                <xs:element ref="acpt:tag" minOccurs="0" maxOccurs="unbounded"/>
+                <!-- Recursion: Allows nested cts -->
+                <xs:element ref="acpt:ct" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="originator" type="xs:string" use="required"/>
+            <xs:attribute name="type" type="acpt:CTTypeEnum" use="required"/>
+            <xs:attribute name="seq" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Element <Node> Definition -->
+    <xs:element name="Node">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="acpt:depends_on" minOccurs="0"/>
+                <xs:element ref="acpt:value" minOccurs="0"/>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element ref="acpt:ct"/>
+                    <xs:element ref="acpt:stdout"/>
+                    <xs:element ref="acpt:flag"/>
+                </xs:choice>
+            </xs:sequence>
+            <xs:attribute name="originator" type="xs:string" use="required"/>
+            <xs:attribute name="seq" type="xs:string" use="required"/>
+            <xs:attribute name="type" type="acpt:NodeTypeEnum" use="required"/>
+            <xs:attribute name="target_cognitor" type="xs:string" use="optional"/>
+            <xs:attribute name="execution_context" type="xs:string" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
