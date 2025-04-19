@@ -4,7 +4,7 @@
 
 ## 核心原则
 ACP Textual Space 协议设计基于以下核心原则：
-*   **纯文本交互 (`Sign` 流)**: ACP Textual Space 本质上是**结构化文本 (`Sign`) 的流动**。所有指令、数据和元信息都以文本形式（作为 `Sign` 的载体）交换。`Cognitor` 的核心活动是处理这些文本 `Sign`，利用其结构和上下文作为**约束 (`Constraint`)** 来管理和消解其引发的**意义不确定性 (`Referent`)**。这基本意味着，在 Textual Space 中，所有的 `Sign` 都属于 `Quote` （象征）。
+*   **纯文本交互 (`Sign` 流)**: ACP Textual Space 本质上是**结构化文本 (`Sign`) 的流动**。所有指令、数据和元信息都以文本形式（作为 `Sign` 的载体）交换。`Cognitor` 的核心活动是处理这些文本 `Sign`，利用其结构和上下文作为**约束 (`Constraint`)** 来管理和消解其引发的**意义不确定性 (`Referent`)**。这基本意味着，在 Textual Space 中，所有的 `Sign` 都属于 `Symbol` （象征）。
 * 即使 `Cognitor` 模拟了高级概念，如 NPL 中的类，其状态和对 `Referent` 的管理过程也**必须**通过认知轨迹 (`Cognitive Trace`，以 `Sign` 形式记录) 进行记录和维护，以确保跨 `Cognitor` 的一致性和可审计性。
 *   **`Representamen`-`Constraint`-`Referent` 核心**: 整个 Textual Space 的运作都建立在 `Cognitor` 应用可见的文本形式 (`Space.context` `Sign`) 作为约束 (`Constraint`) 来处理意义不确定性 (`Referent`) 的核心过程之上。（见 [[12_language]]）
 
