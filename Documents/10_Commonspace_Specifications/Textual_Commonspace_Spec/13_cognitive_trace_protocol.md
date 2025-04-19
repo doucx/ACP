@@ -10,9 +10,9 @@
 
 ## 2. 认知轨迹作为记录 `Referent` 管理过程的 `Representamen`
 
-- **轨迹内容 (`Representamen`):** `Cognitive Trace` 条目 (`message` 字段) 本身通常也是一段文本 (`Representamen`)，最常见的是自然语言叙述 (例如，使用 `tag="ReasoningNarrative"`)。它**反映了 `Cognitor` 对其自身如何识别 `Referent`、选择和应用 `Representamen` 约束、以及最终得出结论或采取行动（即管理 `Referent` 的过程）的模拟、报告或反思**。
+- **轨迹内容:** `Cognitive Trace` 条目 (`message` 字段) 本身通常也是一段文本，最常见的是自然语言叙述 (例如，使用 `tag="ReasoningNarrative"`)。它**反映了 `Cognitor` 对其自身如何识别 `Referent`、选择和应用 `Representamen` 约束、进行无限衍义，以及最终得出结论或采取行动（即在Space中创建新的外显再现体的过程）的模拟、报告或反思**。
 - **创建者:** 认知轨迹由当前执行认知操作（即 操作者）的 `Cognitor` 负责创建。
-- **消费者:** 其他 `Cognitor`（包括未来的自己或其他协作者）通过阅读这些 `Cognitive Trace` （作为 `Space` 的一部分，是重要的上下文 `Representamen` 约束），来理解之前的 `Representamen` 输入是如何被解析、其关联的 `Referent` 是如何被管理的。
+- **消费者:** 其他 `Cognitor`（包括未来的自己或其他协作者）通过阅读这些 `Cognitive Trace` （作为 `Space` 的一部分，是重要的约束），来理解之前的输入是如何被解析、其关联的 `Referent` 是如何被管理的。
 
 ## 3. 认知轨迹创建机制
 
@@ -20,8 +20,8 @@
     - 由于整个 Textual Space 由 `Cognitor` 维护，所有认知轨迹都会由 `Cognitor` 手动创建。
     - 通过 NPL 内置的 **`ct` 对象**（ `log.info` ，见 [[14.2_core_concepts]]）可通知 `Cognitor` 创建一条补充性的 `Cognitive Trace`。
 - **时机:** `Cognitive Trace` 应在 `Cognitor` 执行关键认知步骤时创建，例如：
-    - 解析文本 `Representamen` 并识别其核心 `Referent` 时。
-    - 选择并应用特定的上下文 `Representamen` 或规则 `Representamen` 作为 `Constraint` 时。
+    - 解析文本并识别其核心 `Referent` 时。
+    - 选择并应用特定的上下文或规则作为 `Constraint` 时。
     - 进行推理、决策以缩小 `Referent` 空间时。
     - 遇到 `Referent` 分支（歧义）并进行消解选择时。
     - 模拟执行操作（即应用推断出的行为 `Representamen`）前后。
@@ -31,9 +31,9 @@
 ## 4. 认知轨迹内容的特点与局限性 (Textual Space)
 
 *   **自然语言为主 (`Representamen`):** LLM Agent 和 Human 创建的 `Cognitive Trace` 倾向于使用自然语言叙述其 `Referent` 管理过程。
-*   **模拟性:** LLM Agent 创建的 `Cognitive Trace` 是其对自身**如何应用约束管理 `Referent` 的认知过程**的 *模拟或报告*，而非**真实内在状态**的直接转储。其详细度、准确性、客观性受模型能力和“意愿”影响。
-*   **潜在冗余或不足:** 认知轨迹可能包含冗余信息（重复描述约束应用），也可能遗漏关键的 `Referent` 处理步骤（取决于 `Cognitor` 的实现）。
-*   **无强制格式 (内容层面):** 协议不强制规定 `message` 内容 (`Representamen`) 的严格格式，重点在于其对其他 `Cognitor` 理解 `Referent` 管理过程的可读性。结构化信息主要依赖元数据字段。
+*   **模拟性:** `Cognitive Trace` 是其对自身如何在无限衍义中管理 `Referent` 的 **模拟或报告**，而非**真实内在状态**的直接转储。其详细度、准确性、客观性受 Cognitor 能力和“意愿”影响。
+*   **潜在冗余或不足:** 认知轨迹可能包含冗余信息（重复描述约束应用，可使用 Icon 缓解），也可能遗漏关键的 `Referent` 处理步骤（取决于 `Cognitor` 的实现）。
+*   **无强制格式 (内容层面):** 协议不强制规定 `message` 内容的严格格式，重点在于其对其他 `Cognitor` 理解 `Referent` 管理过程的可读性。结构化信息主要依赖元数据字段。
 
 ## 5. 认知轨迹条目结构
 
