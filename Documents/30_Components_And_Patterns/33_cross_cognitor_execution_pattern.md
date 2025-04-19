@@ -23,7 +23,7 @@
 
    **示例:**
    ```xml
-   <Node originator="Fhrsk" seq="2" type="CDInput" target_cognitor="AyeL" execution_context="local_fish_shell">
+   <Node origin="Fhrsk" seq="2" type="CDInput" target_cognitor="AyeL" execution_context="local_fish_shell">
        <value>uname -a</value>
    </Node>
    ```

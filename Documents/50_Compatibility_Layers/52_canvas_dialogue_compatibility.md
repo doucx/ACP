@@ -22,7 +22,7 @@ User：
 `````````
 ``````xml
 <SpaceSetestion>
-	<test originator="User">abc</test>
+	<test origin="User">abc</test>
 </SpaceSetestion>
 ``````
 `````````
@@ -31,7 +31,7 @@ Agent:
 `````````
 ``````xml
 <SpaceSetestion>
-	<test originator="ChatGPT">123</test>a
+	<test origin="ChatGPT">123</test>a
 </SpaceSetestion>
 ``````
 `````````
@@ -41,8 +41,8 @@ Agent:
 `````````
 ```xml
 <Canvas>
-	<test originator="User">abc</test>
-	<test originator="ChatGPT">123</test>
+	<test origin="User">abc</test>
+	<test origin="ChatGPT">123</test>
 </Canvas>
 ```
 `````````
@@ -61,7 +61,7 @@ User：
 `````````
 ``````xml
 <SpaceSetestion>
-	<test originator="User">abc</test>
+	<test origin="User">abc</test>
 </SpaceSetestion>
 ``````
 `````````
@@ -71,7 +71,7 @@ LLM Agent:
 `````````
 ``````
 <SpaceSetestion>
-<test originator= [在这里被截断了]
+<test origin= [在这里被截断了]
 `````````
 
 User：
@@ -93,7 +93,7 @@ Space 内容就是：
 
 `````````
 <Canvas>
-	<test originator="User"></test>
-	<test originator="Agent"></test>
+	<test origin="User"></test>
+	<test origin="Agent"></test>
 <Canvas>
 `````````
