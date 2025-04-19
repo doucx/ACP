@@ -45,6 +45,28 @@ def generate_xml_structure(directory, base_path=None, blacklist=None):
     
     return xml_lines
 
+def get_schemas(directory):
+    """
+    生成目录结构的XML表示
+    :param directory: 要扫描的目录
+    :return: XML行列表
+    """
+    base_path = directory
+    
+    xml_lines = []
+    for item in sorted(directory.iterdir()):
+        rel_path = item.relative_to(base_path)
+        rel_str = str(rel_path)
+        
+        if item.is_file() and item.suffix == '.xsd':
+            # 处理Markdown文件
+            print(rel_str)
+            
+            content = item.read_text(encoding='utf-8')
+            xml_lines.append(content)
+    
+    return xml_lines
+
 def main():
     # 获取当前时间
     now = datetime.now()
@@ -74,6 +96,10 @@ def main():
     doc_dir = Path('Documents')
     structure_xml = generate_xml_structure(doc_dir, blacklist=file_blacklist)
 
+    # 生成XML schemas
+    doc_dir = Path('schemas')
+    schemas_xml = get_schemas(doc_dir)
+    
     # 设置Jinja2环境
     env = Environment(loader=FileSystemLoader('.'), trim_blocks=True)
     template = env.get_template('Prompts/template/Prompt.md')
@@ -82,7 +108,8 @@ def main():
     context = {
         **config_snippets,
         **cognitor_info_snippets,
-        'document_structure': '\n'.join(structure_xml)
+        'document_structure': '\n'.join(structure_xml),
+        'schemas': '\n'.join(schemas_xml)
     }
 
     # 渲染结果
