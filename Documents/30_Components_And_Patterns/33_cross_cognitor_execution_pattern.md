@@ -13,35 +13,19 @@
 
 为了在 ACP Canvas 中实现此模式，建议对核心协议进行以下扩展：
 
-**2.1. 扩展 `<Node type="CDInput">` 定义:**
-   (参见 `20_Space_Implementations/Canvas/23_canvas_implementation.md` 中的具体修改)
+**2.1. 添加 `<Node type="CodeInput">` :**
+   (参见 [[23_canvas_implementation]] 中的具体内容)
 
-   为 `<Node type="CDInput">` 增加**可选属性**：
+   为 `<Node type="CodeInput">` 增加**可选属性**：
 
    *   `target_cognitor` (文本, 可选): 指定期望执行此 Node 内容的目标 Cognitor 的标识符。
    *   `execution_context` (文本, 可选): 描述目标 Cognitor 应在何种上下文或环境执行指令。
-
-   **示例:**
-   ```xml
-   <Node origin="Fhrsk" seq="2" type="CDInput" target_cognitor="AyeL" execution_context="local_fish_shell">
-       <value>uname -a</value>
-   </Node>
-   ```
-
-**2.2. Space 行为扩展:**
-   (应在 Space 实现中体现，并在 `20_Space_Implementations/Canvas/23_canvas_implementation.md` 中描述)
-
-   当 Space 遇到带有 `target_cognitor` 属性的 `CDInput` Node 时：
-   1.  **识别与路由**: Space 识别出这是一个执行委托请求，不内部执行。
-   2.  **请求传递**: Space 将执行请求传递给指定的 `target_cognitor`。
-   3.  **状态等待**: Space 进入等待状态，期望 `target_cognitor` 回应包含结果的 Node。
-   4.  **结果处理**: 收到响应后，Space 将结果传递回原始请求者或继续流程。
 
 **2.3. 执行者 (Target Cognitor) 职责:**
 
 *   接收 Space 转发的执行请求。
 *   根据 `execution_context` 在指定环境中执行 `<value>` 指令。
-*   将结果封装在一个或多个新的 Node 中（通常是 `ProcessOutput` 类型），并通过 `<depends_on>` 关联原始请求。
+*   将结果封装在一个或多个新的 Node 中（通常是 `CodeOutput` 类型），并通过 `<depends_on>` 关联原始请求。
 *   在响应 Node 的 `<ct>` 中记录执行过程。
 
 ## 3. 优点
