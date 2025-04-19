@@ -14,7 +14,7 @@
 为了在 ACP Canvas 中实现此模式，建议对核心协议进行以下扩展：
 
 **2.1. 添加 `<Node type="CodeInput">` :**
-   (参见 [[23_canvas_implementation]] 中的具体内容)
+   (参见 [[21.2_canvas_implementation]] 中的具体内容)
 
    为 `<Node type="CodeInput">` 增加**可选属性**：
 

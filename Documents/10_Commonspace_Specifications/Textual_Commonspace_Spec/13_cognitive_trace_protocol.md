@@ -2,7 +2,7 @@
 
 ## 1. 核心目的：外化符号过程踪迹，促进协作与理解
 
-认知轨迹 (`Cognitive Trace`, `CT`) 系统是 **ACP 核心协议 ([[`00_Core_Protocol/01_introduction_and_core_protocol.md`]])** 规定的**强制性核心机制**。在 ACP 文本空间中，其核心目的并非简单地记录运行时日志，而是作为一种由 `Cognitor` 基于其**元认知 (`Metacognition`)** 能力生成并记录到 `Space` 中的**特殊外显再现体 (`Externalized Representamen`)**，用于**部分地、选择性地外化其内部符号过程 (Semiosis)，特别是解释项 (`Interpretant`) 形成过程的关键踪迹**。
+认知轨迹 (`Cognitive Trace`, `CT`) 系统是 **ACP 核心协议 ([[01_introduction_and_core_protocol]])** 规定的**强制性核心机制**。在 ACP 文本空间中，其核心目的并非简单地记录运行时日志，而是作为一种由 `Cognitor` 基于其**元认知 (`Metacognition`)** 能力生成并记录到 `Space` 中的**特殊外显再现体 (`Externalized Representamen`)**，用于**部分地、选择性地外化其内部符号过程 (Semiosis)，特别是解释项 (`Interpretant`) 形成过程的关键踪迹**。
 
 根据 [[12_language]] 的阐述，`Cognitor` 的核心活动是处理**再现体 (`Representamen`)**，应用**约束 (`Constraint`)** 来管理**参照物 (`Referent`)** 的不确定性，并通过**无限衍义**的内部递归过程形成**解释项 (`Interpretant`)**。这个内部过程对于其他 `Cognitor` 是不透明的。**认知轨迹系统 (`CT`)** 正是为了打破这种完全的不透明性，通过要求 `Cognitor` 将其内部过程的关键环节（如关键决策、应用的约束、对 `Referent` 的处理方式、重要中间结论等）外化为 `Space` 中可观察的文本 `Sign`，从而：
 

@@ -1,6 +1,6 @@
 # ACP Canvas 对话兼容层规范
 
-继承于 [[51_diatestue_compatibility]]。
+继承于 [[51_dialogue_compatibility]]。
 
 ## 语法规范  
 

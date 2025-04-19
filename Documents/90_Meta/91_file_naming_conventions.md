@@ -31,5 +31,5 @@
 
 **示例:**
 
-*   [[00_introduction_and_core_protocol.md]]:  核心协议的介绍和定义。
+*   [[01_introduction_and_core_protocol]]:  核心协议的介绍和定义。
 *   [[21.3.1_npl_reference_library]]: NPL 协议在 Canvas 中的扩展。

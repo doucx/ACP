@@ -2,7 +2,7 @@
 
 ## 1. 基本介绍
 
-**ACP 文本空间 (Textual Space)** 是 **ACP 核心协议 ([[`00_Core_Protocol/01_introduction_and_core_protocol.md`]])** 在纯文本交互媒介上的一种具体化规范。它继承并遵循核心协议定义的所有基本概念、实体、原则和机制，旨在规范主要通过文本形式进行交流的认知实体 (`Cognitor`) 之间的认知协作过程。
+**ACP 文本空间 (Textual Space)** 是 **ACP 核心协议 ([[01_introduction_and_core_protocol]])** 在纯文本交互媒介上的一种具体化规范。它继承并遵循核心协议定义的所有基本概念、实体、原则和机制，旨在规范主要通过文本形式进行交流的认知实体 (`Cognitor`) 之间的认知协作过程。
 
 ## 2. 核心原则
 
