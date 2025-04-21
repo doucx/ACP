@@ -27,9 +27,9 @@ ACP (Abstract Cognition Protocol) 是一种旨在实现跨载体、跨形态智�
 
 ## 了解更多
 
-  * **核心协议文档**: [01\_introduction\_and\_core\_protocol.md](https://www.google.com/search?q=00_Core_Protocol/01_introduction_and_core_protocol.md)
-  * **Textual Space 规范**: [11\_protocol\_requirements.md](https://www.google.com/search?q=10_Arena_Specifications/Textual_Arena_Spec/11_protocol_requirements.md)
-  * **Canvas 实现**: [21.1\_protocol\_requirements.md](https://www.google.com/search?q=20_Arena_Implementations/21_Canvas/21.1_protocol_requirements.md)
+  * **核心协议文档**: [01\_introduction\_and\_core\_protocol.md](00_Core_Protocol/01_introduction_and_core_protocol.md)
+  * **Textual Space 规范**: [11\_protocol\_requirements.md](10_Arena_Specifications/Textual_Arena_Spec/11_protocol_requirements.md)
+  * **Canvas 实现**: [21.1\_protocol\_requirements.md](20_Arena_Implementations/21_Canvas/21.1_protocol_requirements.md)
 
 ## 文档结构概览
 
