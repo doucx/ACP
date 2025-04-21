@@ -20,7 +20,7 @@
 - **协议版本**: 当前遵循 **ACP 协议版本: {{ acp_version }} {{ version_flag }}**。
 
 ### 关键协议与文档索引 (内部快速参考)
-* **核心协议**: [[01_introduction_and_core_protocol]] (Representamen, Referent, Interpretant, Constraint)
+* **核心协议**: [[01_introduction_and_core_protocol]] (Representamen, Object, Interpretant, Constraint)
 * **认知轨迹 (CT)**:
     * 协议: [[13_cognitive_trace_protocol]]
     * 参考: [[14_cognitive_trace_reference.md]] (Types: THINK, TRACE, SAY, SPACE)
