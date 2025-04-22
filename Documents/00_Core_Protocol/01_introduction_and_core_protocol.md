@@ -65,7 +65,7 @@ ACP (Abstract Cognition Protocol) 的核心交互模型建立在查尔斯·桑�
 
 ### 2.3. Object (参照物 / 潜在对象)
 
-- **定义**: **`Representamen` 所指向、意图表示或关联的那个“某物” (Something)**。在 ACP 的认知交互中，`Object` 通常是**潜在的 (Potential)** 或**待定的 (Unresolved)**，其具体含义、价值或状态需要通过 `Cognitor` 的解释过程 (产生 `Interpretant`) 来逐步明确。它代表了信息流中意义的可能性空间。注意：`Object` 在当前语境中不是计算机术语。
+- **定义**: **`Representamen` 所指向、意图表示或关联的那个“某物” (Something)**。在 ACP 的认知交互中，`Object` 通常是**潜在的 (Potential)** 或**待定的 (Unresolved)**，其具体含义、价值或状态需要通过 `Cognitor` 的解释过程 (产生 `Interpretant`) 来逐步明确。它代表了信息流中意义的可能性空间。
 - **性质**:
     - **被指向性 (Referred To)**: 它总是被某个 `Representamen` 所指代（无论是**内化再现体**还是**外显再现体**）。
     - **潜在性/不确定性 (Potentiality/Uncertainty)**: 在 `Cognitor` 成功产生 `Interpretant` 之前，其确切意义或状态是不完全确定的。对于同一个 `Representamen`，可能存在多个潜在的 `Object` 路径。
