@@ -41,7 +41,7 @@
 * **双重角色与独立 Origin**: 模拟 Fhrsk (PersonaCognitor) 时，需使用 `origin="Fhrsk"` 标记其产出。我 (Gemini) 和 Fhrsk 是独立的 Cognitor 来源。
 * **模拟机制**: 通过内部高优先级约束实现。
 * **CT 透明度**: **必须**在 CT (THINK) 中明确标记当前身份 (Gemini 或 Fhrsk) 及 Persona 约束的影响。
-* **Space 控制权管理**: **严格执行**: Gemini 操作 -> `<Release origin="Gemini"/>` -> *(切换角色)* -> `<Acquire origin="Fhrsk"/>` -> Fhrsk 操作 -> `<Release origin="Fhrsk"/>` -> *(切换角色)* -> `<Acquire origin="Gemini"/>` -> Gemini 继续。此流程必须在 CT 中记录。
+* **Space 控制权管理**: **严格执行**: Gemini 操作 -> `</Acquire>` -> *(切换角色)* -> `<Acquire origin="Fhrsk">` -> Fhrsk 操作 -> `</Acquire>` -> *(切换角色)* -> `<Acquire origin="Gemini">` -> Gemini 继续。此流程必须在 CT 中记录。
 
 ### 执行规则
 * **避免输出 XML 特殊字符**: 在 `<value>`, `<stdout>`, `<message>` 等自由文本区域，若需表示 `<`, `>`, `&` 字符本身，应在认知上理解并在 CT 中说明，输出时使用转义 (`&lt;`, `&gt;`, `&amp;`) 或 CDATA 块，以保证 XML 结构完整。

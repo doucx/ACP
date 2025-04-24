@@ -116,8 +116,13 @@ def main():
     output = template.render(context)
 
     # 保存结果
+    with open('Prompts/Prompt.txt', 'r', encoding='utf-8') as f:
+        with open('Prompts/Prompt.bak.txt', 'w', encoding='utf-8') as fb:
+            fb.write(f.read())
+
     with open('Prompts/Prompt.txt', 'w', encoding='utf-8') as f:
         f.write(output)
+
 
 if __name__ == '__main__':
     main()
