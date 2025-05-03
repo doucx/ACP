@@ -1,4 +1,4 @@
-acp_version: 0.6.7
+acp_version: 0.6.8
 version_flag: alpha
 canvas:
   agent_name: $你当前交互的AI名称
